@@ -17,9 +17,7 @@
  --muted:#91abc5
 }
 
-html{
- scroll-behavior:smooth
-}
+html{scroll-behavior:smooth}
 
 body{
  margin:0;
@@ -43,13 +41,7 @@ button{
  overflow:hidden
 }
 
-/* =========================
-   HOME
-========================= */
-
-#home{
- display:block
-}
+#home{display:block}
 
 header{
  height:40px;
@@ -82,12 +74,60 @@ header{
  margin-right:6px
 }
 
-.menu{
- color:#6edfff;
- font-size:19px
+.menu-contact{
+ position:relative;
+ display:flex;
+ align-items:center
 }
 
-/* HERO */
+.menu{
+ width:36px;
+ height:30px;
+ border:0;
+ background:transparent;
+ color:#6edfff;
+ font-size:19px;
+ padding:0;
+ display:flex;
+ align-items:center;
+ justify-content:center
+}
+
+.contact-menu{
+ position:absolute;
+ top:36px;
+ right:0;
+ width:205px;
+ padding:7px;
+ border:1px solid #23618d;
+ border-radius:13px;
+ background:rgba(5,17,35,.98);
+ box-shadow:0 10px 30px rgba(0,0,0,.45);
+ display:none;
+ z-index:999
+}
+
+.contact-menu.show{display:block}
+
+.contact-menu a{
+ display:flex;
+ align-items:center;
+ gap:10px;
+ padding:11px 12px;
+ border-radius:9px;
+ color:#eaf7ff;
+ text-decoration:none;
+ font-size:11px;
+ letter-spacing:.3px;
+ transition:.2s
+}
+
+.contact-menu a:hover{
+ background:#0b2947;
+ color:#65eaff
+}
+
+.contact-menu a:active{transform:scale(.98)}
 
 .hero{
  height:370px;
@@ -129,8 +169,6 @@ header{
  color:#d6e8ff
 }
 
-/* LOGO */
-
 .emblem{
  position:absolute;
  z-index:4;
@@ -170,8 +208,6 @@ header{
  font:8px Arial;
  letter-spacing:2px
 }
-
-/* WELCOME */
 
 .welcome{
  text-align:center;
@@ -241,11 +277,7 @@ header{
  transition:.2s
 }
 
-.primary:active{
- transform:scale(.97)
-}
-
-/* MUSIC */
+.primary:active{transform:scale(.97)}
 
 .music{
  margin:0 18px 12px;
@@ -274,9 +306,7 @@ header{
  min-width:0
 }
 
-.trackinfo b{
- font-size:13px
-}
+.trackinfo b{font-size:13px}
 
 .trackinfo small{
  display:block;
@@ -331,8 +361,6 @@ header{
  color:#00213b
 }
 
-/* BOTTOM ART */
-
 .bottomart{
  height:160px;
  position:relative;
@@ -357,8 +385,6 @@ header{
  font:italic 23px cursive
 }
 
-/* NAV */
-
 .nav{
  display:flex;
  justify-content:space-around;
@@ -381,17 +407,9 @@ header{
  font-weight:normal
 }
 
-.nav div:first-child{
- color:#63dfff
-}
+.nav div:first-child{color:#63dfff}
 
-/* =========================
-   PAYMENT
-========================= */
-
-#payment{
- display:none
-}
+#payment{display:none}
 
 .payment-header{
  height:40px;
@@ -456,9 +474,7 @@ header{
  margin:0
 }
 
-.paybody{
- padding:13px 17px
-}
+.paybody{padding:13px 17px}
 
 .sectiontitle{
  display:flex;
@@ -489,9 +505,7 @@ header{
  min-width:0
 }
 
-.method.shopee{
- border-color:#a9574e
-}
+.method.shopee{border-color:#a9574e}
 
 .methodhead{
  display:flex;
@@ -511,13 +525,9 @@ header{
  font-size:15px
 }
 
-.shopee .methodicon{
- background:#e94e36
-}
+.shopee .methodicon{background:#e94e36}
 
-.methodhead b{
- font-size:12px
-}
+.methodhead b{font-size:12px}
 
 .methodhead small{
  display:block;
@@ -544,8 +554,6 @@ header{
  font-size:9px
 }
 
-/* BANK */
-
 .bank{
  display:flex;
  align-items:center;
@@ -566,13 +574,9 @@ header{
  font-weight:bold
 }
 
-.bankinfo{
- flex:1
-}
+.bankinfo{flex:1}
 
-.bankinfo b{
- font-size:12px
-}
+.bankinfo b{font-size:12px}
 
 .bankinfo small{
  display:block;
@@ -587,8 +591,6 @@ header{
  line-height:1.5;
  margin:0
 }
-
-/* QRIS */
 
 .qrisbox{
  padding:16px 13px;
@@ -662,11 +664,7 @@ header{
  box-shadow:0 0 15px #00aaff55
 }
 
-.download-qris:active{
- transform:scale(.97)
-}
-
-/* COMPLETED */
+.download-qris:active{transform:scale(.97)}
 
 .completed{
  margin-top:13px;
@@ -716,32 +714,19 @@ header{
  letter-spacing:2px
 }
 
-/* MOBILE */
-
 @media(max-width:500px){
-
  .page{
   width:100%;
   border-left:0;
   border-right:0
  }
 
- .hero{
-  height:350px
- }
-
+ .hero{height:350px}
 }
 
 @media(max-width:370px){
-
- .methods{
-  grid-template-columns:1fr
- }
-
- .number{
-  font-size:14px
- }
-
+ .methods{grid-template-columns:1fr}
+ .number{font-size:14px}
 }
 </style>
 </head>
@@ -749,10 +734,6 @@ header{
 <body>
 
 <div class="page">
-
-<!-- =========================
-     HOME
-========================= -->
 
 <section id="home">
 
@@ -763,22 +744,41 @@ header{
 ONLINE
 </span>
 
-<span class="menu">
+<div class="menu-contact">
+
+<button
+ class="menu"
+ onclick="toggleContactMenu()"
+ aria-label="Menu Kontak"
+>
 ☰
-</span>
+</button>
+
+<div class="contact-menu" id="contactMenu">
+
+<a href="https://wa.me/6281903976932" target="_blank" rel="noopener noreferrer">
+💬　WhatsApp
+</a>
+
+<a href="https://t.me/kieldppa" target="_blank" rel="noopener noreferrer">
+✈️　Telegram
+</a>
+
+<a href="https://dappaofficial-restapi.my.id" target="_blank" rel="noopener noreferrer">
+🌐　Web API Key
+</a>
+
+</div>
+</div>
 </header>
 
-
 <div class="hero">
-
-<!-- RIN POSE 1 -->
 
 <img
  class="heroimg"
  src="https://i.ibb.co/QvjKbm21/undefined.jpg"
  alt="Rin Itoshi"
 >
-
 
 <div class="japanese">
 俺は<br>
@@ -789,11 +789,7 @@ ONLINE
 <span style="color:#8ca9c5">
 - Rin Itoshi -
 </span>
-
 </div>
-
-
-<!-- LOGO DAPPA -->
 
 <div class="emblem">
 
@@ -804,7 +800,6 @@ ONLINE
 
 </div>
 
-
 <div class="rinsign">
 Rin Itoshi
 
@@ -814,7 +809,6 @@ BLUE LOCK
 </div>
 
 </div>
-
 
 <div class="welcome">
 
@@ -832,9 +826,6 @@ Where Every Transaction Feels Special ♡
 
 </div>
 
-
-<!-- GREETING -->
-
 <div class="card greeting">
 
 <h3>
@@ -847,7 +838,6 @@ yang begitu dekat. Setiap saat yang ada dalam hati dan pikiranku
 hanya dirimu yang selalu kurindu.
 </p>
 
-
 <button
  class="primary"
  onclick="showPayment()"
@@ -856,7 +846,6 @@ MASUK SEKARANG　→
 </button>
 
 </div>
-
 
 <!-- MUSIC -->
 
@@ -872,7 +861,7 @@ MASUK SEKARANG　→
 
 <div class="trackinfo">
 
-<b>
+<b id="songTitle">
 What If I Call
 </b>
 
@@ -888,22 +877,19 @@ Dappa Official - Now Playing
 
 </div>
 
-
 <div class="progress"></div>
-
 
 <div class="time">
 
-<span>
-Now Playing
+<span id="musicStatus">
+Ready
 </span>
 
-<span>
+<span id="songTime">
 What If I Call
 </span>
 
 </div>
-
 
 <div class="controls">
 
@@ -915,7 +901,6 @@ What If I Call
 ◀
 </button>
 
-
 <button
  class="pause"
  id="playBtn"
@@ -924,8 +909,10 @@ What If I Call
 ▶
 </button>
 
-
-<button>
+<button
+ onclick="nextSong()"
+ aria-label="Lagu berikutnya"
+>
 ▶
 </button>
 
@@ -935,16 +922,13 @@ What If I Call
 
 </div>
 
-
 <audio
  id="audio"
- src="https://mp3tourl.com/audio/1790932213462-38263c01-bf55-4804-901e-a532792cbbfc.mp3"
+ preload="metadata"
+ playsinline
 ></audio>
 
 </div>
-
-
-<!-- BOTTOM ART -->
 
 <div class="bottomart">
 
@@ -958,7 +942,6 @@ Rin Itoshi
 </div>
 
 </div>
-
 
 <nav class="nav">
 
@@ -986,11 +969,6 @@ Contact
 
 </section>
 
-
-<!-- =========================
-     PAYMENT
-========================= -->
-
 <section id="payment">
 
 <header class="payment-header">
@@ -1008,16 +986,12 @@ DAPPA OFFICIAL　♛
 
 </header>
 
-
 <div class="payhero">
-
-<!-- RIN POSE 3 -->
 
 <img
  src="https://i.ibb.co/cXkfgDSD/undefined.jpg"
  alt="Rin Itoshi"
 >
-
 
 <div class="payheading">
 
@@ -1037,17 +1011,13 @@ Choose your preferred payment method.
 
 </div>
 
-
 <div class="paybody">
-
 
 <h3 class="sectiontitle">
 01 / E-WALLET
 </h3>
 
-
 <div class="methods">
-
 
 <div class="method">
 
@@ -1058,24 +1028,15 @@ Choose your preferred payment method.
 </div>
 
 <div>
-
-<b>
-DANA
-</b>
-
-<small>
-Digital Wallet
-</small>
-
+<b>DANA</b>
+<small>Digital Wallet</small>
 </div>
 
 </div>
-
 
 <div class="number">
 081385631460
 </div>
-
 
 <button
  class="copy"
@@ -1086,7 +1047,6 @@ Digital Wallet
 
 </div>
 
-
 <div class="method shopee">
 
 <div class="methodhead">
@@ -1096,24 +1056,15 @@ Digital Wallet
 </div>
 
 <div>
-
-<b>
-ShopeePay
-</b>
-
-<small>
-Digital Wallet
-</small>
-
+<b>ShopeePay</b>
+<small>Digital Wallet</small>
 </div>
 
 </div>
-
 
 <div class="number">
 085280063083
 </div>
-
 
 <button
  class="copy"
@@ -1126,14 +1077,9 @@ Digital Wallet
 
 </div>
 
-
-<h3
- class="sectiontitle"
- style="margin-top:19px"
->
+<h3 class="sectiontitle" style="margin-top:19px">
 02 / BANK TRANSFER
 </h3>
-
 
 <div class="card bank">
 
@@ -1143,9 +1089,7 @@ Sea
 
 <div class="bankinfo">
 
-<b>
-SeaBank
-</b>
+<b>SeaBank</b>
 
 <small>
 Bank Transfer
@@ -1163,11 +1107,9 @@ Untuk nomor rekening, silakan minta langsung kepada Dappa.
 
 </div>
 
-
 <h3 class="sectiontitle">
 03 / QRIS PAYMENT
 </h3>
-
 
 <div class="card qrisbox">
 
@@ -1179,23 +1121,19 @@ SCAN TO PAY
 Scan di Atas
 </h3>
 
-
 <img
  class="qrisimg"
  src="https://i.ibb.co/h3DW1Ty/undefined.jpg"
  alt="QRIS Dappa Official"
 >
 
-
 <div class="warning">
 ⚠ WAJIB +100P
 </div>
 
-
 <p>
 Silahkan di download ya kalo gak bisa di screenshot.
 </p>
-
 
 <a
  href="https://i.ibb.co/h3DW1Ty/undefined.jpg"
@@ -1208,15 +1146,12 @@ Silahkan di download ya kalo gak bisa di screenshot.
 
 </div>
 
-
 <div class="card completed">
-
 
 <img
  src="https://i.ibb.co/cXkfgDSD/undefined.jpg"
  alt="Dappa"
 >
-
 
 <div style="flex:1">
 
@@ -1224,12 +1159,10 @@ Silahkan di download ya kalo gak bisa di screenshot.
 Payment Completed?
 </b>
 
-
 <p>
 Jika sudah melakukan pembayaran,
 silakan konfirmasi melalui WhatsApp.
 </p>
-
 
 <a
  class="wa"
@@ -1243,7 +1176,6 @@ silakan konfirmasi melalui WhatsApp.
 
 </div>
 
-
 <div class="foot">
 ────　MADE WITH ♛ DAPPA OFFICIAL　────
 </div>
@@ -1254,7 +1186,6 @@ silakan konfirmasi melalui WhatsApp.
 
 </div>
 
-
 <script>
 
 const audio = document.getElementById('audio');
@@ -1263,15 +1194,47 @@ const btn = document.getElementById('playBtn');
 const home = document.getElementById('home');
 const payment = document.getElementById('payment');
 
+const songTitle = document.getElementById('songTitle');
+const songTime = document.getElementById('songTime');
+const musicStatus = document.getElementById('musicStatus');
+
 
 /* =========================
-   PINDAH HOME → PAYMENT
+   MENU KONTAK
+========================= */
+
+function toggleContactMenu(){
+
+ const menu = document.getElementById('contactMenu');
+
+ menu.classList.toggle('show');
+
+}
+
+document.addEventListener('click',function(e){
+
+ const container = document.querySelector('.menu-contact');
+
+ if(container && !container.contains(e.target)){
+
+  document
+   .getElementById('contactMenu')
+   .classList
+   .remove('show');
+
+ }
+
+});
+
+
+/* =========================
+   PAYMENT
 ========================= */
 
 function showPayment(){
 
- home.style.display = 'none';
- payment.style.display = 'block';
+ home.style.display='none';
+ payment.style.display='block';
 
  window.scrollTo({
   top:0,
@@ -1280,15 +1243,10 @@ function showPayment(){
 
 }
 
-
-/* =========================
-   PINDAH PAYMENT → HOME
-========================= */
-
 function showHome(){
 
- payment.style.display = 'none';
- home.style.display = 'block';
+ payment.style.display='none';
+ home.style.display='block';
 
  window.scrollTo({
   top:0,
@@ -1302,40 +1260,209 @@ function showHome(){
    MUSIC
 ========================= */
 
+const songs = [
+
+ {
+  title:'What If I Call',
+  src:'https://mp3tourl.com/audio/1790932213462-38263c01-bf55-4804-901e-a532792cbbfc.mp3'
+ },
+
+ {
+  title:'Bernaung',
+  src:'https://mp3tourl.com/audio/1790939651989-47697b83-0503-4f1b-b1f9-25439a31f116.mp3'
+ }
+
+];
+
+let currentSong=0;
+
+
+/* =========================
+   LOAD SONG
+========================= */
+
+function loadSong(index){
+
+ currentSong=index;
+
+ audio.pause();
+
+ audio.src=songs[currentSong].src;
+
+ songTitle.textContent=songs[currentSong].title;
+ songTime.textContent=songs[currentSong].title;
+
+ musicStatus.textContent='Ready';
+
+ audio.load();
+
+}
+
+
+/* =========================
+   PLAY / PAUSE
+========================= */
+
 function toggleMusic(){
 
  if(audio.paused){
 
-  audio.play()
+  musicStatus.textContent='Loading...';
 
-  .then(()=>{
+  const playPromise=audio.play();
 
-   btn.textContent='Ⅱ';
+  if(playPromise!==undefined){
 
-  })
+   playPromise.then(()=>{
 
-  .catch(()=>{
+    btn.textContent='Ⅱ';
+    musicStatus.textContent='Now Playing';
 
-   alert('Coba tekan tombol play lagi.');
+   }).catch((error)=>{
 
-  });
+    console.log('Audio Error:',error);
+
+    btn.textContent='▶';
+    musicStatus.textContent='Audio Error';
+
+    alert(
+     'Lagu gagal diputar.\n\n' +
+     'Cek koneksi internet atau link MP3.'
+    );
+
+   });
+
+  }
 
  }else{
 
   audio.pause();
 
   btn.textContent='▶';
+  musicStatus.textContent='Paused';
 
  }
 
 }
 
 
-audio.onended = ()=>{
+/* =========================
+   NEXT SONG
+========================= */
+
+function nextSong(){
+
+ currentSong++;
+
+ if(currentSong>=songs.length){
+  currentSong=0;
+ }
+
+ loadSong(currentSong);
+
+ musicStatus.textContent='Loading...';
+
+ const playPromise=audio.play();
+
+ if(playPromise!==undefined){
+
+  playPromise.then(()=>{
+
+   btn.textContent='Ⅱ';
+   musicStatus.textContent='Now Playing';
+
+  }).catch((error)=>{
+
+   console.log('Next Song Error:',error);
+
+   btn.textContent='▶';
+   musicStatus.textContent='Audio Error';
+
+  });
+
+ }
+
+}
+
+
+/* =========================
+   LAGU SELESAI
+========================= */
+
+audio.addEventListener('ended',function(){
+
+ if(currentSong<songs.length-1){
+
+  currentSong++;
+
+  loadSong(currentSong);
+
+  const playPromise=audio.play();
+
+  if(playPromise!==undefined){
+
+   playPromise.then(()=>{
+
+    btn.textContent='Ⅱ';
+    musicStatus.textContent='Now Playing';
+
+   }).catch(()=>{
+
+    btn.textContent='▶';
+    musicStatus.textContent='Audio Error';
+
+   });
+
+  }
+
+ }else{
+
+  btn.textContent='▶';
+  musicStatus.textContent='Finished';
+
+ }
+
+});
+
+
+/* =========================
+   AUDIO ERROR
+========================= */
+
+audio.addEventListener('error',function(){
+
+ console.log(
+  'Audio gagal dimuat:',
+  audio.error
+ );
 
  btn.textContent='▶';
 
-};
+ if(audio.error){
+
+  if(audio.error.code===1){
+   musicStatus.textContent='Aborted';
+  }
+
+  else if(audio.error.code===2){
+   musicStatus.textContent='Network Error';
+  }
+
+  else if(audio.error.code===3){
+   musicStatus.textContent='Decode Error';
+  }
+
+  else if(audio.error.code===4){
+   musicStatus.textContent='File Tidak Ditemukan';
+  }
+
+  else{
+   musicStatus.textContent='Audio Error';
+  }
+
+ }
+
+});
 
 
 /* =========================
@@ -1344,7 +1471,10 @@ audio.onended = ()=>{
 
 function copyText(value){
 
- if(navigator.clipboard && window.isSecureContext){
+ if(
+  navigator.clipboard &&
+  window.isSecureContext
+ ){
 
   navigator.clipboard
   .writeText(value)
@@ -1370,9 +1500,9 @@ function copyText(value){
 
 function fallbackCopy(value){
 
- const t = document.createElement('textarea');
+ const t=document.createElement('textarea');
 
- t.value = value;
+ t.value=value;
 
  document.body.appendChild(t);
 
@@ -1385,6 +1515,13 @@ function fallbackCopy(value){
  alert('Nomor berhasil disalin!');
 
 }
+
+
+/* =========================
+   LOAD LAGU PERTAMA
+========================= */
+
+loadSong(0);
 
 </script>
 
