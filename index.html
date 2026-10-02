@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dappa Official</title>
 
+<!-- JS PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 <style>
 *{box-sizing:border-box}
 
@@ -706,6 +709,89 @@ header{
  letter-spacing:.4px
 }
 
+/* =========================
+   TEXT TO PDF
+========================= */
+
+.pdfbox{
+ margin-top:13px;
+ padding:16px 13px
+}
+
+.pdfbox h3{
+ color:#75dfff;
+ font-size:12px;
+ letter-spacing:2px;
+ margin:0 0 8px
+}
+
+.pdfbox p{
+ font-size:10px;
+ color:#a9c1d6;
+ line-height:1.5;
+ margin:0 0 12px
+}
+
+.pdf-title,
+.pdf-content{
+ width:100%;
+ border:1px solid #23618d;
+ border-radius:10px;
+ background:#041225;
+ color:#eaf7ff;
+ outline:none;
+ font-family:Arial,sans-serif
+}
+
+.pdf-title{
+ padding:11px;
+ font-size:11px;
+ margin-bottom:9px
+}
+
+.pdf-content{
+ min-height:150px;
+ resize:vertical;
+ padding:11px;
+ font-size:11px;
+ line-height:1.6
+}
+
+.pdf-title::placeholder,
+.pdf-content::placeholder{
+ color:#65809a
+}
+
+.pdf-title:focus,
+.pdf-content:focus{
+ border-color:#65eaff;
+ box-shadow:0 0 10px #00aaff22
+}
+
+.pdfbutton{
+ width:100%;
+ margin-top:10px;
+ padding:12px;
+ border:1px solid #65eaff;
+ border-radius:25px;
+ background:linear-gradient(90deg,#087bff,#65eaff);
+ color:#00172b;
+ font-size:10px;
+ font-weight:bold;
+ letter-spacing:1px;
+ box-shadow:0 0 15px #00aaff45;
+ transition:.2s
+}
+
+.pdfbutton:active{
+ transform:scale(.97)
+}
+
+.pdfbutton:disabled{
+ opacity:.6;
+ cursor:not-allowed
+}
+
 .foot{
  text-align:center;
  padding:15px 5px 10px;
@@ -738,6 +824,7 @@ header{
 <section id="home">
 
 <header>
+
 <span>DAPPA OFFICIAL</span>
 
 <span class="online">
@@ -955,7 +1042,10 @@ Home
 Music
 </div>
 
-<div onclick="showPayment()" style="cursor:pointer">
+<div
+ onclick="showPayment()"
+ style="cursor:pointer"
+>
 <b>♢</b>
 Payment
 </div>
@@ -968,6 +1058,7 @@ Contact
 </nav>
 
 </section>
+
 
 <section id="payment">
 
@@ -1047,6 +1138,7 @@ Choose your preferred payment method.
 
 </div>
 
+
 <div class="method shopee">
 
 <div class="methodhead">
@@ -1077,7 +1169,11 @@ Choose your preferred payment method.
 
 </div>
 
-<h3 class="sectiontitle" style="margin-top:19px">
+
+<h3
+ class="sectiontitle"
+ style="margin-top:19px"
+>
 02 / BANK TRANSFER
 </h3>
 
@@ -1106,6 +1202,7 @@ Untuk nomor rekening, silakan minta langsung kepada Dappa.
 </div>
 
 </div>
+
 
 <h3 class="sectiontitle">
 03 / QRIS PAYMENT
@@ -1146,6 +1243,7 @@ Silahkan di download ya kalo gak bisa di screenshot.
 
 </div>
 
+
 <div class="card completed">
 
 <img
@@ -1176,6 +1274,46 @@ silakan konfirmasi melalui WhatsApp.
 
 </div>
 
+
+<!-- =========================
+     TEXT TO PDF
+========================= -->
+
+<div class="card pdfbox">
+
+<h3>
+✦ TEXT TO PDF
+</h3>
+
+<p>
+Ketik jawaban atau teks kamu, lalu download langsung menjadi PDF yang rapi.
+</p>
+
+<input
+ id="pdfTitle"
+ class="pdf-title"
+ type="text"
+ placeholder="Judul PDF"
+>
+
+<textarea
+ id="pdfContent"
+ class="pdf-content"
+ placeholder="Ketik jawaban kamu di sini..."
+></textarea>
+
+<button
+ type="button"
+ class="pdfbutton"
+ id="pdfButton"
+ onclick="buatPDF()"
+>
+▣　DOWNLOAD PDF
+</button>
+
+</div>
+
+
 <div class="foot">
 ────　MADE WITH ♛ DAPPA OFFICIAL　────
 </div>
@@ -1186,17 +1324,33 @@ silakan konfirmasi melalui WhatsApp.
 
 </div>
 
+
 <script>
 
-const audio = document.getElementById('audio');
-const btn = document.getElementById('playBtn');
+/* =========================
+   ELEMENT
+========================= */
 
-const home = document.getElementById('home');
-const payment = document.getElementById('payment');
+const audio =
+ document.getElementById('audio');
 
-const songTitle = document.getElementById('songTitle');
-const songTime = document.getElementById('songTime');
-const musicStatus = document.getElementById('musicStatus');
+const btn =
+ document.getElementById('playBtn');
+
+const home =
+ document.getElementById('home');
+
+const payment =
+ document.getElementById('payment');
+
+const songTitle =
+ document.getElementById('songTitle');
+
+const songTime =
+ document.getElementById('songTime');
+
+const musicStatus =
+ document.getElementById('musicStatus');
 
 
 /* =========================
@@ -1205,26 +1359,41 @@ const musicStatus = document.getElementById('musicStatus');
 
 function toggleContactMenu(){
 
- const menu = document.getElementById('contactMenu');
+ const menu =
+  document.getElementById(
+   'contactMenu'
+  );
 
  menu.classList.toggle('show');
 
 }
 
-document.addEventListener('click',function(e){
 
- const container = document.querySelector('.menu-contact');
+document.addEventListener(
+ 'click',
+ function(e){
 
- if(container && !container.contains(e.target)){
+  const container =
+   document.querySelector(
+    '.menu-contact'
+   );
 
-  document
-   .getElementById('contactMenu')
-   .classList
-   .remove('show');
+  if(
+   container &&
+   !container.contains(e.target)
+  ){
+
+   document
+    .getElementById(
+     'contactMenu'
+    )
+    .classList
+    .remove('show');
+
+  }
 
  }
-
-});
+);
 
 
 /* =========================
@@ -1234,6 +1403,7 @@ document.addEventListener('click',function(e){
 function showPayment(){
 
  home.style.display='none';
+
  payment.style.display='block';
 
  window.scrollTo({
@@ -1243,9 +1413,11 @@ function showPayment(){
 
 }
 
+
 function showHome(){
 
  payment.style.display='none';
+
  home.style.display='block';
 
  window.scrollTo({
@@ -1274,6 +1446,7 @@ const songs = [
 
 ];
 
+
 let currentSong=0;
 
 
@@ -1287,12 +1460,17 @@ function loadSong(index){
 
  audio.pause();
 
- audio.src=songs[currentSong].src;
+ audio.src =
+  songs[currentSong].src;
 
- songTitle.textContent=songs[currentSong].title;
- songTime.textContent=songs[currentSong].title;
+ songTitle.textContent =
+  songs[currentSong].title;
 
- musicStatus.textContent='Ready';
+ songTime.textContent =
+  songs[currentSong].title;
+
+ musicStatus.textContent =
+  'Ready';
 
  audio.load();
 
@@ -1307,30 +1485,46 @@ function toggleMusic(){
 
  if(audio.paused){
 
-  musicStatus.textContent='Loading...';
+  musicStatus.textContent =
+   'Loading...';
 
-  const playPromise=audio.play();
+  const playPromise =
+   audio.play();
 
-  if(playPromise!==undefined){
 
-   playPromise.then(()=>{
+  if(
+   playPromise !== undefined
+  ){
 
-    btn.textContent='Ⅱ';
-    musicStatus.textContent='Now Playing';
+   playPromise.then(
+    function(){
 
-   }).catch((error)=>{
+     btn.textContent='Ⅱ';
 
-    console.log('Audio Error:',error);
+     musicStatus.textContent =
+      'Now Playing';
 
-    btn.textContent='▶';
-    musicStatus.textContent='Audio Error';
+    }
+   ).catch(
+    function(error){
 
-    alert(
-     'Lagu gagal diputar.\n\n' +
-     'Cek koneksi internet atau link MP3.'
-    );
+     console.log(
+      'Audio Error:',
+      error
+     );
 
-   });
+     btn.textContent='▶';
+
+     musicStatus.textContent =
+      'Audio Error';
+
+     alert(
+      'Lagu gagal diputar.\n\n' +
+      'Cek koneksi internet atau link MP3.'
+     );
+
+    }
+   );
 
   }
 
@@ -1339,7 +1533,9 @@ function toggleMusic(){
   audio.pause();
 
   btn.textContent='▶';
-  musicStatus.textContent='Paused';
+
+  musicStatus.textContent =
+   'Paused';
 
  }
 
@@ -1354,31 +1550,52 @@ function nextSong(){
 
  currentSong++;
 
- if(currentSong>=songs.length){
+ if(
+  currentSong >= songs.length
+ ){
+
   currentSong=0;
+
  }
 
  loadSong(currentSong);
 
- musicStatus.textContent='Loading...';
+ musicStatus.textContent =
+  'Loading...';
 
- const playPromise=audio.play();
 
- if(playPromise!==undefined){
+ const playPromise =
+  audio.play();
 
-  playPromise.then(()=>{
 
-   btn.textContent='Ⅱ';
-   musicStatus.textContent='Now Playing';
+ if(
+  playPromise !== undefined
+ ){
 
-  }).catch((error)=>{
+  playPromise.then(
+   function(){
 
-   console.log('Next Song Error:',error);
+    btn.textContent='Ⅱ';
 
-   btn.textContent='▶';
-   musicStatus.textContent='Audio Error';
+    musicStatus.textContent =
+     'Now Playing';
 
-  });
+   }
+  ).catch(
+   function(error){
+
+    console.log(
+     'Next Song Error:',
+     error
+    );
+
+    btn.textContent='▶';
+
+    musicStatus.textContent =
+     'Audio Error';
+
+   }
+  );
 
  }
 
@@ -1389,80 +1606,128 @@ function nextSong(){
    LAGU SELESAI
 ========================= */
 
-audio.addEventListener('ended',function(){
+audio.addEventListener(
+ 'ended',
+ function(){
 
- if(currentSong<songs.length-1){
+  if(
+   currentSong <
+   songs.length-1
+  ){
 
-  currentSong++;
+   currentSong++;
 
-  loadSong(currentSong);
+   loadSong(currentSong);
 
-  const playPromise=audio.play();
 
-  if(playPromise!==undefined){
+   const playPromise =
+    audio.play();
 
-   playPromise.then(()=>{
 
-    btn.textContent='Ⅱ';
-    musicStatus.textContent='Now Playing';
+   if(
+    playPromise !== undefined
+   ){
 
-   }).catch(()=>{
+    playPromise.then(
+     function(){
 
-    btn.textContent='▶';
-    musicStatus.textContent='Audio Error';
+      btn.textContent='Ⅱ';
 
-   });
+      musicStatus.textContent =
+       'Now Playing';
+
+     }
+    ).catch(
+     function(){
+
+      btn.textContent='▶';
+
+      musicStatus.textContent =
+       'Audio Error';
+
+     }
+    );
+
+   }
+
+  }else{
+
+   btn.textContent='▶';
+
+   musicStatus.textContent =
+    'Finished';
 
   }
 
- }else{
-
-  btn.textContent='▶';
-  musicStatus.textContent='Finished';
-
  }
-
-});
+);
 
 
 /* =========================
    AUDIO ERROR
 ========================= */
 
-audio.addEventListener('error',function(){
+audio.addEventListener(
+ 'error',
+ function(){
 
- console.log(
-  'Audio gagal dimuat:',
-  audio.error
- );
+  console.log(
+   'Audio gagal dimuat:',
+   audio.error
+  );
 
- btn.textContent='▶';
+  btn.textContent='▶';
 
- if(audio.error){
 
-  if(audio.error.code===1){
-   musicStatus.textContent='Aborted';
-  }
+  if(audio.error){
 
-  else if(audio.error.code===2){
-   musicStatus.textContent='Network Error';
-  }
+   if(
+    audio.error.code===1
+   ){
 
-  else if(audio.error.code===3){
-   musicStatus.textContent='Decode Error';
-  }
+    musicStatus.textContent =
+     'Aborted';
 
-  else if(audio.error.code===4){
-   musicStatus.textContent='File Tidak Ditemukan';
-  }
+   }
 
-  else{
-   musicStatus.textContent='Audio Error';
+   else if(
+    audio.error.code===2
+   ){
+
+    musicStatus.textContent =
+     'Network Error';
+
+   }
+
+   else if(
+    audio.error.code===3
+   ){
+
+    musicStatus.textContent =
+     'Decode Error';
+
+   }
+
+   else if(
+    audio.error.code===4
+   ){
+
+    musicStatus.textContent =
+     'File Tidak Ditemukan';
+
+   }
+
+   else{
+
+    musicStatus.textContent =
+     'Audio Error';
+
+   }
+
   }
 
  }
-
-});
+);
 
 
 /* =========================
@@ -1477,17 +1742,23 @@ function copyText(value){
  ){
 
   navigator.clipboard
-  .writeText(value)
-  .then(()=>{
+   .writeText(value)
+   .then(
+    function(){
 
-   alert('Nomor berhasil disalin!');
+     alert(
+      'Nomor berhasil disalin!'
+     );
 
-  })
-  .catch(()=>{
+    }
+   )
+   .catch(
+    function(){
 
-   fallbackCopy(value);
+     fallbackCopy(value);
 
-  });
+    }
+   );
 
  }else{
 
@@ -1500,7 +1771,10 @@ function copyText(value){
 
 function fallbackCopy(value){
 
- const t=document.createElement('textarea');
+ const t =
+  document.createElement(
+   'textarea'
+  );
 
  t.value=value;
 
@@ -1512,7 +1786,471 @@ function fallbackCopy(value){
 
  t.remove();
 
- alert('Nomor berhasil disalin!');
+ alert(
+  'Nomor berhasil disalin!'
+ );
+
+}
+
+
+/* =========================
+   TEXT TO PDF
+   SIMPLE & STABLE
+========================= */
+
+function buatPDF(){
+
+ const titleInput =
+  document.getElementById(
+   'pdfTitle'
+  );
+
+ const contentInput =
+  document.getElementById(
+   'pdfContent'
+  );
+
+ const button =
+  document.getElementById(
+   'pdfButton'
+  );
+
+
+ const title =
+  titleInput.value.trim() ||
+  'Dokumen Dappa Official';
+
+
+ const content =
+  contentInput.value.trim();
+
+
+ /* =========================
+    CEK ISI
+ ========================= */
+
+ if(!content){
+
+  alert(
+   'Silakan ketik jawaban atau teks terlebih dahulu.'
+  );
+
+  contentInput.focus();
+
+  return;
+
+ }
+
+
+ /* =========================
+    CEK LIBRARY
+ ========================= */
+
+ if(
+  !window.jspdf ||
+  !window.jspdf.jsPDF
+ ){
+
+  alert(
+   'PDF belum siap.\n\n' +
+   'Pastikan internet aktif lalu refresh halaman.'
+  );
+
+  return;
+
+ }
+
+
+ try{
+
+  button.disabled=true;
+
+  button.textContent =
+   '⏳　MEMBUAT PDF...';
+
+
+  const jsPDF =
+   window.jspdf.jsPDF;
+
+
+  /* =========================
+     BUAT PDF
+  ========================= */
+
+  const pdf =
+   new jsPDF({
+    orientation:'portrait',
+    unit:'mm',
+    format:'a4'
+   });
+
+
+  const pageWidth =
+   pdf.internal.pageSize.getWidth();
+
+  const pageHeight =
+   pdf.internal.pageSize.getHeight();
+
+
+  /* =========================
+     HEADER
+  ========================= */
+
+  pdf.setTextColor(
+   20,
+   20,
+   20
+  );
+
+  pdf.setFont(
+   'helvetica',
+   'bold'
+  );
+
+  pdf.setFontSize(20);
+
+  pdf.text(
+   'DAPPA OFFICIAL',
+   20,
+   25
+  );
+
+
+  pdf.setFont(
+   'helvetica',
+   'normal'
+  );
+
+  pdf.setFontSize(8);
+
+  pdf.setTextColor(
+   100,
+   100,
+   100
+  );
+
+  pdf.text(
+   'DOCUMENT GENERATOR',
+   20,
+   32
+  );
+
+
+  /* =========================
+     GARIS
+  ========================= */
+
+  pdf.setDrawColor(
+   210,
+   210,
+   210
+  );
+
+  pdf.line(
+   20,
+   40,
+   190,
+   40
+  );
+
+
+  /* =========================
+     JUDUL
+  ========================= */
+
+  pdf.setFont(
+   'helvetica',
+   'bold'
+  );
+
+  pdf.setFontSize(17);
+
+  pdf.setTextColor(
+   25,
+   25,
+   25
+  );
+
+
+  const titleLines =
+   pdf.splitTextToSize(
+    title,
+    170
+   );
+
+
+  let y=54;
+
+
+  pdf.text(
+   titleLines,
+   20,
+   y
+  );
+
+
+  y +=
+   titleLines.length * 7;
+
+
+  /* =========================
+     TANGGAL
+  ========================= */
+
+  const now =
+   new Date();
+
+
+  const tanggal =
+   now.toLocaleDateString(
+    'id-ID',
+    {
+     day:'2-digit',
+     month:'long',
+     year:'numeric'
+    }
+   );
+
+
+  const waktu =
+   now.toLocaleTimeString(
+    'id-ID',
+    {
+     hour:'2-digit',
+     minute:'2-digit'
+    }
+   );
+
+
+  pdf.setFont(
+   'helvetica',
+   'normal'
+  );
+
+  pdf.setFontSize(9);
+
+  pdf.setTextColor(
+   110,
+   110,
+   110
+  );
+
+
+  pdf.text(
+   'Dibuat pada: ' +
+   tanggal +
+   ' - ' +
+   waktu,
+   20,
+   y+2
+  );
+
+
+  y += 15;
+
+
+  /* =========================
+     ISI TEKS
+  ========================= */
+
+  pdf.setFont(
+   'helvetica',
+   'normal'
+  );
+
+  pdf.setFontSize(11);
+
+  pdf.setTextColor(
+   35,
+   35,
+   35
+  );
+
+
+  const contentLines =
+   pdf.splitTextToSize(
+    content,
+    170
+   );
+
+
+  const lineHeight=6.5;
+
+
+  for(
+   let i=0;
+   i<contentLines.length;
+   i++
+  ){
+
+   if(
+    y >
+    pageHeight-25
+   ){
+
+    tambahFooterPDF(pdf);
+
+    pdf.addPage();
+
+    y=25;
+
+   }
+
+
+   pdf.text(
+    contentLines[i],
+    20,
+    y
+   );
+
+
+   y += lineHeight;
+
+  }
+
+
+  /* =========================
+     FOOTER
+  ========================= */
+
+  tambahFooterPDF(pdf);
+
+
+  /* =========================
+     NAMA FILE
+  ========================= */
+
+  let safeTitle =
+   title
+    .replace(
+     /[\\/:*?"<>|]/g,
+     ''
+    )
+    .replace(
+     /\s+/g,
+     '-'
+    )
+    .trim();
+
+
+  if(!safeTitle){
+
+   safeTitle =
+    'Dokumen';
+
+  }
+
+
+  safeTitle =
+   safeTitle.substring(
+    0,
+    60
+   );
+
+
+  const filename =
+   'Dappa-Official-' +
+   safeTitle +
+   '.pdf';
+
+
+  /* =========================
+     DOWNLOAD
+  ========================= */
+
+  pdf.save(filename);
+
+
+  button.disabled=false;
+
+  button.textContent =
+   '▣　DOWNLOAD PDF';
+
+
+  setTimeout(
+   function(){
+
+    alert(
+     'PDF berhasil dibuat dan didownload! 📄'
+    );
+
+   },
+   400
+  );
+
+
+ }catch(error){
+
+  console.error(
+   'PDF Error:',
+   error
+  );
+
+
+  button.disabled=false;
+
+  button.textContent =
+   '▣　DOWNLOAD PDF';
+
+
+  alert(
+   'PDF gagal dibuat.\n\n' +
+   'Silakan coba lagi.'
+  );
+
+ }
+
+}
+
+
+/* =========================
+   FOOTER PDF
+========================= */
+
+function tambahFooterPDF(pdf){
+
+ const pageHeight =
+  pdf.internal.pageSize.getHeight();
+
+
+ pdf.setDrawColor(
+  210,
+  210,
+  210
+ );
+
+
+ pdf.line(
+  20,
+  pageHeight-18,
+  190,
+  pageHeight-18
+ );
+
+
+ pdf.setFont(
+  'helvetica',
+  'normal'
+ );
+
+ pdf.setFontSize(8);
+
+ pdf.setTextColor(
+  120,
+  120,
+  120
+ );
+
+
+ pdf.text(
+  'DAPPA OFFICIAL - Made with Dappa Official',
+  105,
+  pageHeight-10,
+  {
+   align:'center'
+  }
+ );
+
 
 }
 
