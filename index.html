@@ -17,6 +17,10 @@
  --muted:#91abc5
 }
 
+html{
+ scroll-behavior:smooth
+}
+
 body{
  margin:0;
  background:#020817;
@@ -29,22 +33,22 @@ button{
  cursor:pointer
 }
 
-.layout{
- width:min(100%,1000px);
+.page{
+ width:min(100%,500px);
  margin:auto;
- display:grid;
- grid-template-columns:1fr 1fr;
  min-height:100vh;
- background:#030b1a
-}
-
-.panel{
- min-width:0;
- position:relative;
- overflow:hidden;
+ background:#030b1a;
  border-left:1px solid #183c63;
  border-right:1px solid #183c63;
- background:linear-gradient(180deg,#06152b,#020918 80%)
+ overflow:hidden
+}
+
+/* =========================
+   HOME
+========================= */
+
+#home{
+ display:block
 }
 
 header{
@@ -125,7 +129,7 @@ header{
  color:#d6e8ff
 }
 
-/* LOGO DIPERBARUI */
+/* LOGO */
 
 .emblem{
  position:absolute;
@@ -233,7 +237,12 @@ header{
  font-size:11px;
  font-weight:bold;
  letter-spacing:1px;
- box-shadow:0 0 17px #00aaff65
+ box-shadow:0 0 17px #00aaff65;
+ transition:.2s
+}
+
+.primary:active{
+ transform:scale(.97)
 }
 
 /* MUSIC */
@@ -376,7 +385,34 @@ header{
  color:#63dfff
 }
 
-/* PAYMENT */
+/* =========================
+   PAYMENT
+========================= */
+
+#payment{
+ display:none
+}
+
+.payment-header{
+ height:40px;
+ border-bottom:1px solid #16426c;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding:0 18px;
+ font-size:10px;
+ letter-spacing:1.5px;
+ color:#d5edff
+}
+
+.back-btn{
+ border:0;
+ background:none;
+ color:#bdeeff;
+ padding:5px 0;
+ font-size:10px;
+ cursor:pointer
+}
 
 .payhero{
  height:183px;
@@ -680,18 +716,30 @@ header{
  letter-spacing:2px
 }
 
-@media(max-width:650px){
+/* MOBILE */
 
- .layout{
-  grid-template-columns:1fr
- }
+@media(max-width:500px){
 
- .panel{
-  border-bottom:2px solid #1b4770
+ .page{
+  width:100%;
+  border-left:0;
+  border-right:0
  }
 
  .hero{
   height:350px
+ }
+
+}
+
+@media(max-width:370px){
+
+ .methods{
+  grid-template-columns:1fr
+ }
+
+ .number{
+  font-size:14px
  }
 
 }
@@ -700,17 +748,26 @@ header{
 
 <body>
 
-<div class="layout">
+<div class="page">
 
-<!-- HOME -->
+<!-- =========================
+     HOME
+========================= -->
 
-<section class="panel">
+<section id="home">
 
 <header>
 <span>DAPPA OFFICIAL</span>
-<span class="online">ONLINE</span>
-<span class="menu">☰</span>
+
+<span class="online">
+ONLINE
+</span>
+
+<span class="menu">
+☰
+</span>
 </header>
+
 
 <div class="hero">
 
@@ -721,6 +778,7 @@ header{
  src="https://i.ibb.co/QvjKbm21/undefined.jpg"
  alt="Rin Itoshi"
 >
+
 
 <div class="japanese">
 俺は<br>
@@ -735,7 +793,7 @@ header{
 </div>
 
 
-<!-- LOGO DAPPA OFFICIAL -->
+<!-- LOGO DAPPA -->
 
 <div class="emblem">
 
@@ -753,7 +811,6 @@ Rin Itoshi
 <small>
 BLUE LOCK
 </small>
-
 </div>
 
 </div>
@@ -790,9 +847,10 @@ yang begitu dekat. Setiap saat yang ada dalam hati dan pikiranku
 hanya dirimu yang selalu kurindu.
 </p>
 
+
 <button
  class="primary"
- onclick="document.getElementById('payment').scrollIntoView({behavior:'smooth'})"
+ onclick="showPayment()"
 >
 MASUK SEKARANG　→
 </button>
@@ -833,6 +891,7 @@ Dappa Official - Now Playing
 
 <div class="progress"></div>
 
+
 <div class="time">
 
 <span>
@@ -856,6 +915,7 @@ What If I Call
 ◀
 </button>
 
+
 <button
  class="pause"
  id="playBtn"
@@ -863,6 +923,7 @@ What If I Call
 >
 ▶
 </button>
+
 
 <button>
 ▶
@@ -883,7 +944,7 @@ What If I Call
 </div>
 
 
-<!-- RIN POSE 2 -->
+<!-- BOTTOM ART -->
 
 <div class="bottomart">
 
@@ -911,7 +972,7 @@ Home
 Music
 </div>
 
-<div>
+<div onclick="showPayment()" style="cursor:pointer">
 <b>♢</b>
 Payment
 </div>
@@ -926,15 +987,20 @@ Contact
 </section>
 
 
-<!-- PAYMENT CENTER -->
+<!-- =========================
+     PAYMENT
+========================= -->
 
-<section class="panel" id="payment">
+<section id="payment">
 
-<header>
+<header class="payment-header">
 
-<span>
+<button
+ class="back-btn"
+ onclick="showHome()"
+>
 ‹　Kembali
-</span>
+</button>
 
 <span style="font-size:9px">
 DAPPA OFFICIAL　♛
@@ -945,10 +1011,13 @@ DAPPA OFFICIAL　♛
 
 <div class="payhero">
 
+<!-- RIN POSE 3 -->
+
 <img
  src="https://i.ibb.co/cXkfgDSD/undefined.jpg"
  alt="Rin Itoshi"
 >
+
 
 <div class="payheading">
 
@@ -1188,9 +1257,50 @@ silakan konfirmasi melalui WhatsApp.
 
 <script>
 
-const audio=document.getElementById('audio');
-const btn=document.getElementById('playBtn');
+const audio = document.getElementById('audio');
+const btn = document.getElementById('playBtn');
 
+const home = document.getElementById('home');
+const payment = document.getElementById('payment');
+
+
+/* =========================
+   PINDAH HOME → PAYMENT
+========================= */
+
+function showPayment(){
+
+ home.style.display = 'none';
+ payment.style.display = 'block';
+
+ window.scrollTo({
+  top:0,
+  behavior:'smooth'
+ });
+
+}
+
+
+/* =========================
+   PINDAH PAYMENT → HOME
+========================= */
+
+function showHome(){
+
+ payment.style.display = 'none';
+ home.style.display = 'block';
+
+ window.scrollTo({
+  top:0,
+  behavior:'smooth'
+ });
+
+}
+
+
+/* =========================
+   MUSIC
+========================= */
 
 function toggleMusic(){
 
@@ -1221,27 +1331,28 @@ function toggleMusic(){
 }
 
 
-audio.onended=()=>{
+audio.onended = ()=>{
 
  btn.textContent='▶';
 
 };
 
 
+/* =========================
+   COPY NOMOR
+========================= */
+
 function copyText(value){
 
- if(navigator.clipboard&&window.isSecureContext){
+ if(navigator.clipboard && window.isSecureContext){
 
   navigator.clipboard
-
   .writeText(value)
-
   .then(()=>{
 
    alert('Nomor berhasil disalin!');
 
   })
-
   .catch(()=>{
 
    fallbackCopy(value);
@@ -1259,9 +1370,9 @@ function copyText(value){
 
 function fallbackCopy(value){
 
- const t=document.createElement('textarea');
+ const t = document.createElement('textarea');
 
- t.value=value;
+ t.value = value;
 
  document.body.appendChild(t);
 
