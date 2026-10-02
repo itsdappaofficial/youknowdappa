@@ -3,911 +3,1224 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Dappa Official</title>
 
-<!-- JS PDF -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <style>
-*{box-sizing:border-box}
 
-:root{
- --bg:#020a18;
- --panel:#07152a;
- --blue:#00baff;
- --cyan:#65eaff;
- --text:#eaf7ff;
- --muted:#91abc5
+*{
+  box-sizing:border-box;
 }
 
-html{scroll-behavior:smooth}
+:root{
+  --bg:#020a18;
+  --panel:#07152a;
+  --blue:#00baff;
+  --cyan:#65eaff;
+  --text:#eaf7ff;
+  --muted:#91abc5;
+}
+
+html{
+  scroll-behavior:smooth;
+}
 
 body{
- margin:0;
- background:#020817;
- color:var(--text);
- font-family:Arial,sans-serif
+  margin:0;
+  background:#020817;
+  color:var(--text);
+  font-family:Arial,sans-serif;
 }
 
 button{
- font-family:inherit;
- cursor:pointer
+  font-family:inherit;
+  cursor:pointer;
 }
 
 .page{
- width:min(100%,500px);
- margin:auto;
- min-height:100vh;
- background:#030b1a;
- border-left:1px solid #183c63;
- border-right:1px solid #183c63;
- overflow:hidden
-}
-
-#home{display:block}
-
-header{
- height:40px;
- border-bottom:1px solid #16426c;
- display:flex;
- align-items:center;
- justify-content:space-between;
- padding:0 18px;
- font-size:11px;
- letter-spacing:2px;
- color:#d5edff
-}
-
-.online{
- font-size:9px;
- letter-spacing:1px;
- border:1px solid #1a5276;
- border-radius:20px;
- padding:5px 10px;
- color:#b8efff
-}
-
-.online:before{
- content:"";
- display:inline-block;
- width:6px;
- height:6px;
- border-radius:50%;
- background:#00e9d0;
- margin-right:6px
-}
-
-.menu-contact{
- position:relative;
- display:flex;
- align-items:center
-}
-
-.menu{
- width:36px;
- height:30px;
- border:0;
- background:transparent;
- color:#6edfff;
- font-size:19px;
- padding:0;
- display:flex;
- align-items:center;
- justify-content:center
-}
-
-.contact-menu{
- position:absolute;
- top:36px;
- right:0;
- width:205px;
- padding:7px;
- border:1px solid #23618d;
- border-radius:13px;
- background:rgba(5,17,35,.98);
- box-shadow:0 10px 30px rgba(0,0,0,.45);
- display:none;
- z-index:999
-}
-
-.contact-menu.show{display:block}
-
-.contact-menu a{
- display:flex;
- align-items:center;
- gap:10px;
- padding:11px 12px;
- border-radius:9px;
- color:#eaf7ff;
- text-decoration:none;
- font-size:11px;
- letter-spacing:.3px;
- transition:.2s
-}
-
-.contact-menu a:hover{
- background:#0b2947;
- color:#65eaff
-}
-
-.contact-menu a:active{
- transform:scale(.98)
-}
-
-.hero{
- height:370px;
- position:relative;
- overflow:hidden;
- background:radial-gradient(
-  ellipse at 60% 70%,
-  #075b9b,
-  #082345 42%,
-  #030c1c 78%
- )
-}
-
-.hero:after{
- content:"";
- position:absolute;
- inset:0;
- background:linear-gradient(
-  0deg,
-  #06162d,
-  transparent 65%
- );
- pointer-events:none
-}
-
-.heroimg{
- position:absolute;
- width:100%;
- height:100%;
- object-fit:cover;
- object-position:center;
- opacity:.82;
- mix-blend-mode:screen
-}
-
-.japanese{
- position:absolute;
- z-index:2;
- top:42px;
- left:28px;
- font-size:12px;
- line-height:1.5;
- color:#d6e8ff
-}
-
-.emblem{
- position:absolute;
- z-index:4;
- left:50%;
- top:49%;
- transform:translate(-50%,-50%);
- width:132px;
- height:132px;
- border-radius:50%;
- border:2px solid #00caff;
- box-shadow:
-  0 0 0 8px #00aaff18,
-  0 0 28px #00bfff;
- background:#06142d;
- overflow:hidden
-}
-
-.emblem img{
- width:100%;
- height:100%;
- object-fit:cover;
- display:block
-}
-
-.rinsign{
- position:absolute;
- right:22px;
- bottom:40px;
- z-index:3;
- color:#a9dcff;
- font-family:cursive;
- font-size:22px;
- font-style:italic
-}
-
-.rinsign small{
- display:block;
- text-align:right;
- font:8px Arial;
- letter-spacing:2px
-}
-
-.welcome{
- text-align:center;
- position:relative;
- margin-top:-9px;
- z-index:5;
- padding:0 14px
-}
-
-.kicker{
- font-size:12px;
- letter-spacing:4px;
- color:#9eeaff
-}
-
-.welcome h1{
- font:36px Georgia,serif;
- letter-spacing:1px;
- margin:5px 0 7px;
- text-shadow:0 0 15px #168cff55
-}
-
-.welcome p{
- font-size:12px;
- color:#a7c2dd;
- margin:0
-}
-
-.card{
- border:1px solid #23618d;
- border-radius:13px;
- background:linear-gradient(
-  140deg,
-  #0a1e38,
-  #061326
- );
- box-shadow:0 0 15px #008cff12;
- position:relative
-}
-
-.greeting{
- margin:20px 18px 16px;
- padding:17px 15px;
- text-align:center
-}
-
-.greeting h3{
- font-size:13px;
- margin:0 0 7px
-}
-
-.greeting p{
- font-size:11px;
- line-height:1.6;
- color:#c0d3e5;
- margin:0 auto 12px;
- max-width:300px
-}
-
-.primary{
- width:85%;
- border:1px solid #80eaff;
- border-radius:30px;
- padding:11px;
- background:linear-gradient(
-  90deg,
-  #087bff,
-  #8beaff
- );
- color:#00172b;
- font-size:11px;
- font-weight:bold;
- letter-spacing:1px;
- box-shadow:0 0 17px #00aaff65;
- transition:.2s
-}
-
-.primary:active{
- transform:scale(.97)
-}
-
-.music{
- margin:0 18px 12px;
- padding:12px;
- border-radius:13px;
- border:1px solid #235b85;
- background:linear-gradient(
-  130deg,
-  #091e38,
-  #061225
- )
-}
-
-.track{
- display:flex;
- align-items:center;
- gap:12px
-}
-
-.cover{
- width:58px;
- height:58px;
- object-fit:cover;
- border:1px solid #47caff;
- border-radius:7px
-}
-
-.trackinfo{
- flex:1;
- min-width:0
-}
-
-.trackinfo b{
- font-size:13px
-}
-
-.trackinfo small{
- display:block;
- color:#9bb8d2;
- font-size:10px;
- margin-top:5px
-}
-
-.progress{
- height:3px;
- background:#27425d;
- margin:13px 5px 10px;
- position:relative;
- border-radius:5px
-}
-
-.progress:before{
- content:"";
- width:48%;
- height:100%;
- display:block;
- background:#00caff
-}
-
-.time{
- display:flex;
- justify-content:space-between;
- color:#9bb7d0;
- font-size:9px
-}
-
-.controls{
- display:flex;
- justify-content:space-between;
- align-items:center;
- margin-top:10px;
- color:#9bdcff
-}
-
-.controls button{
- border:0;
- background:none;
- color:#b6eaff;
- font-size:17px
-}
-
-.controls .pause{
- width:39px;
- height:39px;
- border-radius:50%;
- background:linear-gradient(
-  135deg,
-  #00aaff,
-  #65eaff
- );
- color:#00213b
-}
-
-.bottomart{
- height:160px;
- position:relative;
- overflow:hidden;
- background:linear-gradient(
-  0deg,
-  #06142a,
-  #09294b
- )
-}
-
-.bottomart img{
- width:100%;
- height:100%;
- object-fit:cover;
- object-position:center 25%;
- opacity:.75;
- mix-blend-mode:screen
-}
-
-.bottomart .signature{
- position:absolute;
- left:25px;
- bottom:27px;
- color:#d3edff;
- font:italic 23px cursive
-}
-
-.nav{
- display:flex;
- justify-content:space-around;
- padding:12px 4px 15px;
- border-top:1px solid #1b4c74;
- background:#06152b;
- color:#91b5d5;
- font-size:10px;
- text-align:center
-}
-
-.nav div{
- display:grid;
- gap:5px;
- justify-items:center
-}
-
-.nav b{
- font-size:17px;
- font-weight:normal
-}
-
-.nav div:first-child{
- color:#63dfff
-}
-
-#payment{
- display:none
-}
-
-.payment-header{
- height:40px;
- border-bottom:1px solid #16426c;
- display:flex;
- align-items:center;
- justify-content:space-between;
- padding:0 18px;
- font-size:10px;
- letter-spacing:1.5px;
- color:#d5edff
-}
-
-.back-btn{
- border:0;
- background:none;
- color:#bdeeff;
- padding:5px 0;
- font-size:10px;
- cursor:pointer
-}
-
-.payhero{
- height:183px;
- position:relative;
- overflow:hidden;
- border-bottom:1px solid #155078;
- background:linear-gradient(
-  90deg,
-  #071b36,
-  #07558a
- )
-}
-
-.payhero img{
- position:absolute;
- width:100%;
- height:100%;
- object-fit:cover;
- object-position:center 31%;
- opacity:.65;
- mix-blend-mode:screen
-}
-
-.payheading{
- position:absolute;
- z-index:2;
- left:20px;
- bottom:25px;
- text-shadow:0 2px 12px #00152b
-}
-
-.payheading small{
- font-size:10px;
- letter-spacing:2px
-}
-
-.payheading h2{
- font:29px Georgia;
- margin:7px 0 4px
-}
-
-.payheading p{
- font-size:10px;
- color:#c1d9ed;
- margin:0
-}
-
-.paybody{
- padding:13px 17px
-}
-
-.sectiontitle{
- display:flex;
- align-items:center;
- gap:10px;
- color:#75dfff;
- font-size:12px;
- letter-spacing:2px;
- margin:0 0 13px
-}
-
-.sectiontitle:before{
- content:"✦";
- font-size:16px
-}
-
-.methods{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:11px
-}
-
-.method{
- border:1px solid #167bb2;
- border-radius:13px;
- padding:13px;
- background:linear-gradient(
-  145deg,
-  #0b2542,
-  #061326
- );
- min-width:0
-}
-
-.method.shopee{
- border-color:#a9574e
-}
-
-.methodhead{
- display:flex;
- align-items:center;
- gap:10px;
- margin-bottom:12px
-}
-
-.methodicon{
- width:34px;
- height:34px;
- border-radius:50%;
- background:#079ce9;
- display:grid;
- place-items:center;
- font-weight:bold;
- font-size:15px
-}
-
-.shopee .methodicon{
- background:#e94e36
-}
-
-.methodhead b{
- font-size:12px
-}
-
-.methodhead small{
- display:block;
- color:#9eb6cc;
- font-size:9px;
- margin-top:3px
-}
-
-.number{
- font-size:15px;
- font-weight:bold;
- letter-spacing:.5px;
- white-space:nowrap
-}
-
-.copy{
- width:100%;
- margin-top:10px;
- padding:8px 4px;
- border:1px solid #278dc0;
- border-radius:20px;
- color:#d4f4ff;
- background:linear-gradient(
-  90deg,
-  #075ca4,
-  #123d67
- );
- font-size:9px
-}
-
-.bank{
- display:flex;
- align-items:center;
- gap:12px;
- padding:14px;
- margin-bottom:16px
-}
-
-.sealogo{
- width:43px;
- height:43px;
- border-radius:50%;
- background:#d7fff5;
- color:#087c85;
- display:grid;
- place-items:center;
- font-size:17px;
- font-weight:bold
-}
-
-.bankinfo{
- flex:1
-}
-
-.bankinfo b{
- font-size:12px
-}
-
-.bankinfo small{
- display:block;
- color:#a5bed5;
- font-size:10px;
- margin:5px 0
-}
-
-.bankinfo p{
- font-size:10px;
- color:#b8d5e9;
- line-height:1.5;
- margin:0
-}
-
-.qrisbox{
- padding:16px 13px;
- border-radius:14px;
- text-align:center;
- overflow:hidden
-}
-
-.qristag{
- display:inline-block;
- font-size:8px;
- letter-spacing:2px;
- background:#112e4c;
- border:1px solid #1b5b87;
- border-radius:4px;
- padding:4px 10px;
- color:#9deaff
-}
-
-.qrisbox h3{
- font:24px Georgia;
- margin:9px 0 12px
-}
-
-.qrisimg{
- width:min(230px,100%);
- height:auto;
- max-height:290px;
- object-fit:contain;
- background:white;
- border:5px solid white;
- border-radius:9px;
- display:block;
- margin:auto;
- box-shadow:0 0 16px #00aaff55
-}
-
-.warning{
- display:inline-block;
- background:#45351a;
- color:#ffdf70;
- border:1px solid #977326;
- border-radius:6px;
- padding:7px 14px;
- font-size:11px;
- font-weight:bold;
- margin-top:12px
-}
-
-.qrisbox p{
- font-size:11px;
- color:#c0d4e6;
- line-height:1.6;
- margin:11px 0
-}
-
-.download-qris{
- display:block;
- margin:13px auto 0;
- width:90%;
- padding:13px;
- border:1px solid #65eaff;
- border-radius:25px;
- background:linear-gradient(
-  90deg,
-  #087bff,
-  #65eaff
- );
- color:#00172b;
- text-decoration:none;
- font-size:11px;
- font-weight:bold;
- letter-spacing:1px;
- text-align:center;
- box-shadow:0 0 15px #00aaff55
-}
-
-.download-qris:active{
- transform:scale(.97)
-}
-
-.completed{
- margin-top:13px;
- padding:12px;
- display:flex;
- gap:10px;
- align-items:center
-}
-
-.completed img{
- width:65px;
- height:65px;
- object-fit:cover;
- border-radius:7px
-}
-
-.completed b{
- font-size:12px;
- color:#73eaff
-}
-
-.completed p{
- font-size:10px;
- color:#bfd1e2;
- line-height:1.5;
- margin:5px 0
-}
-
-.wa{
- display:block;
- text-decoration:none;
- text-align:center;
- background:linear-gradient(
-  90deg,
-  #00c88a,
-  #73f0c5
- );
- color:#003426;
- border-radius:25px;
- padding:10px 5px;
- font-size:10px;
- font-weight:bold;
- letter-spacing:.4px
+  width:min(100%,500px);
+  margin:auto;
+  min-height:100vh;
+  background:#030b1a;
+  border-left:1px solid #183c63;
+  border-right:1px solid #183c63;
+  overflow:hidden;
 }
 
 
 /* =========================
-   TEXT TO PDF
+   HEADER
+========================= */
+
+header{
+  height:40px;
+  border-bottom:1px solid #16426c;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 18px;
+  font-size:11px;
+  letter-spacing:2px;
+  color:#d5edff;
+}
+
+.online{
+  font-size:9px;
+  letter-spacing:1px;
+  border:1px solid #1a5276;
+  border-radius:20px;
+  padding:5px 10px;
+  color:#b8efff;
+}
+
+.online:before{
+  content:"";
+  display:inline-block;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#00e9d0;
+  margin-right:6px;
+}
+
+
+/* =========================
+   MENU
+========================= */
+
+.menu-contact{
+  position:relative;
+  display:flex;
+  align-items:center;
+}
+
+.menu{
+  width:36px;
+  height:30px;
+  border:0;
+  background:transparent;
+  color:#6edfff;
+  font-size:19px;
+  padding:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.contact-menu{
+  position:absolute;
+  top:36px;
+  right:0;
+  width:205px;
+  padding:7px;
+  border:1px solid #23618d;
+  border-radius:13px;
+  background:rgba(5,17,35,.98);
+  box-shadow:0 10px 30px rgba(0,0,0,.45);
+  display:none;
+  z-index:999;
+}
+
+.contact-menu.show{
+  display:block;
+}
+
+.contact-menu a{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:11px 12px;
+  border-radius:9px;
+  color:#eaf7ff;
+  text-decoration:none;
+  font-size:11px;
+  transition:.2s;
+}
+
+.contact-menu a:hover{
+  background:#0b2947;
+  color:#65eaff;
+}
+
+
+/* =========================
+   HERO VIDEO
+========================= */
+
+.hero{
+  height:420px;
+  position:relative;
+  overflow:hidden;
+  background:#020817;
+  margin:0;
+}
+
+.hero-video{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  z-index:1;
+  display:block;
+}
+
+.video-overlay{
+  position:absolute;
+  inset:0;
+  z-index:2;
+  pointer-events:none;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(2,8,23,.30) 0%,
+      rgba(2,8,23,.02) 40%,
+      rgba(2,8,23,.30) 72%,
+      #030b1a 100%
+    );
+}
+
+
+/* =========================
+   LOGO KIRI KANAN
+========================= */
+
+.corner-logo{
+  position:absolute;
+  z-index:5;
+
+  width:38px;
+  height:38px;
+
+  object-fit:cover;
+  border-radius:50%;
+
+  border:1px solid rgba(101,234,255,.85);
+
+  background:#06142d;
+
+  box-shadow:
+    0 0 5px rgba(101,234,255,.9),
+    0 0 12px rgba(0,191,255,.65),
+    0 0 22px rgba(0,191,255,.28);
+
+  opacity:.95;
+
+  transition:.25s ease;
+}
+
+.corner-logo:hover{
+  transform:scale(1.08);
+
+  box-shadow:
+    0 0 7px #65eaff,
+    0 0 16px #00bfff,
+    0 0 28px rgba(0,191,255,.4);
+}
+
+.logo-left{
+  top:13px;
+  left:13px;
+}
+
+.logo-right{
+  top:13px;
+  right:13px;
+}
+
+
+/* =========================
+   TOMBOL SUARA
+========================= */
+
+.video-sound{
+  position:absolute;
+  z-index:10;
+
+  right:14px;
+  bottom:18px;
+
+  width:38px;
+  height:38px;
+
+  border-radius:50%;
+
+  border:1px solid rgba(101,234,255,.85);
+
+  background:rgba(3,16,34,.72);
+
+  backdrop-filter:blur(7px);
+  -webkit-backdrop-filter:blur(7px);
+
+  color:#8feaff;
+
+  font-size:17px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  box-shadow:
+    0 0 7px rgba(0,191,255,.75),
+    0 0 18px rgba(0,191,255,.3);
+
+  transition:.2s ease;
+}
+
+.video-sound:hover{
+  transform:scale(1.08);
+}
+
+.video-sound:active{
+  transform:scale(.92);
+}
+
+
+/* =========================
+   TEXT VIDEO
+========================= */
+
+.japanese{
+  position:absolute;
+  z-index:4;
+
+  top:78px;
+  left:25px;
+
+  font-size:12px;
+  line-height:1.5;
+
+  color:#d6e8ff;
+
+  text-shadow:
+    0 2px 8px rgba(0,0,0,.8);
+}
+
+.rinsign{
+  position:absolute;
+
+  right:20px;
+  bottom:45px;
+
+  z-index:4;
+
+  color:#a9dcff;
+
+  font-family:cursive;
+  font-size:21px;
+  font-style:italic;
+
+  text-shadow:
+    0 0 8px rgba(0,191,255,.55);
+}
+
+.rinsign small{
+  display:block;
+  text-align:right;
+  font:8px Arial;
+  letter-spacing:2px;
+}
+
+
+/* =========================
+   WELCOME
+========================= */
+
+.welcome{
+  text-align:center;
+  position:relative;
+  margin-top:-9px;
+  z-index:5;
+  padding:0 14px;
+}
+
+.kicker{
+  font-size:12px;
+  letter-spacing:4px;
+  color:#9eeaff;
+}
+
+.welcome h1{
+  font:36px Georgia,serif;
+  letter-spacing:1px;
+  margin:5px 0 7px;
+  text-shadow:0 0 15px #168cff55;
+}
+
+.welcome p{
+  font-size:12px;
+  color:#a7c2dd;
+  margin:0;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.card{
+  border:1px solid #23618d;
+  border-radius:13px;
+
+  background:
+    linear-gradient(
+      140deg,
+      #0a1e38,
+      #061326
+    );
+
+  box-shadow:0 0 15px #008cff12;
+
+  position:relative;
+}
+
+
+/* =========================
+   GREETING
+========================= */
+
+.greeting{
+  margin:20px 18px 16px;
+  padding:17px 15px;
+  text-align:center;
+}
+
+.greeting h3{
+  font-size:13px;
+  margin:0 0 7px;
+}
+
+.greeting p{
+  font-size:11px;
+  line-height:1.6;
+  color:#c0d3e5;
+  margin:0 auto 12px;
+  max-width:300px;
+}
+
+.primary{
+  width:85%;
+
+  border:1px solid #80eaff;
+  border-radius:30px;
+
+  padding:11px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #087bff,
+      #8beaff
+    );
+
+  color:#00172b;
+
+  font-size:11px;
+  font-weight:bold;
+  letter-spacing:1px;
+
+  box-shadow:0 0 17px #00aaff65;
+
+  transition:.2s;
+}
+
+.primary:active{
+  transform:scale(.97);
+}
+
+
+/* =========================
+   MUSIC
+========================= */
+
+.music{
+  margin:0 18px 12px;
+
+  padding:12px;
+
+  border-radius:13px;
+
+  border:1px solid #235b85;
+
+  background:
+    linear-gradient(
+      130deg,
+      #091e38,
+      #061225
+    );
+}
+
+.track{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.cover{
+  width:58px;
+  height:58px;
+
+  object-fit:cover;
+
+  border:1px solid #47caff;
+  border-radius:7px;
+}
+
+.trackinfo{
+  flex:1;
+  min-width:0;
+}
+
+.trackinfo b{
+  font-size:13px;
+}
+
+.trackinfo small{
+  display:block;
+  color:#9bb8d2;
+  font-size:10px;
+  margin-top:5px;
+}
+
+.progress{
+  height:3px;
+  background:#27425d;
+  margin:13px 5px 10px;
+  position:relative;
+  border-radius:5px;
+}
+
+.progress:before{
+  content:"";
+  width:48%;
+  height:100%;
+  display:block;
+  background:#00caff;
+}
+
+.time{
+  display:flex;
+  justify-content:space-between;
+  color:#9bb7d0;
+  font-size:9px;
+}
+
+.controls{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:10px;
+  color:#9bdcff;
+}
+
+.controls button{
+  border:0;
+  background:none;
+  color:#b6eaff;
+  font-size:17px;
+}
+
+.controls .pause{
+  width:39px;
+  height:39px;
+  border-radius:50%;
+
+  background:
+    linear-gradient(
+      135deg,
+      #00aaff,
+      #65eaff
+    );
+
+  color:#00213b;
+}
+
+
+/* =========================
+   BOTTOM ART
+========================= */
+
+.bottomart{
+  height:160px;
+  position:relative;
+  overflow:hidden;
+
+  background:
+    linear-gradient(
+      0deg,
+      #06142a,
+      #09294b
+    );
+}
+
+.bottomart img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center 25%;
+  opacity:.75;
+  mix-blend-mode:screen;
+}
+
+.bottomart .signature{
+  position:absolute;
+  left:25px;
+  bottom:27px;
+  color:#d3edff;
+  font:italic 23px cursive;
+}
+
+
+/* =========================
+   NAV
+========================= */
+
+.nav{
+  display:flex;
+  justify-content:space-around;
+
+  padding:12px 4px 15px;
+
+  border-top:1px solid #1b4c74;
+
+  background:#06152b;
+
+  color:#91b5d5;
+
+  font-size:10px;
+  text-align:center;
+}
+
+.nav div{
+  display:grid;
+  gap:5px;
+  justify-items:center;
+}
+
+.nav b{
+  font-size:17px;
+  font-weight:normal;
+}
+
+.nav div:first-child{
+  color:#63dfff;
+}
+
+
+/* =========================
+   PAYMENT
+========================= */
+
+#payment{
+  display:none;
+}
+
+.payment-header{
+  height:40px;
+
+  border-bottom:1px solid #16426c;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:0 18px;
+
+  font-size:10px;
+  letter-spacing:1.5px;
+  color:#d5edff;
+}
+
+.back-btn{
+  border:0;
+  background:none;
+  color:#bdeeff;
+  padding:5px 0;
+  font-size:10px;
+}
+
+
+/* =========================
+   PAYMENT HERO
+========================= */
+
+.payhero{
+  height:183px;
+  position:relative;
+  overflow:hidden;
+
+  border-bottom:1px solid #155078;
+
+  background:
+    linear-gradient(
+      90deg,
+      #071b36,
+      #07558a
+    );
+}
+
+.payhero img{
+  position:absolute;
+
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+  object-position:center 31%;
+
+  opacity:.65;
+  mix-blend-mode:screen;
+}
+
+.payheading{
+  position:absolute;
+  z-index:2;
+
+  left:20px;
+  bottom:25px;
+
+  text-shadow:0 2px 12px #00152b;
+}
+
+.payheading small{
+  font-size:10px;
+  letter-spacing:2px;
+}
+
+.payheading h2{
+  font:29px Georgia;
+  margin:7px 0 4px;
+}
+
+.payheading p{
+  font-size:10px;
+  color:#c1d9ed;
+  margin:0;
+}
+
+.paybody{
+  padding:13px 17px;
+}
+
+
+/* =========================
+   SECTION TITLE
+========================= */
+
+.sectiontitle{
+  display:flex;
+  align-items:center;
+  gap:10px;
+
+  color:#75dfff;
+
+  font-size:12px;
+  letter-spacing:2px;
+
+  margin:0 0 13px;
+}
+
+.sectiontitle:before{
+  content:"✦";
+  font-size:16px;
+}
+
+
+/* =========================
+   METHODS
+========================= */
+
+.methods{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:11px;
+}
+
+.method{
+  border:1px solid #167bb2;
+  border-radius:13px;
+  padding:13px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #0b2542,
+      #061326
+    );
+
+  min-width:0;
+}
+
+.method.shopee{
+  border-color:#a9574e;
+}
+
+.methodhead{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:12px;
+}
+
+.methodicon{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+
+  background:#079ce9;
+
+  display:grid;
+  place-items:center;
+
+  font-weight:bold;
+  font-size:15px;
+}
+
+.shopee .methodicon{
+  background:#e94e36;
+}
+
+.methodhead b{
+  font-size:12px;
+}
+
+.methodhead small{
+  display:block;
+  color:#9eb6cc;
+  font-size:9px;
+  margin-top:3px;
+}
+
+.number{
+  font-size:15px;
+  font-weight:bold;
+  letter-spacing:.5px;
+  white-space:nowrap;
+}
+
+.copy{
+  width:100%;
+  margin-top:10px;
+  padding:8px 4px;
+
+  border:1px solid #278dc0;
+  border-radius:20px;
+
+  color:#d4f4ff;
+
+  background:
+    linear-gradient(
+      90deg,
+      #075ca4,
+      #123d67
+    );
+
+  font-size:9px;
+}
+
+
+/* =========================
+   BANK
+========================= */
+
+.bank{
+  display:flex;
+  align-items:center;
+  gap:12px;
+
+  padding:14px;
+  margin-bottom:16px;
+}
+
+.sealogo{
+  width:43px;
+  height:43px;
+
+  border-radius:50%;
+
+  background:#d7fff5;
+  color:#087c85;
+
+  display:grid;
+  place-items:center;
+
+  font-size:17px;
+  font-weight:bold;
+}
+
+.bankinfo{
+  flex:1;
+}
+
+.bankinfo b{
+  font-size:12px;
+}
+
+.bankinfo small{
+  display:block;
+  color:#a5bed5;
+  font-size:10px;
+  margin:5px 0;
+}
+
+.bankinfo p{
+  font-size:10px;
+  color:#b8d5e9;
+  line-height:1.5;
+  margin:0;
+}
+
+
+/* =========================
+   QRIS
+========================= */
+
+.qrisbox{
+  padding:16px 13px;
+  border-radius:14px;
+  text-align:center;
+  overflow:hidden;
+}
+
+.qristag{
+  display:inline-block;
+
+  font-size:8px;
+  letter-spacing:2px;
+
+  background:#112e4c;
+
+  border:1px solid #1b5b87;
+  border-radius:4px;
+
+  padding:4px 10px;
+
+  color:#9deaff;
+}
+
+.qrisbox h3{
+  font:24px Georgia;
+  margin:9px 0 12px;
+}
+
+.qrisimg{
+  width:min(230px,100%);
+  height:auto;
+  max-height:290px;
+
+  object-fit:contain;
+
+  background:white;
+
+  border:5px solid white;
+  border-radius:9px;
+
+  display:block;
+  margin:auto;
+
+  box-shadow:0 0 16px #00aaff55;
+}
+
+.warning{
+  display:inline-block;
+
+  background:#45351a;
+  color:#ffdf70;
+
+  border:1px solid #977326;
+
+  border-radius:6px;
+
+  padding:7px 14px;
+
+  font-size:11px;
+  font-weight:bold;
+
+  margin-top:12px;
+}
+
+.qrisbox p{
+  font-size:11px;
+  color:#c0d4e6;
+  line-height:1.6;
+  margin:11px 0;
+}
+
+.download-qris{
+  display:block;
+
+  margin:13px auto 0;
+
+  width:90%;
+
+  padding:13px;
+
+  border:1px solid #65eaff;
+  border-radius:25px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #087bff,
+      #65eaff
+    );
+
+  color:#00172b;
+
+  text-decoration:none;
+
+  font-size:11px;
+  font-weight:bold;
+  letter-spacing:1px;
+
+  text-align:center;
+
+  box-shadow:0 0 15px #00aaff55;
+}
+
+
+/* =========================
+   COMPLETED
+========================= */
+
+.completed{
+  margin-top:13px;
+  padding:12px;
+
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.completed img{
+  width:65px;
+  height:65px;
+
+  object-fit:cover;
+  border-radius:7px;
+}
+
+.completed b{
+  font-size:12px;
+  color:#73eaff;
+}
+
+.completed p{
+  font-size:10px;
+  color:#bfd1e2;
+  line-height:1.5;
+  margin:5px 0;
+}
+
+.wa{
+  display:block;
+
+  text-decoration:none;
+  text-align:center;
+
+  background:
+    linear-gradient(
+      90deg,
+      #00c88a,
+      #73f0c5
+    );
+
+  color:#003426;
+
+  border-radius:25px;
+
+  padding:10px 5px;
+
+  font-size:10px;
+  font-weight:bold;
+}
+
+
+/* =========================
+   PDF
 ========================= */
 
 .pdfbox{
- margin-top:13px;
- padding:16px 13px
+  margin-top:13px;
+  padding:16px 13px;
 }
 
 .pdfbox h3{
- color:#75dfff;
- font-size:12px;
- letter-spacing:2px;
- margin:0 0 8px
+  color:#75dfff;
+  font-size:12px;
+  letter-spacing:2px;
+  margin:0 0 8px;
 }
 
 .pdfbox p{
- font-size:10px;
- color:#a9c1d6;
- line-height:1.5;
- margin:0 0 12px
+  font-size:10px;
+  color:#a9c1d6;
+  line-height:1.5;
+  margin:0 0 12px;
 }
 
 .pdf-title,
 .pdf-content{
- width:100%;
- border:1px solid #23618d;
- border-radius:10px;
- background:#041225;
- color:#eaf7ff;
- outline:none;
- font-family:Arial,sans-serif
+  width:100%;
+
+  border:1px solid #23618d;
+  border-radius:10px;
+
+  background:#041225;
+  color:#eaf7ff;
+
+  outline:none;
+
+  font-family:Arial,sans-serif;
 }
 
 .pdf-title{
- padding:11px;
- font-size:11px;
- margin-bottom:9px
+  padding:11px;
+  font-size:11px;
+  margin-bottom:9px;
 }
 
 .pdf-content{
- min-height:150px;
- resize:vertical;
- padding:11px;
- font-size:11px;
- line-height:1.6
+  min-height:150px;
+  resize:vertical;
+
+  padding:11px;
+
+  font-size:11px;
+  line-height:1.6;
 }
 
 .pdf-title::placeholder,
 .pdf-content::placeholder{
- color:#65809a
+  color:#65809a;
 }
 
 .pdf-title:focus,
 .pdf-content:focus{
- border-color:#65eaff;
- box-shadow:0 0 10px #00aaff22
+  border-color:#65eaff;
+  box-shadow:0 0 10px #00aaff22;
 }
 
 .pdfbutton{
- width:100%;
- margin-top:10px;
- padding:12px;
- border:1px solid #65eaff;
- border-radius:25px;
- background:linear-gradient(
-  90deg,
-  #087bff,
-  #65eaff
- );
- color:#00172b;
- font-size:10px;
- font-weight:bold;
- letter-spacing:1px;
- box-shadow:0 0 15px #00aaff45;
- transition:.2s
-}
+  width:100%;
 
-.pdfbutton:active{
- transform:scale(.97)
+  margin-top:10px;
+
+  padding:12px;
+
+  border:1px solid #65eaff;
+  border-radius:25px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #087bff,
+      #65eaff
+    );
+
+  color:#00172b;
+
+  font-size:10px;
+  font-weight:bold;
+  letter-spacing:1px;
+
+  box-shadow:0 0 15px #00aaff45;
 }
 
 .pdfbutton:disabled{
- opacity:.6;
- cursor:not-allowed
+  opacity:.6;
 }
 
+
+/* =========================
+   FOOTER
+========================= */
+
 .foot{
- text-align:center;
- padding:15px 5px 10px;
- color:#7997b5;
- font-size:8px;
- letter-spacing:2px
+  text-align:center;
+  padding:15px 5px 10px;
+
+  color:#7997b5;
+
+  font-size:8px;
+  letter-spacing:2px;
 }
+
+
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:500px){
 
- .page{
-  width:100%;
-  border-left:0;
-  border-right:0
- }
+  .page{
+    width:100%;
+    border-left:0;
+    border-right:0;
+  }
 
- .hero{
-  height:350px
- }
+  .hero{
+    height:420px;
+  }
+
+  .corner-logo{
+    width:36px;
+    height:36px;
+  }
+
+  .logo-left{
+    top:12px;
+    left:12px;
+  }
+
+  .logo-right{
+    top:12px;
+    right:12px;
+  }
+
+  .video-sound{
+    width:36px;
+    height:36px;
+
+    right:12px;
+    bottom:16px;
+
+    font-size:16px;
+  }
 
 }
 
 @media(max-width:370px){
 
- .methods{
-  grid-template-columns:1fr
- }
+  .methods{
+    grid-template-columns:1fr;
+  }
 
- .number{
-  font-size:14px
- }
+  .number{
+    font-size:14px;
+  }
 
 }
+
 </style>
 </head>
+
 
 <body>
 
 <div class="page">
 
+
+<!-- ==================================================
+     HOME
+================================================== -->
+
 <section id="home">
+
 
 <header>
 
@@ -917,41 +1230,39 @@ header{
 ONLINE
 </span>
 
+
 <div class="menu-contact">
 
 <button
- class="menu"
- onclick="toggleContactMenu()"
- aria-label="Menu Kontak"
+  class="menu"
+  onclick="toggleContactMenu()"
 >
 ☰
 </button>
 
+
 <div
- class="contact-menu"
- id="contactMenu"
+  class="contact-menu"
+  id="contactMenu"
 >
 
 <a
- href="https://wa.me/6281903976932"
- target="_blank"
- rel="noopener noreferrer"
+  href="https://wa.me/6281903976932"
+  target="_blank"
 >
 💬　WhatsApp
 </a>
 
 <a
- href="https://t.me/kieldppa"
- target="_blank"
- rel="noopener noreferrer"
+  href="https://t.me/kieldppa"
+  target="_blank"
 >
 ✈️　Telegram
 </a>
 
 <a
- href="https://dappaofficial-restapi.my.id"
- target="_blank"
- rel="noopener noreferrer"
+  href="https://dappaofficial-restapi.my.id"
+  target="_blank"
 >
 🌐　Web API Key
 </a>
@@ -963,13 +1274,49 @@ ONLINE
 </header>
 
 
+<!-- ==================================================
+     VIDEO
+================================================== -->
+
 <div class="hero">
 
-<img
- class="heroimg"
- src="https://i.ibb.co/QvjKbm21/undefined.jpg"
- alt="Rin Itoshi"
+
+<video
+  id="heroVideo"
+  class="hero-video"
+  autoplay
+  muted
+  loop
+  playsinline
+  preload="auto"
 >
+
+<source
+  src="https://videotourl.com/videos/1790953749312-82f4b9d7-8765-42bc-bbd9-480ce46ce7d2.mp4"
+  type="video/mp4"
+>
+
+Browser kamu tidak mendukung video.
+
+</video>
+
+
+<div class="video-overlay"></div>
+
+
+<img
+  class="corner-logo logo-left"
+  src="https://i.ibb.co/G3fsXsNj/undefined.jpg"
+  alt="Dappa Official Logo"
+>
+
+
+<img
+  class="corner-logo logo-right"
+  src="https://i.ibb.co/G3fsXsNj/undefined.jpg"
+  alt="Dappa Official Logo"
+>
+
 
 <div class="japanese">
 
@@ -986,16 +1333,6 @@ ONLINE
 </div>
 
 
-<div class="emblem">
-
-<img
- src="https://i.ibb.co/G3fsXsNj/undefined.jpg"
- alt="Dappa Official Logo"
->
-
-</div>
-
-
 <div class="rinsign">
 
 Rin Itoshi
@@ -1006,8 +1343,26 @@ BLUE LOCK
 
 </div>
 
+
+<!-- TOMBOL SUARA -->
+
+<button
+  type="button"
+  class="video-sound"
+  id="videoSound"
+  onclick="toggleVideoSound()"
+  aria-label="Aktifkan suara video"
+>
+🔇
+</button>
+
+
 </div>
 
+
+<!-- ==================================================
+     WELCOME
+================================================== -->
 
 <div class="welcome">
 
@@ -1026,6 +1381,10 @@ Where Every Transaction Feels Special ♡
 </div>
 
 
+<!-- ==================================================
+     GREETING
+================================================== -->
+
 <div class="card greeting">
 
 <h3>
@@ -1039,8 +1398,8 @@ hanya dirimu yang selalu kurindu.
 </p>
 
 <button
- class="primary"
- onclick="showPayment()"
+  class="primary"
+  onclick="showPayment()"
 >
 MASUK SEKARANG　→
 </button>
@@ -1048,16 +1407,18 @@ MASUK SEKARANG　→
 </div>
 
 
-<!-- MUSIC -->
+<!-- ==================================================
+     MUSIC
+================================================== -->
 
 <div class="music">
 
 <div class="track">
 
 <img
- class="cover"
- src="https://i.ibb.co/XZQ5btXW/undefined.jpg"
- alt="Rin Itoshi"
+  class="cover"
+  src="https://i.ibb.co/XZQ5btXW/undefined.jpg"
+  alt="Rin Itoshi"
 >
 
 <div class="trackinfo">
@@ -1106,16 +1467,15 @@ What If I Call
 </button>
 
 <button
- class="pause"
- id="playBtn"
- onclick="toggleMusic()"
+  class="pause"
+  id="playBtn"
+  onclick="toggleMusic()"
 >
 ▶
 </button>
 
 <button
- onclick="nextSong()"
- aria-label="Lagu berikutnya"
+  onclick="nextSong()"
 >
 ▶
 </button>
@@ -1128,19 +1488,23 @@ What If I Call
 
 
 <audio
- id="audio"
- preload="metadata"
- playsinline
+  id="audio"
+  preload="metadata"
+  playsinline
 ></audio>
 
 </div>
 
 
+<!-- ==================================================
+     BOTTOM ART
+================================================== -->
+
 <div class="bottomart">
 
 <img
- src="https://i.ibb.co/XZQ5btXW/undefined.jpg"
- alt="Rin Itoshi"
+  src="https://i.ibb.co/XZQ5btXW/undefined.jpg"
+  alt="Rin Itoshi"
 >
 
 <div class="signature">
@@ -1149,6 +1513,10 @@ Rin Itoshi
 
 </div>
 
+
+<!-- ==================================================
+     NAV
+================================================== -->
 
 <nav class="nav">
 
@@ -1163,8 +1531,8 @@ Music
 </div>
 
 <div
- onclick="showPayment()"
- style="cursor:pointer"
+  onclick="showPayment()"
+  style="cursor:pointer"
 >
 <b>♢</b>
 Payment
@@ -1177,16 +1545,22 @@ Contact
 
 </nav>
 
+
 </section>
 
 
+<!-- ==================================================
+     PAYMENT
+================================================== -->
+
 <section id="payment">
+
 
 <header class="payment-header">
 
 <button
- class="back-btn"
- onclick="showHome()"
+  class="back-btn"
+  onclick="showHome()"
 >
 ‹　Kembali
 </button>
@@ -1201,8 +1575,8 @@ DAPPA OFFICIAL　♛
 <div class="payhero">
 
 <img
- src="https://i.ibb.co/cXkfgDSD/undefined.jpg"
- alt="Rin Itoshi"
+  src="https://i.ibb.co/cXkfgDSD/undefined.jpg"
+  alt="Rin Itoshi"
 >
 
 <div class="payheading">
@@ -1225,6 +1599,7 @@ Choose your preferred payment method.
 
 
 <div class="paybody">
+
 
 <h3 class="sectiontitle">
 01 / E-WALLET
@@ -1254,15 +1629,13 @@ Digital Wallet
 
 </div>
 
-
 <div class="number">
 081385631460
 </div>
 
-
 <button
- class="copy"
- onclick="copyText('081385631460')"
+  class="copy"
+  onclick="copyText('081385631460')"
 >
 ♧　SALIN NOMOR　▢
 </button>
@@ -1290,27 +1663,26 @@ Digital Wallet
 
 </div>
 
-
 <div class="number">
 085280063083
 </div>
 
-
 <button
- class="copy"
- onclick="copyText('085280063083')"
+  class="copy"
+  onclick="copyText('085280063083')"
 >
 ♧　SALIN NOMOR　▢
 </button>
 
 </div>
 
+
 </div>
 
 
 <h3
- class="sectiontitle"
- style="margin-top:19px"
+  class="sectiontitle"
+  style="margin-top:19px"
 >
 02 / BANK TRANSFER
 </h3>
@@ -1360,25 +1732,29 @@ SCAN TO PAY
 Scan di Atas
 </h3>
 
+
 <img
- class="qrisimg"
- src="https://i.ibb.co/h3DW1Ty/undefined.jpg"
- alt="QRIS Dappa Official"
+  class="qrisimg"
+  src="https://i.ibb.co/h3DW1Ty/undefined.jpg"
+  alt="QRIS Dappa Official"
 >
+
 
 <div class="warning">
 ⚠ WAJIB +100P
 </div>
 
+
 <p>
 Silahkan di download ya kalo gak bisa di screenshot.
 </p>
 
+
 <a
- href="https://i.ibb.co/h3DW1Ty/undefined.jpg"
- download="QRIS-Dappa.png"
- target="_blank"
- class="download-qris"
+  href="https://i.ibb.co/h3DW1Ty/undefined.jpg"
+  download="QRIS-Dappa.png"
+  target="_blank"
+  class="download-qris"
 >
 ⬇ DOWNLOAD QRIS
 </a>
@@ -1389,9 +1765,10 @@ Silahkan di download ya kalo gak bisa di screenshot.
 <div class="card completed">
 
 <img
- src="https://i.ibb.co/cXkfgDSD/undefined.jpg"
- alt="Dappa"
+  src="https://i.ibb.co/cXkfgDSD/undefined.jpg"
+  alt="Dappa"
 >
+
 
 <div style="flex:1">
 
@@ -1404,10 +1781,11 @@ Jika sudah melakukan pembayaran,
 silakan konfirmasi melalui WhatsApp.
 </p>
 
+
 <a
- class="wa"
- href="https://wa.me/6281903976932?text=Halo%20Dappa%2C%20saya%20sudah%20melakukan%20pembayaran."
- target="_blank"
+  class="wa"
+  href="https://wa.me/6281903976932?text=Halo%20Dappa%2C%20saya%20sudah%20melakukan%20pembayaran."
+  target="_blank"
 >
 ☏　KONFIRMASI VIA WHATSAPP　→
 </a>
@@ -1417,7 +1795,9 @@ silakan konfirmasi melalui WhatsApp.
 </div>
 
 
-<!-- TEXT TO PDF -->
+<!-- ==================================================
+     TEXT TO PDF
+================================================== -->
 
 <div class="card pdfbox">
 
@@ -1429,24 +1809,27 @@ silakan konfirmasi melalui WhatsApp.
 Ketik jawaban atau teks kamu, lalu download langsung menjadi PDF yang rapi.
 </p>
 
+
 <input
- id="pdfTitle"
- class="pdf-title"
- type="text"
- placeholder="Judul PDF"
+  id="pdfTitle"
+  class="pdf-title"
+  type="text"
+  placeholder="Judul PDF"
 >
 
+
 <textarea
- id="pdfContent"
- class="pdf-content"
- placeholder="Ketik jawaban kamu di sini..."
+  id="pdfContent"
+  class="pdf-content"
+  placeholder="Ketik jawaban kamu di sini..."
 ></textarea>
 
+
 <button
- type="button"
- class="pdfbutton"
- id="pdfButton"
- onclick="buatPDF()"
+  type="button"
+  class="pdfbutton"
+  id="pdfButton"
+  onclick="buatPDF()"
 >
 ▣　DOWNLOAD PDF
 </button>
@@ -1458,6 +1841,7 @@ Ketik jawaban atau teks kamu, lalu download langsung menjadi PDF yang rapi.
 ────　MADE WITH ♛ DAPPA OFFICIAL　────
 </div>
 
+
 </div>
 
 </section>
@@ -1467,122 +1851,203 @@ Ketik jawaban atau teks kamu, lalu download langsung menjadi PDF yang rapi.
 
 <script>
 
-/* =========================
-   ELEMENT
-========================= */
+/* ==================================================
+   VIDEO
+================================================== */
 
-const audio =
- document.getElementById('audio');
+const heroVideo =
+  document.getElementById('heroVideo');
 
-const btn =
- document.getElementById('playBtn');
-
-const home =
- document.getElementById('home');
-
-const payment =
- document.getElementById('payment');
-
-const songTitle =
- document.getElementById('songTitle');
-
-const songTime =
- document.getElementById('songTime');
-
-const musicStatus =
- document.getElementById('musicStatus');
+const videoSound =
+  document.getElementById('videoSound');
 
 
 /* =========================
-   MENU KONTAK
+   TOGGLE SUARA
 ========================= */
+
+function toggleVideoSound(){
+
+  if(heroVideo.muted){
+
+    heroVideo.muted=false;
+    heroVideo.volume=1;
+
+    videoSound.textContent='🔊';
+
+    videoSound.setAttribute(
+      'aria-label',
+      'Matikan suara video'
+    );
+
+    heroVideo.play().catch(()=>{});
+
+  }else{
+
+    heroVideo.muted=true;
+
+    videoSound.textContent='🔇';
+
+    videoSound.setAttribute(
+      'aria-label',
+      'Aktifkan suara video'
+    );
+
+  }
+
+}
+
+
+/* =========================
+   AUTOPLAY
+========================= */
+
+window.addEventListener(
+  'load',
+  function(){
+
+    heroVideo.muted=true;
+
+    heroVideo.play().catch(
+      function(error){
+
+        console.log(
+          'Autoplay diblokir:',
+          error
+        );
+
+      }
+    );
+
+  }
+);
+
+
+/* =========================
+   AUTO REPLAY
+========================= */
+
+heroVideo.addEventListener(
+  'ended',
+  function(){
+
+    heroVideo.currentTime=0;
+
+    heroVideo.play().catch(
+      function(error){
+
+        console.log(
+          'Video gagal diulang:',
+          error
+        );
+
+      }
+    );
+
+  }
+);
+
+
+/* ==================================================
+   MENU
+================================================== */
 
 function toggleContactMenu(){
 
- const menu =
-  document.getElementById(
-   'contactMenu'
-  );
-
- menu.classList.toggle('show');
+  document
+    .getElementById('contactMenu')
+    .classList
+    .toggle('show');
 
 }
 
 
 document.addEventListener(
- 'click',
- function(e){
+  'click',
+  function(e){
 
-  const container =
-   document.querySelector(
-    '.menu-contact'
-   );
+    const container =
+      document.querySelector('.menu-contact');
 
-  if(
-   container &&
-   !container.contains(e.target)
-  ){
+    if(
+      container &&
+      !container.contains(e.target)
+    ){
 
-   document
-    .getElementById(
-     'contactMenu'
-    )
-    .classList
-    .remove('show');
+      document
+        .getElementById('contactMenu')
+        .classList
+        .remove('show');
+
+    }
 
   }
-
- }
 );
 
 
-/* =========================
-   PAYMENT
-========================= */
+/* ==================================================
+   PAGE
+================================================== */
 
 function showPayment(){
 
- home.style.display='none';
+  document.getElementById('home').style.display='none';
 
- payment.style.display='block';
+  document.getElementById('payment').style.display='block';
 
- window.scrollTo({
-  top:0,
-  behavior:'smooth'
- });
+  window.scrollTo({
+    top:0,
+    behavior:'smooth'
+  });
 
 }
 
 
 function showHome(){
 
- payment.style.display='none';
+  document.getElementById('payment').style.display='none';
 
- home.style.display='block';
+  document.getElementById('home').style.display='block';
 
- window.scrollTo({
-  top:0,
-  behavior:'smooth'
- });
+  window.scrollTo({
+    top:0,
+    behavior:'smooth'
+  });
 
 }
 
 
-/* =========================
+/* ==================================================
    MUSIC
-========================= */
+================================================== */
 
-const songs = [
+const audio =
+  document.getElementById('audio');
 
- {
-  title:'What If I Call',
-  src:'https://mp3tourl.com/audio/1790932213462-38263c01-bf55-4804-901e-a532792cbbfc.mp3'
- },
+const btn =
+  document.getElementById('playBtn');
 
- {
-  title:'Bernaung',
-  src:'https://mp3tourl.com/audio/1790939651989-47697b83-0503-4f1b-b1f9-25439a31f116.mp3'
- }
+const songTitle =
+  document.getElementById('songTitle');
+
+const songTime =
+  document.getElementById('songTime');
+
+const musicStatus =
+  document.getElementById('musicStatus');
+
+
+const songs=[
+
+  {
+    title:'What If I Call',
+    src:'https://mp3tourl.com/audio/1790932213462-38263c01-bf55-4804-901e-a532792cbbfc.mp3'
+  },
+
+  {
+    title:'Bernaung',
+    src:'https://mp3tourl.com/audio/1790939651989-47697b83-0503-4f1b-b1f9-25439a31f116.mp3'
+  }
 
 ];
 
@@ -1590,690 +2055,471 @@ const songs = [
 let currentSong=0;
 
 
-/* =========================
-   LOAD SONG
-========================= */
+/* LOAD SONG */
 
 function loadSong(index){
 
- currentSong=index;
-
- audio.pause();
-
- audio.src =
-  songs[currentSong].src;
-
- songTitle.textContent =
-  songs[currentSong].title;
-
- songTime.textContent =
-  songs[currentSong].title;
-
- musicStatus.textContent =
-  'Ready';
-
- audio.load();
-
-}
-
-
-/* =========================
-   PLAY / PAUSE
-========================= */
-
-function toggleMusic(){
-
- if(audio.paused){
-
-  musicStatus.textContent =
-   'Loading...';
-
-  const playPromise =
-   audio.play();
-
-
-  if(
-   playPromise !== undefined
-  ){
-
-   playPromise.then(
-    function(){
-
-     btn.textContent='Ⅱ';
-
-     musicStatus.textContent =
-      'Now Playing';
-
-    }
-   ).catch(
-    function(error){
-
-     console.log(
-      'Audio Error:',
-      error
-     );
-
-     btn.textContent='▶';
-
-     musicStatus.textContent =
-      'Audio Error';
-
-     alert(
-      'Lagu gagal diputar.\n\n' +
-      'Cek koneksi internet atau link MP3.'
-     );
-
-    }
-   );
-
-  }
-
- }else{
+  currentSong=index;
 
   audio.pause();
 
-  btn.textContent='▶';
+  audio.src=songs[currentSong].src;
 
-  musicStatus.textContent =
-   'Paused';
+  songTitle.textContent=
+    songs[currentSong].title;
 
- }
+  songTime.textContent=
+    songs[currentSong].title;
 
-}
+  musicStatus.textContent='Ready';
 
-
-/* =========================
-   NEXT SONG
-========================= */
-
-function nextSong(){
-
- currentSong++;
-
- if(
-  currentSong >= songs.length
- ){
-
-  currentSong=0;
-
- }
-
- loadSong(currentSong);
-
- musicStatus.textContent =
-  'Loading...';
-
-
- const playPromise =
-  audio.play();
-
-
- if(
-  playPromise !== undefined
- ){
-
-  playPromise.then(
-   function(){
-
-    btn.textContent='Ⅱ';
-
-    musicStatus.textContent =
-     'Now Playing';
-
-   }
-  ).catch(
-   function(error){
-
-    console.log(
-     'Next Song Error:',
-     error
-    );
-
-    btn.textContent='▶';
-
-    musicStatus.textContent =
-     'Audio Error';
-
-   }
-  );
-
- }
+  audio.load();
 
 }
 
 
-/* =========================
-   LAGU SELESAI
-========================= */
+/* PLAY */
 
-audio.addEventListener(
- 'ended',
- function(){
+function toggleMusic(){
 
-  if(
-   currentSong <
-   songs.length-1
-  ){
+  if(audio.paused){
 
-   currentSong++;
+    musicStatus.textContent='Loading...';
 
-   loadSong(currentSong);
+    const playPromise=audio.play();
 
+    if(playPromise !== undefined){
 
-   const playPromise =
-    audio.play();
+      playPromise.then(function(){
 
+        btn.textContent='Ⅱ';
 
-   if(
-    playPromise !== undefined
-   ){
+        musicStatus.textContent='Now Playing';
 
-    playPromise.then(
-     function(){
+      }).catch(function(error){
 
-      btn.textContent='Ⅱ';
+        console.log(
+          'Audio Error:',
+          error
+        );
 
-      musicStatus.textContent =
-       'Now Playing';
+        btn.textContent='▶';
 
-     }
-    ).catch(
-     function(){
+        musicStatus.textContent='Audio Error';
 
-      btn.textContent='▶';
+      });
 
-      musicStatus.textContent =
-       'Audio Error';
-
-     }
-    );
-
-   }
+    }
 
   }else{
 
-   btn.textContent='▶';
+    audio.pause();
 
-   musicStatus.textContent =
-    'Finished';
+    btn.textContent='▶';
+
+    musicStatus.textContent='Paused';
 
   }
 
- }
-);
+}
 
 
-/* =========================
-   AUDIO ERROR
-========================= */
+/* NEXT */
+
+function nextSong(){
+
+  currentSong++;
+
+  if(currentSong>=songs.length){
+    currentSong=0;
+  }
+
+  loadSong(currentSong);
+
+  const playPromise=audio.play();
+
+  if(playPromise !== undefined){
+
+    playPromise.then(function(){
+
+      btn.textContent='Ⅱ';
+
+      musicStatus.textContent='Now Playing';
+
+    }).catch(function(){
+
+      btn.textContent='▶';
+
+      musicStatus.textContent='Audio Error';
+
+    });
+
+  }
+
+}
+
+
+/* SONG ENDED */
 
 audio.addEventListener(
- 'error',
- function(){
+  'ended',
+  function(){
 
-  console.log(
-   'Audio gagal dimuat:',
-   audio.error
-  );
+    if(currentSong<songs.length-1){
 
-  btn.textContent='▶';
+      currentSong++;
 
+      loadSong(currentSong);
 
-  if(audio.error){
+      audio.play().then(function(){
 
-   if(
-    audio.error.code===1
-   ){
+        btn.textContent='Ⅱ';
 
-    musicStatus.textContent =
-     'Aborted';
+        musicStatus.textContent='Now Playing';
 
-   }
+      }).catch(function(){
 
-   else if(
-    audio.error.code===2
-   ){
+        btn.textContent='▶';
 
-    musicStatus.textContent =
-     'Network Error';
+      });
 
-   }
+    }else{
 
-   else if(
-    audio.error.code===3
-   ){
+      btn.textContent='▶';
 
-    musicStatus.textContent =
-     'Decode Error';
+      musicStatus.textContent='Finished';
 
-   }
-
-   else if(
-    audio.error.code===4
-   ){
-
-    musicStatus.textContent =
-     'File Tidak Ditemukan';
-
-   }
-
-   else{
-
-    musicStatus.textContent =
-     'Audio Error';
-
-   }
+    }
 
   }
-
- }
 );
 
 
-/* =========================
-   COPY NOMOR
-========================= */
+/* ==================================================
+   COPY
+================================================== */
 
 function copyText(value){
 
- if(
-  navigator.clipboard &&
-  window.isSecureContext
- ){
+  if(
+    navigator.clipboard &&
+    window.isSecureContext
+  ){
 
-  navigator.clipboard
-   .writeText(value)
-   .then(
-    function(){
+    navigator.clipboard
+      .writeText(value)
+      .then(function(){
 
-     alert(
-      'Nomor berhasil disalin!'
-     );
+        alert(
+          'Nomor berhasil disalin!'
+        );
 
-    }
-   )
-   .catch(
-    function(){
+      })
+      .catch(function(){
 
-     fallbackCopy(value);
+        fallbackCopy(value);
 
-    }
-   );
+      });
 
- }else{
+  }else{
 
-  fallbackCopy(value);
+    fallbackCopy(value);
 
- }
+  }
 
 }
 
 
 function fallbackCopy(value){
 
- const t =
-  document.createElement(
-   'textarea'
+  const t=
+    document.createElement('textarea');
+
+  t.value=value;
+
+  document.body.appendChild(t);
+
+  t.select();
+
+  document.execCommand('copy');
+
+  t.remove();
+
+  alert(
+    'Nomor berhasil disalin!'
   );
-
- t.value=value;
-
- document.body.appendChild(t);
-
- t.select();
-
- document.execCommand('copy');
-
- t.remove();
-
- alert(
-  'Nomor berhasil disalin!'
- );
 
 }
 
 
-/* =========================
-   TEXT TO PDF
-   SIMPLE & STABLE
-========================= */
+/* ==================================================
+   PDF
+================================================== */
 
 function buatPDF(){
 
- const titleInput =
-  document.getElementById(
-   'pdfTitle'
-  );
+  const titleInput=
+    document.getElementById('pdfTitle');
 
- const contentInput =
-  document.getElementById(
-   'pdfContent'
-  );
+  const contentInput=
+    document.getElementById('pdfContent');
 
- const button =
-  document.getElementById(
-   'pdfButton'
-  );
+  const button=
+    document.getElementById('pdfButton');
 
 
- const title =
-  titleInput.value.trim() ||
-  'Dokumen';
+  const title=
+    titleInput.value.trim() ||
+    'Dokumen';
 
 
- const content =
-  contentInput.value.trim();
+  const content=
+    contentInput.value.trim();
 
 
- /* CEK ISI */
+  if(!content){
 
- if(!content){
+    alert(
+      'Silakan ketik jawaban atau teks terlebih dahulu.'
+    );
 
-  alert(
-   'Silakan ketik jawaban atau teks terlebih dahulu.'
-  );
+    contentInput.focus();
 
-  contentInput.focus();
+    return;
 
-  return;
-
- }
+  }
 
 
- /* CEK LIBRARY */
-
- if(
-  !window.jspdf ||
-  !window.jspdf.jsPDF
- ){
-
-  alert(
-   'PDF belum siap.\n\n' +
-   'Pastikan internet aktif lalu refresh halaman.'
-  );
-
-  return;
-
- }
-
-
- try{
-
-  button.disabled=true;
-
-  button.textContent =
-   '⏳　MEMBUAT PDF...';
-
-
-  const jsPDF =
-   window.jspdf.jsPDF;
-
-
-  /* BUAT PDF */
-
-  const pdf =
-   new jsPDF({
-    orientation:'portrait',
-    unit:'mm',
-    format:'a4'
-   });
-
-
-  const pageHeight =
-   pdf.internal.pageSize.getHeight();
-
-
-  /* =========================
-     JUDUL
-  ========================= */
-
-  pdf.setFont(
-   'helvetica',
-   'bold'
-  );
-
-  pdf.setFontSize(17);
-
-  pdf.setTextColor(
-   25,
-   25,
-   25
-  );
-
-
-  const titleLines =
-   pdf.splitTextToSize(
-    title,
-    170
-   );
-
-
-  let y=25;
-
-
-  pdf.text(
-   titleLines,
-   20,
-   y
-  );
-
-
-  y +=
-   titleLines.length * 7;
-
-
-  /* =========================
-     ISI
-  ========================= */
-
-  y += 10;
-
-
-  pdf.setFont(
-   'helvetica',
-   'normal'
-  );
-
-  pdf.setFontSize(11);
-
-  pdf.setTextColor(
-   35,
-   35,
-   35
-  );
-
-
-  const contentLines =
-   pdf.splitTextToSize(
-    content,
-    170
-   );
-
-
-  const lineHeight=6.5;
-
-
-  for(
-   let i=0;
-   i<contentLines.length;
-   i++
+  if(
+    !window.jspdf ||
+    !window.jspdf.jsPDF
   ){
 
-   if(
-    y >
-    pageHeight-25
-   ){
+    alert(
+      'PDF belum siap. Pastikan internet aktif lalu refresh halaman.'
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+    button.disabled=true;
+
+    button.textContent=
+      '⏳　MEMBUAT PDF...';
+
+
+    const jsPDF=
+      window.jspdf.jsPDF;
+
+
+    const pdf=
+      new jsPDF({
+        orientation:'portrait',
+        unit:'mm',
+        format:'a4'
+      });
+
+
+    const pageHeight=
+      pdf.internal.pageSize.getHeight();
+
+
+    pdf.setFont(
+      'helvetica',
+      'bold'
+    );
+
+    pdf.setFontSize(17);
+
+    pdf.setTextColor(
+      25,
+      25,
+      25
+    );
+
+
+    const titleLines=
+      pdf.splitTextToSize(
+        title,
+        170
+      );
+
+
+    let y=25;
+
+
+    pdf.text(
+      titleLines,
+      20,
+      y
+    );
+
+
+    y +=
+      titleLines.length*7;
+
+    y +=10;
+
+
+    pdf.setFont(
+      'helvetica',
+      'normal'
+    );
+
+    pdf.setFontSize(11);
+
+
+    const contentLines=
+      pdf.splitTextToSize(
+        content,
+        170
+      );
+
+
+    const lineHeight=6.5;
+
+
+    for(
+      let i=0;
+      i<contentLines.length;
+      i++
+    ){
+
+      if(y>pageHeight-25){
+
+        tambahFooterPDF(pdf);
+
+        pdf.addPage();
+
+        y=25;
+
+      }
+
+
+      pdf.text(
+        contentLines[i],
+        20,
+        y
+      );
+
+      y+=lineHeight;
+
+    }
+
 
     tambahFooterPDF(pdf);
 
-    pdf.addPage();
 
-    y=25;
-
-   }
-
-
-   pdf.text(
-    contentLines[i],
-    20,
-    y
-   );
-
-
-   y += lineHeight;
-
-  }
+    let safeTitle=
+      title
+        .replace(
+          /[\\/:*?"<>|]/g,
+          ''
+        )
+        .replace(
+          /\s+/g,
+          '-'
+        )
+        .trim();
 
 
-  /* =========================
-     FOOTER
-  ========================= */
-
-  tambahFooterPDF(pdf);
+    if(!safeTitle){
+      safeTitle='Dokumen';
+    }
 
 
-  /* =========================
-     NAMA FILE
-  ========================= */
-
-  let safeTitle =
-   title
-    .replace(
-     /[\\/:*?"<>|]/g,
-     ''
-    )
-    .replace(
-     /\s+/g,
-     '-'
-    )
-    .trim();
+    safeTitle=
+      safeTitle.substring(0,60);
 
 
-  if(!safeTitle){
-
-   safeTitle='Dokumen';
-
-  }
-
-
-  safeTitle =
-   safeTitle.substring(
-    0,
-    60
-   );
-
-
-  const filename =
-   'Dappa-Official-' +
-   safeTitle +
-   '.pdf';
-
-
-  /* =========================
-     DOWNLOAD
-  ========================= */
-
-  pdf.save(
-   filename
-  );
-
-
-  button.disabled=false;
-
-  button.textContent =
-   '▣　DOWNLOAD PDF';
-
-
-  setTimeout(
-   function(){
-
-    alert(
-     'PDF berhasil dibuat dan didownload! 📄'
+    pdf.save(
+      'Dappa-Official-'+
+      safeTitle+
+      '.pdf'
     );
 
-   },
-   400
-  );
+
+    button.disabled=false;
+
+    button.textContent=
+      '▣　DOWNLOAD PDF';
 
 
- }catch(error){
+  }catch(error){
 
-  console.error(
-   'PDF Error:',
-   error
-  );
+    console.error(
+      'PDF Error:',
+      error
+    );
 
+    button.disabled=false;
 
-  button.disabled=false;
+    button.textContent=
+      '▣　DOWNLOAD PDF';
 
-  button.textContent =
-   '▣　DOWNLOAD PDF';
+    alert(
+      'PDF gagal dibuat. Silakan coba lagi.'
+    );
 
-
-  alert(
-   'PDF gagal dibuat.\n\n' +
-   'Silakan coba lagi.'
-  );
-
- }
+  }
 
 }
 
-
-/* =========================
-   FOOTER PDF
-========================= */
 
 function tambahFooterPDF(pdf){
 
- const pageHeight =
-  pdf.internal.pageSize.getHeight();
+  const pageHeight=
+    pdf.internal.pageSize.getHeight();
 
 
- pdf.setDrawColor(
-  210,
-  210,
-  210
- );
+  pdf.setDrawColor(
+    210,
+    210,
+    210
+  );
 
 
- pdf.line(
-  20,
-  pageHeight-18,
-  190,
-  pageHeight-18
- );
+  pdf.line(
+    20,
+    pageHeight-18,
+    190,
+    pageHeight-18
+  );
 
 
- pdf.setFont(
-  'helvetica',
-  'normal'
- );
+  pdf.setFont(
+    'helvetica',
+    'normal'
+  );
 
- pdf.setFontSize(8);
+  pdf.setFontSize(8);
 
- pdf.setTextColor(
-  120,
-  120,
-  120
- );
+  pdf.setTextColor(
+    120,
+    120,
+    120
+  );
 
 
- pdf.text(
-  'DAPPA OFFICIAL - Made with Dappa Official',
-  105,
-  pageHeight-10,
-  {
-   align:'center'
-  }
- );
+  pdf.text(
+    'DAPPA OFFICIAL - Made with Dappa Official',
+    105,
+    pageHeight-10,
+    {
+      align:'center'
+    }
+  );
 
 }
 
 
-/* =========================
-   LOAD LAGU PERTAMA
-========================= */
+/* ==================================================
+   INITIAL MUSIC
+================================================== */
 
 loadSong(0);
 
