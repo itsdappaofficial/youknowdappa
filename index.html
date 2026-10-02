@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dappa Official</title>
+
+<style>
+*{box-sizing:border-box}
+
+:root{
+ --bg:#020a18;
+ --panel:#07152a;
+ --blue:#00baff;
+ --cyan:#65eaff;
+ --text:#eaf7ff;
+ --muted:#91abc5
+}
+
+body{
+ margin:0;
+ background:#020817;
+ color:var(--text);
+ font-family:Arial,sans-serif
+}
+
+button{
+ font-family:inherit;
+ cursor:pointer
+}
+
+.layout{
+ width:min(100%,1000px);
+ margin:auto;
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ min-height:100vh;
+ background:#030b1a
+}
+
+.panel{
+ min-width:0;
+ position:relative;
+ overflow:hidden;
+ border-left:1px solid #183c63;
+ border-right:1px solid #183c63;
+ background:linear-gradient(180deg,#06152b,#020918 80%)
+}
+
+header{
+ height:40px;
+ border-bottom:1px solid #16426c;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding:0 18px;
+ font-size:11px;
+ letter-spacing:2px;
+ color:#d5edff
+}
+
+.online{
+ font-size:9px;
+ letter-spacing:1px;
+ border:1px solid #1a5276;
+ border-radius:20px;
+ padding:5px 10px;
+ color:#b8efff
+}
+
+.online:before{
+ content:"";
+ display:inline-block;
+ width:6px;
+ height:6px;
+ border-radius:50%;
+ background:#00e9d0;
+ margin-right:6px
+}
+
+.menu{
+ color:#6edfff;
+ font-size:19px
+}
+
+/* HERO */
+
+.hero{
+ height:370px;
+ position:relative;
+ overflow:hidden;
+ background:radial-gradient(
+  ellipse at 60% 70%,
+  #075b9b,
+  #082345 42%,
+  #030c1c 78%
+ )
+}
+
+.hero:after{
+ content:"";
+ position:absolute;
+ inset:0;
+ background:linear-gradient(0deg,#06162d,transparent 65%);
+ pointer-events:none
+}
+
+.heroimg{
+ position:absolute;
+ width:100%;
+ height:100%;
+ object-fit:cover;
+ object-position:center;
+ opacity:.82;
+ mix-blend-mode:screen
+}
+
+.japanese{
+ position:absolute;
+ z-index:2;
+ top:42px;
+ left:28px;
+ font-size:12px;
+ line-height:1.5;
+ color:#d6e8ff
+}
+
+/* LOGO DIPERBARUI */
+
+.emblem{
+ position:absolute;
+ z-index:4;
+ left:50%;
+ top:49%;
+ transform:translate(-50%,-50%);
+ width:132px;
+ height:132px;
+ border-radius:50%;
+ border:2px solid #00caff;
+ box-shadow:0 0 0 8px #00aaff18,0 0 28px #00bfff;
+ background:#06142d;
+ overflow:hidden
+}
+
+.emblem img{
+ width:100%;
+ height:100%;
+ object-fit:cover;
+ display:block
+}
+
+.rinsign{
+ position:absolute;
+ right:22px;
+ bottom:40px;
+ z-index:3;
+ color:#a9dcff;
+ font-family:cursive;
+ font-size:22px;
+ font-style:italic
+}
+
+.rinsign small{
+ display:block;
+ text-align:right;
+ font:8px Arial;
+ letter-spacing:2px
+}
+
+/* WELCOME */
+
+.welcome{
+ text-align:center;
+ position:relative;
+ margin-top:-9px;
+ z-index:5;
+ padding:0 14px
+}
+
+.kicker{
+ font-size:12px;
+ letter-spacing:4px;
+ color:#9eeaff
+}
+
+.welcome h1{
+ font:36px Georgia,serif;
+ letter-spacing:1px;
+ margin:5px 0 7px;
+ text-shadow:0 0 15px #168cff55
+}
+
+.welcome p{
+ font-size:12px;
+ color:#a7c2dd;
+ margin:0
+}
+
+.card{
+ border:1px solid #23618d;
+ border-radius:13px;
+ background:linear-gradient(140deg,#0a1e38,#061326);
+ box-shadow:0 0 15px #008cff12;
+ position:relative
+}
+
+.greeting{
+ margin:20px 18px 16px;
+ padding:17px 15px;
+ text-align:center
+}
+
+.greeting h3{
+ font-size:13px;
+ margin:0 0 7px
+}
+
+.greeting p{
+ font-size:11px;
+ line-height:1.6;
+ color:#c0d3e5;
+ margin:0 auto 12px;
+ max-width:300px
+}
+
+.primary{
+ width:85%;
+ border:1px solid #80eaff;
+ border-radius:30px;
+ padding:11px;
+ background:linear-gradient(90deg,#087bff,#8beaff);
+ color:#00172b;
+ font-size:11px;
+ font-weight:bold;
+ letter-spacing:1px;
+ box-shadow:0 0 17px #00aaff65
+}
+
+/* MUSIC */
+
+.music{
+ margin:0 18px 12px;
+ padding:12px;
+ border-radius:13px;
+ border:1px solid #235b85;
+ background:linear-gradient(130deg,#091e38,#061225)
+}
+
+.track{
+ display:flex;
+ align-items:center;
+ gap:12px
+}
+
+.cover{
+ width:58px;
+ height:58px;
+ object-fit:cover;
+ border:1px solid #47caff;
+ border-radius:7px
+}
+
+.trackinfo{
+ flex:1;
+ min-width:0
+}
+
+.trackinfo b{
+ font-size:13px
+}
+
+.trackinfo small{
+ display:block;
+ color:#9bb8d2;
+ font-size:10px;
+ margin-top:5px
+}
+
+.progress{
+ height:3px;
+ background:#27425d;
+ margin:13px 5px 10px;
+ position:relative;
+ border-radius:5px
+}
+
+.progress:before{
+ content:"";
+ width:48%;
+ height:100%;
+ display:block;
+ background:#00caff
+}
+
+.time{
+ display:flex;
+ justify-content:space-between;
+ color:#9bb7d0;
+ font-size:9px
+}
+
+.controls{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ margin-top:10px;
+ color:#9bdcff
+}
+
+.controls button{
+ border:0;
+ background:none;
+ color:#b6eaff;
+ font-size:17px
+}
+
+.controls .pause{
+ width:39px;
+ height:39px;
+ border-radius:50%;
+ background:linear-gradient(135deg,#00aaff,#65eaff);
+ color:#00213b
+}
+
+/* BOTTOM ART */
+
+.bottomart{
+ height:160px;
+ position:relative;
+ overflow:hidden;
+ background:linear-gradient(0deg,#06142a,#09294b)
+}
+
+.bottomart img{
+ width:100%;
+ height:100%;
+ object-fit:cover;
+ object-position:center 25%;
+ opacity:.75;
+ mix-blend-mode:screen
+}
+
+.bottomart .signature{
+ position:absolute;
+ left:25px;
+ bottom:27px;
+ color:#d3edff;
+ font:italic 23px cursive
+}
+
+/* NAV */
+
+.nav{
+ display:flex;
+ justify-content:space-around;
+ padding:12px 4px 15px;
+ border-top:1px solid #1b4c74;
+ background:#06152b;
+ color:#91b5d5;
+ font-size:10px;
+ text-align:center
+}
+
+.nav div{
+ display:grid;
+ gap:5px;
+ justify-items:center
+}
+
+.nav b{
+ font-size:17px;
+ font-weight:normal
+}
+
+.nav div:first-child{
+ color:#63dfff
+}
+
+/* PAYMENT */
+
+.payhero{
+ height:183px;
+ position:relative;
+ overflow:hidden;
+ border-bottom:1px solid #155078;
+ background:linear-gradient(90deg,#071b36,#07558a)
+}
+
+.payhero img{
+ position:absolute;
+ width:100%;
+ height:100%;
+ object-fit:cover;
+ object-position:center 31%;
+ opacity:.65;
+ mix-blend-mode:screen
+}
+
+.payheading{
+ position:absolute;
+ z-index:2;
+ left:20px;
+ bottom:25px;
+ text-shadow:0 2px 12px #00152b
+}
+
+.payheading small{
+ font-size:10px;
+ letter-spacing:2px
+}
+
+.payheading h2{
+ font:29px Georgia;
+ margin:7px 0 4px
+}
+
+.payheading p{
+ font-size:10px;
+ color:#c1d9ed;
+ margin:0
+}
+
+.paybody{
+ padding:13px 17px
+}
+
+.sectiontitle{
+ display:flex;
+ align-items:center;
+ gap:10px;
+ color:#75dfff;
+ font-size:12px;
+ letter-spacing:2px;
+ margin:0 0 13px
+}
+
+.sectiontitle:before{
+ content:"✦";
+ font-size:16px
+}
+
+.methods{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:11px
+}
+
+.method{
+ border:1px solid #167bb2;
+ border-radius:13px;
+ padding:13px;
+ background:linear-gradient(145deg,#0b2542,#061326);
+ min-width:0
+}
+
+.method.shopee{
+ border-color:#a9574e
+}
+
+.methodhead{
+ display:flex;
+ align-items:center;
+ gap:10px;
+ margin-bottom:12px
+}
+
+.methodicon{
+ width:34px;
+ height:34px;
+ border-radius:50%;
+ background:#079ce9;
+ display:grid;
+ place-items:center;
+ font-weight:bold;
+ font-size:15px
+}
+
+.shopee .methodicon{
+ background:#e94e36
+}
+
+.methodhead b{
+ font-size:12px
+}
+
+.methodhead small{
+ display:block;
+ color:#9eb6cc;
+ font-size:9px;
+ margin-top:3px
+}
+
+.number{
+ font-size:15px;
+ font-weight:bold;
+ letter-spacing:.5px;
+ white-space:nowrap
+}
+
+.copy{
+ width:100%;
+ margin-top:10px;
+ padding:8px 4px;
+ border:1px solid #278dc0;
+ border-radius:20px;
+ color:#d4f4ff;
+ background:linear-gradient(90deg,#075ca4,#123d67);
+ font-size:9px
+}
+
+/* BANK */
+
+.bank{
+ display:flex;
+ align-items:center;
+ gap:12px;
+ padding:14px;
+ margin-bottom:16px
+}
+
+.sealogo{
+ width:43px;
+ height:43px;
+ border-radius:50%;
+ background:#d7fff5;
+ color:#087c85;
+ display:grid;
+ place-items:center;
+ font-size:17px;
+ font-weight:bold
+}
+
+.bankinfo{
+ flex:1
+}
+
+.bankinfo b{
+ font-size:12px
+}
+
+.bankinfo small{
+ display:block;
+ color:#a5bed5;
+ font-size:10px;
+ margin:5px 0
+}
+
+.bankinfo p{
+ font-size:10px;
+ color:#b8d5e9;
+ line-height:1.5;
+ margin:0
+}
+
+/* QRIS */
+
+.qrisbox{
+ padding:16px 13px;
+ border-radius:14px;
+ text-align:center;
+ overflow:hidden
+}
+
+.qristag{
+ display:inline-block;
+ font-size:8px;
+ letter-spacing:2px;
+ background:#112e4c;
+ border:1px solid #1b5b87;
+ border-radius:4px;
+ padding:4px 10px;
+ color:#9deaff
+}
+
+.qrisbox h3{
+ font:24px Georgia;
+ margin:9px 0 12px
+}
+
+.qrisimg{
+ width:min(230px,100%);
+ height:auto;
+ max-height:290px;
+ object-fit:contain;
+ background:white;
+ border:5px solid white;
+ border-radius:9px;
+ display:block;
+ margin:auto;
+ box-shadow:0 0 16px #00aaff55
+}
+
+.warning{
+ display:inline-block;
+ background:#45351a;
+ color:#ffdf70;
+ border:1px solid #977326;
+ border-radius:6px;
+ padding:7px 14px;
+ font-size:11px;
+ font-weight:bold;
+ margin-top:12px
+}
+
+.qrisbox p{
+ font-size:11px;
+ color:#c0d4e6;
+ line-height:1.6;
+ margin:11px 0
+}
+
+.download-qris{
+ display:block;
+ margin:13px auto 0;
+ width:90%;
+ padding:13px;
+ border:1px solid #65eaff;
+ border-radius:25px;
+ background:linear-gradient(90deg,#087bff,#65eaff);
+ color:#00172b;
+ text-decoration:none;
+ font-size:11px;
+ font-weight:bold;
+ letter-spacing:1px;
+ text-align:center;
+ box-shadow:0 0 15px #00aaff55
+}
+
+.download-qris:active{
+ transform:scale(.97)
+}
+
+/* COMPLETED */
+
+.completed{
+ margin-top:13px;
+ padding:12px;
+ display:flex;
+ gap:10px;
+ align-items:center
+}
+
+.completed img{
+ width:65px;
+ height:65px;
+ object-fit:cover;
+ border-radius:7px
+}
+
+.completed b{
+ font-size:12px;
+ color:#73eaff
+}
+
+.completed p{
+ font-size:10px;
+ color:#bfd1e2;
+ line-height:1.5;
+ margin:5px 0
+}
+
+.wa{
+ display:block;
+ text-decoration:none;
+ text-align:center;
+ background:linear-gradient(90deg,#00c88a,#73f0c5);
+ color:#003426;
+ border-radius:25px;
+ padding:10px 5px;
+ font-size:10px;
+ font-weight:bold;
+ letter-spacing:.4px
+}
+
+.foot{
+ text-align:center;
+ padding:15px 5px 10px;
+ color:#7997b5;
+ font-size:8px;
+ letter-spacing:2px
+}
+
+@media(max-width:650px){
+
+ .layout{
+  grid-template-columns:1fr
+ }
+
+ .panel{
+  border-bottom:2px solid #1b4770
+ }
+
+ .hero{
+  height:350px
+ }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+<!-- HOME -->
+
+<section class="panel">
+
+<header>
+<span>DAPPA OFFICIAL</span>
+<span class="online">ONLINE</span>
+<span class="menu">☰</span>
+</header>
+
+<div class="hero">
+
+<!-- RIN POSE 1 -->
+
+<img
+ class="heroimg"
+ src="https://i.ibb.co/QvjKbm21/undefined.jpg"
+ alt="Rin Itoshi"
+>
+
+<div class="japanese">
+俺は<br>
+俺のゴールを<br>
+決める
+<br><br>
+
+<span style="color:#8ca9c5">
+- Rin Itoshi -
+</span>
+
+</div>
+
+
+<!-- LOGO DAPPA OFFICIAL -->
+
+<div class="emblem">
+
+<img
+ src="https://i.ibb.co/G3fsXsNj/undefined.jpg"
+ alt="Dappa Official Logo"
+>
+
+</div>
+
+
+<div class="rinsign">
+Rin Itoshi
+
+<small>
+BLUE LOCK
+</small>
+
+</div>
+
+</div>
+
+
+<div class="welcome">
+
+<div class="kicker">
+WELCOME TO
+</div>
+
+<h1>
+DAPPA OFFICIAL
+</h1>
+
+<p>
+Where Every Transaction Feels Special ♡
+</p>
+
+</div>
+
+
+<!-- GREETING -->
+
+<div class="card greeting">
+
+<h3>
+Halo, Selamat Datang!
+</h3>
+
+<p>
+Meskipun kamu jauh, namun aku senantiasa merasakan keberadaanmu
+yang begitu dekat. Setiap saat yang ada dalam hati dan pikiranku
+hanya dirimu yang selalu kurindu.
+</p>
+
+<button
+ class="primary"
+ onclick="document.getElementById('payment').scrollIntoView({behavior:'smooth'})"
+>
+MASUK SEKARANG　→
+</button>
+
+</div>
+
+
+<!-- MUSIC -->
+
+<div class="music">
+
+<div class="track">
+
+<img
+ class="cover"
+ src="https://i.ibb.co/XZQ5btXW/undefined.jpg"
+ alt="Rin Itoshi"
+>
+
+<div class="trackinfo">
+
+<b>
+What If I Call
+</b>
+
+<small>
+Dappa Official - Now Playing
+</small>
+
+</div>
+
+<div style="color:#51dfff;font-size:20px">
+♫
+</div>
+
+</div>
+
+
+<div class="progress"></div>
+
+<div class="time">
+
+<span>
+Now Playing
+</span>
+
+<span>
+What If I Call
+</span>
+
+</div>
+
+
+<div class="controls">
+
+<button>
+☰
+</button>
+
+<button>
+◀
+</button>
+
+<button
+ class="pause"
+ id="playBtn"
+ onclick="toggleMusic()"
+>
+▶
+</button>
+
+<button>
+▶
+</button>
+
+<button>
+♡
+</button>
+
+</div>
+
+
+<audio
+ id="audio"
+ src="https://mp3tourl.com/audio/1790932213462-38263c01-bf55-4804-901e-a532792cbbfc.mp3"
+></audio>
+
+</div>
+
+
+<!-- RIN POSE 2 -->
+
+<div class="bottomart">
+
+<img
+ src="https://i.ibb.co/XZQ5btXW/undefined.jpg"
+ alt="Rin Itoshi"
+>
+
+<div class="signature">
+Rin Itoshi
+</div>
+
+</div>
+
+
+<nav class="nav">
+
+<div>
+<b>⌂</b>
+Home
+</div>
+
+<div>
+<b>♫</b>
+Music
+</div>
+
+<div>
+<b>♢</b>
+Payment
+</div>
+
+<div>
+<b>◉</b>
+Contact
+</div>
+
+</nav>
+
+</section>
+
+
+<!-- PAYMENT CENTER -->
+
+<section class="panel" id="payment">
+
+<header>
+
+<span>
+‹　Kembali
+</span>
+
+<span style="font-size:9px">
+DAPPA OFFICIAL　♛
+</span>
+
+</header>
+
+
+<div class="payhero">
+
+<img
+ src="https://i.ibb.co/cXkfgDSD/undefined.jpg"
+ alt="Rin Itoshi"
+>
+
+<div class="payheading">
+
+<small>
+DAPPA OFFICIAL
+</small>
+
+<h2>
+Payment Center
+</h2>
+
+<p>
+Choose your preferred payment method.
+</p>
+
+</div>
+
+</div>
+
+
+<div class="paybody">
+
+
+<h3 class="sectiontitle">
+01 / E-WALLET
+</h3>
+
+
+<div class="methods">
+
+
+<div class="method">
+
+<div class="methodhead">
+
+<div class="methodicon">
+▰
+</div>
+
+<div>
+
+<b>
+DANA
+</b>
+
+<small>
+Digital Wallet
+</small>
+
+</div>
+
+</div>
+
+
+<div class="number">
+081385631460
+</div>
+
+
+<button
+ class="copy"
+ onclick="copyText('081385631460')"
+>
+♧　SALIN NOMOR　▢
+</button>
+
+</div>
+
+
+<div class="method shopee">
+
+<div class="methodhead">
+
+<div class="methodicon">
+▣
+</div>
+
+<div>
+
+<b>
+ShopeePay
+</b>
+
+<small>
+Digital Wallet
+</small>
+
+</div>
+
+</div>
+
+
+<div class="number">
+085280063083
+</div>
+
+
+<button
+ class="copy"
+ onclick="copyText('085280063083')"
+>
+♧　SALIN NOMOR　▢
+</button>
+
+</div>
+
+</div>
+
+
+<h3
+ class="sectiontitle"
+ style="margin-top:19px"
+>
+02 / BANK TRANSFER
+</h3>
+
+
+<div class="card bank">
+
+<div class="sealogo">
+Sea
+</div>
+
+<div class="bankinfo">
+
+<b>
+SeaBank
+</b>
+
+<small>
+Bank Transfer
+</small>
+
+<p>
+Untuk nomor rekening, silakan minta langsung kepada Dappa.
+</p>
+
+</div>
+
+<div style="color:#8deaff">
+→
+</div>
+
+</div>
+
+
+<h3 class="sectiontitle">
+03 / QRIS PAYMENT
+</h3>
+
+
+<div class="card qrisbox">
+
+<span class="qristag">
+SCAN TO PAY
+</span>
+
+<h3>
+Scan di Atas
+</h3>
+
+
+<img
+ class="qrisimg"
+ src="https://i.ibb.co/h3DW1Ty/undefined.jpg"
+ alt="QRIS Dappa Official"
+>
+
+
+<div class="warning">
+⚠ WAJIB +100P
+</div>
+
+
+<p>
+Silahkan di download ya kalo gak bisa di screenshot.
+</p>
+
+
+<a
+ href="https://i.ibb.co/h3DW1Ty/undefined.jpg"
+ download="QRIS-Dappa.png"
+ target="_blank"
+ class="download-qris"
+>
+⬇ DOWNLOAD QRIS
+</a>
+
+</div>
+
+
+<div class="card completed">
+
+
+<img
+ src="https://i.ibb.co/cXkfgDSD/undefined.jpg"
+ alt="Dappa"
+>
+
+
+<div style="flex:1">
+
+<b>
+Payment Completed?
+</b>
+
+
+<p>
+Jika sudah melakukan pembayaran,
+silakan konfirmasi melalui WhatsApp.
+</p>
+
+
+<a
+ class="wa"
+ href="https://wa.me/6281903976932?text=Halo%20Dappa%2C%20saya%20sudah%20melakukan%20pembayaran."
+ target="_blank"
+>
+☏　KONFIRMASI VIA WHATSAPP　→
+</a>
+
+</div>
+
+</div>
+
+
+<div class="foot">
+────　MADE WITH ♛ DAPPA OFFICIAL　────
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+
+<script>
+
+const audio=document.getElementById('audio');
+const btn=document.getElementById('playBtn');
+
+
+function toggleMusic(){
+
+ if(audio.paused){
+
+  audio.play()
+
+  .then(()=>{
+
+   btn.textContent='Ⅱ';
+
+  })
+
+  .catch(()=>{
+
+   alert('Coba tekan tombol play lagi.');
+
+  });
+
+ }else{
+
+  audio.pause();
+
+  btn.textContent='▶';
+
+ }
+
+}
+
+
+audio.onended=()=>{
+
+ btn.textContent='▶';
+
+};
+
+
+function copyText(value){
+
+ if(navigator.clipboard&&window.isSecureContext){
+
+  navigator.clipboard
+
+  .writeText(value)
+
+  .then(()=>{
+
+   alert('Nomor berhasil disalin!');
+
+  })
+
+  .catch(()=>{
+
+   fallbackCopy(value);
+
+  });
+
+ }else{
+
+  fallbackCopy(value);
+
+ }
+
+}
+
+
+function fallbackCopy(value){
+
+ const t=document.createElement('textarea');
+
+ t.value=value;
+
+ document.body.appendChild(t);
+
+ t.select();
+
+ document.execCommand('copy');
+
+ t.remove();
+
+ alert('Nomor berhasil disalin!');
+
+}
+
+</script>
+
+</body>
+</html>
