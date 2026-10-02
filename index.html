@@ -6,21 +6,12 @@
 
 <title>Dappa Official</title>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
 <style>
-
 *{
   box-sizing:border-box;
-}
-
-:root{
-  --bg:#020a18;
-  --panel:#07152a;
-  --blue:#00baff;
-  --cyan:#65eaff;
-  --text:#eaf7ff;
-  --muted:#91abc5;
+  margin:0;
+  padding:0;
+  -webkit-tap-highlight-color:transparent;
 }
 
 html{
@@ -28,99 +19,144 @@ html{
 }
 
 body{
-  margin:0;
-  background:#020817;
-  color:var(--text);
-  font-family:Arial,sans-serif;
+  background:#020a12;
+  color:#fff;
+  font-family:Arial,Helvetica,sans-serif;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+button,
+input{
+  font-family:inherit;
 }
 
 button{
-  font-family:inherit;
-  cursor:pointer;
+  border:0;
+  outline:0;
 }
 
-.page{
-  width:min(100%,500px);
+.app{
+  width:100%;
+  max-width:500px;
   margin:auto;
   min-height:100vh;
-  background:#030b1a;
-  border-left:1px solid #183c63;
-  border-right:1px solid #183c63;
-  overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 10%,rgba(0,126,255,.08),transparent 30%),
+    linear-gradient(180deg,#020a12,#030c15 50%,#01070d);
+  padding-bottom:95px;
 }
 
+/* =========================
+   SLIDE
+========================= */
+
+.slide{
+  display:none;
+  animation:slideIn .25s ease;
+}
+
+.slide.active{
+  display:block;
+}
+
+@keyframes slideIn{
+  from{
+    opacity:0;
+    transform:translateX(8px);
+  }
+  to{
+    opacity:1;
+    transform:translateX(0);
+  }
+}
 
 /* =========================
    HEADER
 ========================= */
 
-header{
-  height:40px;
-  border-bottom:1px solid #16426c;
+.header{
+  position:sticky;
+  top:0;
+  z-index:50;
+  height:105px;
+  padding:30px 28px 18px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:0 18px;
-  font-size:11px;
+  background:rgba(2,10,18,.92);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(255,255,255,.035);
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.brand h1{
+  font-size:24px;
   letter-spacing:2px;
-  color:#d5edff;
+  font-weight:900;
 }
 
 .online{
-  font-size:9px;
-  letter-spacing:1px;
-  border:1px solid #1a5276;
-  border-radius:20px;
-  padding:5px 10px;
-  color:#b8efff;
-}
-
-.online:before{
-  content:"";
-  display:inline-block;
-  width:6px;
-  height:6px;
-  border-radius:50%;
-  background:#00e9d0;
-  margin-right:6px;
-}
-
-
-/* =========================
-   MENU
-========================= */
-
-.menu-contact{
-  position:relative;
   display:flex;
   align-items:center;
+  gap:7px;
+  color:#43ffc1;
+  font-size:12px;
+  font-weight:800;
+  padding:8px 13px;
+  border:1px solid rgba(67,255,193,.25);
+  border-radius:20px;
+  background:rgba(0,255,170,.06);
+  box-shadow:0 0 15px rgba(0,255,170,.08);
 }
 
-.menu{
-  width:36px;
-  height:30px;
-  border:0;
-  background:transparent;
-  color:#6edfff;
-  font-size:19px;
-  padding:0;
+.online-dot{
+  width:8px;
+  height:8px;
+  background:#43ffc1;
+  border-radius:50%;
+  box-shadow:0 0 10px #43ffc1;
+}
+
+.menu-btn{
+  width:72px;
+  height:72px;
+  border-radius:20px;
+  background:#071725;
+  border:1px solid rgba(104,180,255,.18);
+  color:#fff;
+  font-size:34px;
+  cursor:pointer;
   display:flex;
   align-items:center;
   justify-content:center;
 }
 
+.menu-btn:active{
+  transform:scale(.95);
+}
+
+/* =========================
+   CONTACT MENU
+========================= */
+
 .contact-menu{
-  position:absolute;
-  top:36px;
-  right:0;
-  width:205px;
-  padding:7px;
-  border:1px solid #23618d;
-  border-radius:13px;
-  background:rgba(5,17,35,.98);
-  box-shadow:0 10px 30px rgba(0,0,0,.45);
+  position:fixed;
+  top:94px;
+  right:18px;
+  width:230px;
+  background:#071522;
+  border:1px solid rgba(72,158,255,.2);
+  border-radius:18px;
+  padding:10px;
+  z-index:100;
+  box-shadow:0 20px 45px rgba(0,0,0,.45);
   display:none;
-  z-index:999;
 }
 
 .contact-menu.show{
@@ -130,1854 +166,2091 @@ header{
 .contact-menu a{
   display:flex;
   align-items:center;
-  gap:10px;
-  padding:11px 12px;
-  border-radius:9px;
-  color:#eaf7ff;
+  gap:12px;
+  color:#dceeff;
   text-decoration:none;
-  font-size:11px;
-  transition:.2s;
+  padding:13px;
+  border-radius:12px;
+  font-size:13px;
+  font-weight:700;
 }
 
 .contact-menu a:hover{
-  background:#0b2947;
-  color:#65eaff;
+  background:#0c2234;
 }
 
+/* =========================
+   CONTENT
+========================= */
+
+.content{
+  padding:0 28px;
+}
+
+.card{
+  background:linear-gradient(145deg,#071927,#06131f);
+  border:1px solid rgba(111,187,255,.14);
+  border-radius:28px;
+  padding:20px;
+  box-shadow:0 20px 45px rgba(0,0,0,.18);
+}
+
+.section-space{
+  margin-top:20px;
+}
 
 /* =========================
-   HERO VIDEO
+   HERO
 ========================= */
 
 .hero{
-  height:420px;
   position:relative;
+  margin:0 0 20px;
+  height:270px;
   overflow:hidden;
-  background:#020817;
-  margin:0;
+  border-radius:0 0 30px 30px;
+  background:#020a12;
 }
 
-.hero-video{
-  position:absolute;
-  inset:0;
+.hero video{
   width:100%;
   height:100%;
   object-fit:cover;
-  object-position:center;
-  z-index:1;
   display:block;
 }
 
-.video-overlay{
+.hero::after{
+  content:"";
   position:absolute;
   inset:0;
-  z-index:2;
-  pointer-events:none;
-
   background:
-    linear-gradient(
-      180deg,
-      rgba(2,8,23,.30) 0%,
-      rgba(2,8,23,.02) 40%,
-      rgba(2,8,23,.30) 72%,
-      #030b1a 100%
-    );
+    linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.7)),
+    linear-gradient(90deg,rgba(0,8,18,.4),transparent);
+  pointer-events:none;
 }
 
-
-/* =========================
-   LOGO KIRI KANAN
-========================= */
-
-.corner-logo{
+.hero-info{
   position:absolute;
-  z-index:5;
-
-  width:38px;
-  height:38px;
-
-  object-fit:cover;
-  border-radius:50%;
-
-  border:1px solid rgba(101,234,255,.85);
-
-  background:#06142d;
-
-  box-shadow:
-    0 0 5px rgba(101,234,255,.9),
-    0 0 12px rgba(0,191,255,.65),
-    0 0 22px rgba(0,191,255,.28);
-
-  opacity:.95;
-
-  transition:.25s ease;
-}
-
-.corner-logo:hover{
-  transform:scale(1.08);
-
-  box-shadow:
-    0 0 7px #65eaff,
-    0 0 16px #00bfff,
-    0 0 28px rgba(0,191,255,.4);
-}
-
-.logo-left{
-  top:13px;
-  left:13px;
-}
-
-.logo-right{
-  top:13px;
-  right:13px;
-}
-
-
-/* =========================
-   TOMBOL SUARA
-========================= */
-
-.video-sound{
-  position:absolute;
-  z-index:10;
-
-  right:14px;
-  bottom:18px;
-
-  width:38px;
-  height:38px;
-
-  border-radius:50%;
-
-  border:1px solid rgba(101,234,255,.85);
-
-  background:rgba(3,16,34,.72);
-
-  backdrop-filter:blur(7px);
-  -webkit-backdrop-filter:blur(7px);
-
-  color:#8feaff;
-
-  font-size:17px;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  box-shadow:
-    0 0 7px rgba(0,191,255,.75),
-    0 0 18px rgba(0,191,255,.3);
-
-  transition:.2s ease;
-}
-
-.video-sound:hover{
-  transform:scale(1.08);
-}
-
-.video-sound:active{
-  transform:scale(.92);
-}
-
-
-/* =========================
-   TEXT VIDEO
-========================= */
-
-.japanese{
-  position:absolute;
-  z-index:4;
-
-  top:78px;
+  z-index:3;
   left:25px;
-
-  font-size:12px;
-  line-height:1.5;
-
-  color:#d6e8ff;
-
-  text-shadow:
-    0 2px 8px rgba(0,0,0,.8);
+  bottom:24px;
 }
 
-.rinsign{
-  position:absolute;
-
-  right:20px;
-  bottom:45px;
-
-  z-index:4;
-
-  color:#a9dcff;
-
-  font-family:cursive;
-  font-size:21px;
-  font-style:italic;
-
-  text-shadow:
-    0 0 8px rgba(0,191,255,.55);
-}
-
-.rinsign small{
-  display:block;
-  text-align:right;
-  font:8px Arial;
+.hero-small{
+  color:#55bfff;
+  font-size:10px;
+  font-weight:bold;
   letter-spacing:2px;
 }
 
+.hero-title{
+  font-size:25px;
+  font-weight:900;
+  margin-top:5px;
+}
+
+.hero-sub{
+  color:#9ab0c2;
+  font-size:11px;
+  margin-top:4px;
+}
+
+.sound-btn{
+  position:absolute;
+  z-index:5;
+  right:17px;
+  bottom:18px;
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:rgba(5,18,30,.85);
+  border:1px solid rgba(255,255,255,.14);
+  color:#fff;
+  cursor:pointer;
+  backdrop-filter:blur(8px);
+}
 
 /* =========================
    WELCOME
 ========================= */
 
-.welcome{
-  text-align:center;
-  position:relative;
-  margin-top:-9px;
-  z-index:5;
-  padding:0 14px;
-}
-
-.kicker{
-  font-size:12px;
-  letter-spacing:4px;
-  color:#9eeaff;
-}
-
-.welcome h1{
-  font:36px Georgia,serif;
-  letter-spacing:1px;
-  margin:5px 0 7px;
-  text-shadow:0 0 15px #168cff55;
+.welcome h2{
+  font-size:22px;
+  margin-bottom:8px;
 }
 
 .welcome p{
-  font-size:12px;
-  color:#a7c2dd;
-  margin:0;
-}
-
-
-/* =========================
-   CARD
-========================= */
-
-.card{
-  border:1px solid #23618d;
-  border-radius:13px;
-
-  background:
-    linear-gradient(
-      140deg,
-      #0a1e38,
-      #061326
-    );
-
-  box-shadow:0 0 15px #008cff12;
-
-  position:relative;
-}
-
-
-/* =========================
-   GREETING
-========================= */
-
-.greeting{
-  margin:20px 18px 16px;
-  padding:17px 15px;
-  text-align:center;
-}
-
-.greeting h3{
-  font-size:13px;
-  margin:0 0 7px;
-}
-
-.greeting p{
-  font-size:11px;
+  color:#8da4b7;
   line-height:1.6;
-  color:#c0d3e5;
-  margin:0 auto 12px;
-  max-width:300px;
+  font-size:12px;
 }
 
-.primary{
-  width:85%;
-
-  border:1px solid #80eaff;
-  border-radius:30px;
-
-  padding:11px;
-
-  background:
-    linear-gradient(
-      90deg,
-      #087bff,
-      #8beaff
-    );
-
-  color:#00172b;
-
-  font-size:11px;
-  font-weight:bold;
-  letter-spacing:1px;
-
-  box-shadow:0 0 17px #00aaff65;
-
-  transition:.2s;
+.btn-primary{
+  width:100%;
+  margin-top:15px;
+  min-height:52px;
+  border-radius:16px;
+  background:linear-gradient(135deg,#1688ff,#0059df);
+  color:#fff;
+  font-size:13px;
+  font-weight:900;
+  cursor:pointer;
+  box-shadow:0 12px 25px rgba(0,100,255,.2);
 }
 
-.primary:active{
-  transform:scale(.97);
+.btn-primary:active{
+  transform:scale(.98);
 }
 
+/* =========================
+   PAGE TITLE
+========================= */
+
+.page-title{
+  margin:22px 0 14px;
+}
+
+.page-title h2{
+  font-size:25px;
+  font-weight:900;
+}
+
+.page-title p{
+  margin-top:7px;
+  color:#8098ab;
+  font-size:12px;
+}
 
 /* =========================
    MUSIC
 ========================= */
 
-.music{
-  margin:0 18px 12px;
-
-  padding:12px;
-
-  border-radius:13px;
-
-  border:1px solid #235b85;
-
-  background:
-    linear-gradient(
-      130deg,
-      #091e38,
-      #061225
-    );
+.music-card{
+  padding:20px;
 }
 
-.track{
+.music-heading{
   display:flex;
   align-items:center;
-  gap:12px;
+  gap:10px;
+  font-size:25px;
+  font-weight:900;
 }
 
-.cover{
-  width:58px;
-  height:58px;
+.music-heading-icon{
+  font-size:30px;
+}
 
+.music-description{
+  margin-top:10px;
+  color:#8ca3b7;
+  font-size:12px;
+}
+
+.music-player{
+  margin-top:18px;
+  padding:16px;
+  border-radius:22px;
+  background:linear-gradient(145deg,#071b2b,#04111c);
+  border:1px solid rgba(106,188,255,.11);
+}
+
+.player-main{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.player-cover{
+  width:70px;
+  height:70px;
+  flex-shrink:0;
   object-fit:cover;
-
-  border:1px solid #47caff;
-  border-radius:7px;
+  border-radius:17px;
+  box-shadow:0 10px 25px rgba(0,0,0,.4);
 }
 
-.trackinfo{
-  flex:1;
+.player-cover.playing{
+  animation:musicSpin 8s linear infinite;
+}
+
+@keyframes musicSpin{
+  from{
+    transform:rotate(0deg);
+  }
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+.player-meta{
   min-width:0;
+  flex:1;
 }
 
-.trackinfo b{
-  font-size:13px;
+.player-label{
+  color:#4ec5ff;
+  font-size:8px;
+  letter-spacing:1.5px;
+  font-weight:900;
 }
 
-.trackinfo small{
-  display:block;
-  color:#9bb8d2;
-  font-size:10px;
+.player-title{
+  margin-top:6px;
+  font-size:17px;
+  font-weight:900;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.player-artist{
   margin-top:5px;
+  color:#71899d;
+  font-size:10px;
+}
+
+.progress-wrap{
+  margin-top:17px;
 }
 
 .progress{
-  height:3px;
-  background:#27425d;
-  margin:13px 5px 10px;
-  position:relative;
-  border-radius:5px;
+  width:100%;
+  height:5px;
+  appearance:none;
+  -webkit-appearance:none;
+  background:#102b3e;
+  border-radius:10px;
+  outline:none;
+  cursor:pointer;
 }
 
-.progress:before{
-  content:"";
-  width:48%;
-  height:100%;
-  display:block;
-  background:#00caff;
+.progress::-webkit-slider-thumb{
+  appearance:none;
+  -webkit-appearance:none;
+  width:15px;
+  height:15px;
+  border-radius:50%;
+  background:#1798ff;
+  box-shadow:0 0 10px rgba(23,152,255,.5);
 }
 
-.time{
+.progress::-moz-range-thumb{
+  width:15px;
+  height:15px;
+  border:0;
+  border-radius:50%;
+  background:#1798ff;
+}
+
+.time-row{
   display:flex;
   justify-content:space-between;
-  color:#9bb7d0;
+  margin-top:7px;
+  color:#738da1;
   font-size:9px;
 }
 
-.controls{
+.player-controls{
+  margin-top:15px;
   display:flex;
-  justify-content:space-between;
+  justify-content:center;
   align-items:center;
-  margin-top:10px;
-  color:#9bdcff;
+  gap:14px;
 }
 
-.controls button{
-  border:0;
-  background:none;
-  color:#b6eaff;
-  font-size:17px;
-}
-
-.controls .pause{
-  width:39px;
-  height:39px;
+.player-btn{
+  width:45px;
+  height:45px;
   border-radius:50%;
-
-  background:
-    linear-gradient(
-      135deg,
-      #00aaff,
-      #65eaff
-    );
-
-  color:#00213b;
+  background:#071a2a;
+  border:1px solid rgba(112,186,235,.1);
+  color:#cceaff;
+  font-size:15px;
+  cursor:pointer;
 }
 
-
-/* =========================
-   BOTTOM ART
-========================= */
-
-.bottomart{
-  height:160px;
-  position:relative;
-  overflow:hidden;
-
-  background:
-    linear-gradient(
-      0deg,
-      #06142a,
-      #09294b
-    );
+.player-btn:active{
+  transform:scale(.93);
 }
 
-.bottomart img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  object-position:center 25%;
-  opacity:.75;
-  mix-blend-mode:screen;
+.player-btn.main{
+  width:58px;
+  height:58px;
+  background:linear-gradient(135deg,#168eff,#0060df);
+  box-shadow:0 10px 25px rgba(0,104,255,.28);
+  color:#fff;
+  font-size:20px;
 }
 
-.bottomart .signature{
-  position:absolute;
-  left:25px;
-  bottom:27px;
-  color:#d3edff;
-  font:italic 23px cursive;
-}
-
-
-/* =========================
-   NAV
-========================= */
-
-.nav{
+.volume-row{
   display:flex;
-  justify-content:space-around;
+  align-items:center;
+  gap:10px;
+  margin-top:15px;
+}
 
-  padding:12px 4px 15px;
+.volume-btn{
+  width:35px;
+  height:35px;
+  border-radius:10px;
+  background:#081b2a;
+  color:#fff;
+  cursor:pointer;
+}
 
-  border-top:1px solid #1b4c74;
+.volume{
+  flex:1;
+  height:4px;
+  appearance:none;
+  -webkit-appearance:none;
+  background:#102b3e;
+  border-radius:10px;
+}
 
-  background:#06152b;
+.volume::-webkit-slider-thumb{
+  appearance:none;
+  -webkit-appearance:none;
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  background:#45baff;
+}
 
-  color:#91b5d5;
-
-  font-size:10px;
+.music-status{
+  min-height:15px;
+  margin-top:9px;
   text-align:center;
-}
-
-.nav div{
-  display:grid;
-  gap:5px;
-  justify-items:center;
-}
-
-.nav b{
-  font-size:17px;
-  font-weight:normal;
-}
-
-.nav div:first-child{
-  color:#63dfff;
-}
-
-
-/* =========================
-   PAYMENT
-========================= */
-
-#payment{
-  display:none;
-}
-
-.payment-header{
-  height:40px;
-
-  border-bottom:1px solid #16426c;
-
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-
-  padding:0 18px;
-
-  font-size:10px;
-  letter-spacing:1.5px;
-  color:#d5edff;
-}
-
-.back-btn{
-  border:0;
-  background:none;
-  color:#bdeeff;
-  padding:5px 0;
-  font-size:10px;
-}
-
-
-/* =========================
-   PAYMENT HERO
-========================= */
-
-.payhero{
-  height:183px;
-  position:relative;
-  overflow:hidden;
-
-  border-bottom:1px solid #155078;
-
-  background:
-    linear-gradient(
-      90deg,
-      #071b36,
-      #07558a
-    );
-}
-
-.payhero img{
-  position:absolute;
-
-  width:100%;
-  height:100%;
-
-  object-fit:cover;
-  object-position:center 31%;
-
-  opacity:.65;
-  mix-blend-mode:screen;
-}
-
-.payheading{
-  position:absolute;
-  z-index:2;
-
-  left:20px;
-  bottom:25px;
-
-  text-shadow:0 2px 12px #00152b;
-}
-
-.payheading small{
-  font-size:10px;
-  letter-spacing:2px;
-}
-
-.payheading h2{
-  font:29px Georgia;
-  margin:7px 0 4px;
-}
-
-.payheading p{
-  font-size:10px;
-  color:#c1d9ed;
-  margin:0;
-}
-
-.paybody{
-  padding:13px 17px;
-}
-
-
-/* =========================
-   SECTION TITLE
-========================= */
-
-.sectiontitle{
-  display:flex;
-  align-items:center;
-  gap:10px;
-
-  color:#75dfff;
-
-  font-size:12px;
-  letter-spacing:2px;
-
-  margin:0 0 13px;
-}
-
-.sectiontitle:before{
-  content:"✦";
-  font-size:16px;
-}
-
-
-/* =========================
-   METHODS
-========================= */
-
-.methods{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:11px;
-}
-
-.method{
-  border:1px solid #167bb2;
-  border-radius:13px;
-  padding:13px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #0b2542,
-      #061326
-    );
-
-  min-width:0;
-}
-
-.method.shopee{
-  border-color:#a9574e;
-}
-
-.methodhead{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin-bottom:12px;
-}
-
-.methodicon{
-  width:34px;
-  height:34px;
-  border-radius:50%;
-
-  background:#079ce9;
-
-  display:grid;
-  place-items:center;
-
-  font-weight:bold;
-  font-size:15px;
-}
-
-.shopee .methodicon{
-  background:#e94e36;
-}
-
-.methodhead b{
-  font-size:12px;
-}
-
-.methodhead small{
-  display:block;
-  color:#9eb6cc;
-  font-size:9px;
-  margin-top:3px;
-}
-
-.number{
-  font-size:15px;
-  font-weight:bold;
-  letter-spacing:.5px;
-  white-space:nowrap;
-}
-
-.copy{
-  width:100%;
-  margin-top:10px;
-  padding:8px 4px;
-
-  border:1px solid #278dc0;
-  border-radius:20px;
-
-  color:#d4f4ff;
-
-  background:
-    linear-gradient(
-      90deg,
-      #075ca4,
-      #123d67
-    );
-
+  color:#71899d;
   font-size:9px;
 }
 
+.playlist{
+  margin-top:17px;
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+}
 
-/* =========================
-   BANK
-========================= */
-
-.bank{
+.playlist-item{
+  width:100%;
   display:flex;
   align-items:center;
   gap:12px;
-
-  padding:14px;
-  margin-bottom:16px;
+  padding:12px;
+  border-radius:17px;
+  background:#061724;
+  border:1px solid rgba(104,180,255,.08);
+  color:#fff;
+  text-align:left;
+  cursor:pointer;
 }
 
-.sealogo{
-  width:43px;
-  height:43px;
-
-  border-radius:50%;
-
-  background:#d7fff5;
-  color:#087c85;
-
-  display:grid;
-  place-items:center;
-
-  font-size:17px;
-  font-weight:bold;
+.playlist-item.active{
+  border-color:rgba(0,126,255,.55);
+  background:linear-gradient(145deg,#08233a,#061827);
+  box-shadow:0 0 20px rgba(0,117,255,.08);
 }
 
-.bankinfo{
+.playlist-num{
+  width:40px;
+  height:40px;
+  border-radius:12px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#09243a;
+  color:#56baff;
+  font-size:11px;
+  font-weight:900;
+  flex-shrink:0;
+}
+
+.playlist-info{
   flex:1;
+  min-width:0;
 }
 
-.bankinfo b{
-  font-size:12px;
+.playlist-title{
+  font-size:13px;
+  font-weight:900;
 }
 
-.bankinfo small{
-  display:block;
-  color:#a5bed5;
-  font-size:10px;
-  margin:5px 0;
+.playlist-sub{
+  color:#71899c;
+  font-size:9px;
+  margin-top:5px;
 }
 
-.bankinfo p{
-  font-size:10px;
-  color:#b8d5e9;
-  line-height:1.5;
-  margin:0;
+.playlist-play{
+  color:#49b9ff;
+  font-size:16px;
 }
-
 
 /* =========================
-   QRIS
+   STORE
 ========================= */
 
-.qrisbox{
-  padding:16px 13px;
-  border-radius:14px;
-  text-align:center;
+.product{
+  background:linear-gradient(145deg,#071a29,#05121d);
+  border:1px solid rgba(100,180,255,.12);
+  border-radius:20px;
+  padding:17px;
+  margin-bottom:13px;
+}
+
+.product:last-child{
+  margin-bottom:0;
+}
+
+.product-title{
+  font-size:16px;
+  font-weight:900;
+}
+
+.product-desc{
+  color:#8097aa;
+  font-size:10px;
+  margin-top:5px;
+  line-height:1.5;
+}
+
+.price-list{
+  margin-top:13px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+}
+
+.price-btn{
+  padding:11px 7px;
+  border-radius:11px;
+  background:#092033;
+  color:#cfeeff;
+  border:1px solid rgba(70,170,255,.1);
+  cursor:pointer;
+  font-size:10px;
+  font-weight:800;
+}
+
+/* =========================
+   DEPOSIT
+========================= */
+
+.deposit-box{
+  background:#071724;
+  border:1px solid rgba(97,181,255,.12);
+  border-radius:22px;
   overflow:hidden;
 }
 
-.qristag{
-  display:inline-block;
-
-  font-size:8px;
-  letter-spacing:2px;
-
-  background:#112e4c;
-
-  border:1px solid #1b5b87;
-  border-radius:4px;
-
-  padding:4px 10px;
-
-  color:#9deaff;
+.chat-head{
+  padding:17px;
+  border-bottom:1px solid rgba(255,255,255,.06);
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
 
-.qrisbox h3{
-  font:24px Georgia;
-  margin:9px 0 12px;
+.chat-avatar{
+  width:40px;
+  height:40px;
+  border-radius:12px;
+  background:linear-gradient(135deg,#1389ff,#0057d7);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
 }
 
-.qrisimg{
-  width:min(230px,100%);
-  height:auto;
-  max-height:290px;
+.chat-head-text b{
+  display:block;
+  font-size:13px;
+}
 
-  object-fit:contain;
+.chat-head-text span{
+  display:block;
+  color:#52e3a9;
+  font-size:9px;
+  margin-top:4px;
+}
 
-  background:white;
+.chat-body{
+  padding:15px;
+  max-height:480px;
+  overflow-y:auto;
+}
 
-  border:5px solid white;
-  border-radius:9px;
+.chat-message{
+  max-width:90%;
+  padding:12px;
+  border-radius:15px;
+  margin-bottom:10px;
+  font-size:11px;
+  line-height:1.55;
+}
 
+.bot-message{
+  background:#0b2031;
+  color:#d7e9f7;
+  border-bottom-left-radius:5px;
+}
+
+.user-message{
+  background:linear-gradient(135deg,#087eff,#005bdd);
+  margin-left:auto;
+  border-bottom-right-radius:5px;
+}
+
+.chat-input-row{
+  display:flex;
+  gap:8px;
+  padding:12px;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+
+.chat-input{
+  flex:1;
+  min-width:0;
+  height:45px;
+  padding:0 13px;
+  border-radius:13px;
+  border:1px solid rgba(103,184,255,.12);
+  background:#06131f;
+  color:#fff;
+  outline:none;
+}
+
+.chat-input::placeholder{
+  color:#60788b;
+}
+
+.send-btn{
+  width:45px;
+  height:45px;
+  border-radius:13px;
+  background:#087eff;
+  color:#fff;
+  cursor:pointer;
+  font-size:16px;
+}
+
+.bot-payment{
+  margin-top:10px;
+  padding:12px;
+  background:#061521;
+  border-radius:14px;
+  border:1px solid rgba(60,165,255,.1);
+}
+
+.bot-payment b{
+  display:block;
+  font-size:11px;
+  margin-bottom:10px;
+}
+
+.bot-qris{
+  width:100%;
+  max-width:240px;
   display:block;
   margin:auto;
-
-  box-shadow:0 0 16px #00aaff55;
+  border-radius:12px;
+  background:#fff;
 }
 
-.warning{
-  display:inline-block;
+/* =========================
+   RESULT
+========================= */
 
-  background:#45351a;
-  color:#ffdf70;
+.deposit-result{
+  display:none;
+  margin-top:14px;
+  padding:16px;
+  border-radius:18px;
+  background:#071a28;
+  border:1px solid rgba(74,177,255,.12);
+}
 
-  border:1px solid #977326;
+.deposit-result.show{
+  display:block;
+}
 
-  border-radius:6px;
+.result-title{
+  font-size:12px;
+  font-weight:900;
+}
 
-  padding:7px 14px;
+.result-row{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  margin-top:9px;
+  color:#8098aa;
+  font-size:10px;
+}
 
+.result-row strong{
+  color:#e7f6ff;
+}
+
+.waiting-btn{
+  width:100%;
+  margin-top:13px;
+  padding:12px;
+  border-radius:12px;
+  background:#0a2a40;
+  border:1px solid rgba(68,181,255,.18);
+  color:#65c8ff;
+  font-size:10px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+/* =========================
+   PROOF
+========================= */
+
+.proof-box{
+  margin-top:15px;
+  padding:17px;
+  border-radius:21px;
+  background:#071724;
+  border:1px solid rgba(98,184,255,.12);
+}
+
+.box-title{
+  font-size:14px;
+  font-weight:900;
+}
+
+.box-desc{
+  color:#71899d;
+  font-size:10px;
+  line-height:1.5;
+  margin-top:7px;
+}
+
+.file-label{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:100px;
+  margin-top:12px;
+  border-radius:16px;
+  border:1px dashed rgba(73,170,255,.3);
+  background:#061521;
+  color:#7190a4;
   font-size:11px;
-  font-weight:bold;
+  text-align:center;
+  cursor:pointer;
+  padding:15px;
+}
 
+.file-label input{
+  display:none;
+}
+
+.proof-preview{
+  display:none;
   margin-top:12px;
 }
 
-.qrisbox p{
-  font-size:11px;
-  color:#c0d4e6;
-  line-height:1.6;
-  margin:11px 0;
-}
-
-.download-qris{
+.proof-preview.show{
   display:block;
-
-  margin:13px auto 0;
-
-  width:90%;
-
-  padding:13px;
-
-  border:1px solid #65eaff;
-  border-radius:25px;
-
-  background:
-    linear-gradient(
-      90deg,
-      #087bff,
-      #65eaff
-    );
-
-  color:#00172b;
-
-  text-decoration:none;
-
-  font-size:11px;
-  font-weight:bold;
-  letter-spacing:1px;
-
-  text-align:center;
-
-  box-shadow:0 0 15px #00aaff55;
 }
 
+.proof-preview img{
+  width:100%;
+  max-height:250px;
+  object-fit:contain;
+  border-radius:14px;
+  background:#020a11;
+}
 
-/* =========================
-   COMPLETED
-========================= */
+.file-info{
+  margin-top:8px;
+  color:#8ca5b8;
+  font-size:9px;
+  line-height:1.5;
+}
 
-.completed{
-  margin-top:13px;
-  padding:12px;
-
+.proof-actions{
   display:flex;
-  gap:10px;
-  align-items:center;
-}
-
-.completed img{
-  width:65px;
-  height:65px;
-
-  object-fit:cover;
-  border-radius:7px;
-}
-
-.completed b{
-  font-size:12px;
-  color:#73eaff;
-}
-
-.completed p{
-  font-size:10px;
-  color:#bfd1e2;
-  line-height:1.5;
-  margin:5px 0;
-}
-
-.wa{
-  display:block;
-
-  text-decoration:none;
-  text-align:center;
-
-  background:
-    linear-gradient(
-      90deg,
-      #00c88a,
-      #73f0c5
-    );
-
-  color:#003426;
-
-  border-radius:25px;
-
-  padding:10px 5px;
-
-  font-size:10px;
-  font-weight:bold;
-}
-
-
-/* =========================
-   PDF
-========================= */
-
-.pdfbox{
-  margin-top:13px;
-  padding:16px 13px;
-}
-
-.pdfbox h3{
-  color:#75dfff;
-  font-size:12px;
-  letter-spacing:2px;
-  margin:0 0 8px;
-}
-
-.pdfbox p{
-  font-size:10px;
-  color:#a9c1d6;
-  line-height:1.5;
-  margin:0 0 12px;
-}
-
-.pdf-title,
-.pdf-content{
-  width:100%;
-
-  border:1px solid #23618d;
-  border-radius:10px;
-
-  background:#041225;
-  color:#eaf7ff;
-
-  outline:none;
-
-  font-family:Arial,sans-serif;
-}
-
-.pdf-title{
-  padding:11px;
-  font-size:11px;
-  margin-bottom:9px;
-}
-
-.pdf-content{
-  min-height:150px;
-  resize:vertical;
-
-  padding:11px;
-
-  font-size:11px;
-  line-height:1.6;
-}
-
-.pdf-title::placeholder,
-.pdf-content::placeholder{
-  color:#65809a;
-}
-
-.pdf-title:focus,
-.pdf-content:focus{
-  border-color:#65eaff;
-  box-shadow:0 0 10px #00aaff22;
-}
-
-.pdfbutton{
-  width:100%;
-
+  gap:8px;
   margin-top:10px;
+}
 
+.proof-send{
+  flex:1;
   padding:12px;
-
-  border:1px solid #65eaff;
-  border-radius:25px;
-
-  background:
-    linear-gradient(
-      90deg,
-      #087bff,
-      #65eaff
-    );
-
-  color:#00172b;
-
+  border-radius:12px;
+  background:#0c8b5a;
+  color:#fff;
   font-size:10px;
-  font-weight:bold;
-  letter-spacing:1px;
-
-  box-shadow:0 0 15px #00aaff45;
+  font-weight:900;
+  cursor:pointer;
 }
 
-.pdfbutton:disabled{
-  opacity:.6;
+.proof-remove{
+  padding:12px;
+  border-radius:12px;
+  background:#162533;
+  color:#9db1c1;
+  font-size:10px;
+  cursor:pointer;
 }
-
 
 /* =========================
-   FOOTER
+   TRANSACTIONS
 ========================= */
 
-.foot{
+.transactions{
+  margin-top:15px;
+  border-radius:21px;
+  overflow:hidden;
+  background:#071724;
+  border:1px solid rgba(98,184,255,.12);
+}
+
+.transactions-head{
+  padding:17px;
+  border-bottom:1px solid rgba(255,255,255,.06);
+  font-size:14px;
+  font-weight:900;
+}
+
+.transaction-list{
+  padding:10px;
+}
+
+.empty{
+  padding:25px 10px;
   text-align:center;
-  padding:15px 5px 10px;
-
-  color:#7997b5;
-
-  font-size:8px;
-  letter-spacing:2px;
+  color:#637b8e;
+  font-size:11px;
 }
 
+.transaction{
+  position:relative;
+  padding:13px;
+  border-radius:14px;
+  background:#06131f;
+  margin-bottom:8px;
+  border:1px solid rgba(255,255,255,.05);
+}
+
+.tx-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.tx-id{
+  color:#6f8b9f;
+  font-size:9px;
+}
+
+.tx-amount{
+  font-size:14px;
+  font-weight:900;
+}
+
+.tx-status{
+  display:inline-block;
+  margin-top:7px;
+  padding:5px 8px;
+  border-radius:8px;
+  background:#152839;
+  color:#8ecbff;
+  font-size:8px;
+  font-weight:900;
+}
+
+.tx-time{
+  margin-top:7px;
+  color:#5d7486;
+  font-size:8px;
+}
+
+.delete-tx{
+  display:none;
+  width:100%;
+  margin-top:9px;
+  padding:9px;
+  border-radius:10px;
+  background:#3a1014;
+  color:#ff8892;
+  font-size:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.owner-mode .delete-tx{
+  display:block;
+}
 
 /* =========================
-   MOBILE
+   OWNER
 ========================= */
 
-@media(max-width:500px){
+.owner-box{
+  margin-top:15px;
+  padding:18px;
+  border-radius:22px;
+  background:#071724;
+  border:1px solid rgba(98,184,255,.12);
+}
 
-  .page{
-    width:100%;
-    border-left:0;
-    border-right:0;
+.owner-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.owner-title{
+  font-size:16px;
+  font-weight:900;
+}
+
+.owner-status{
+  padding:8px 12px;
+  border-radius:20px;
+  background:#0d1b27;
+  color:#718494;
+  font-size:9px;
+  font-weight:900;
+}
+
+.owner-mode .owner-status{
+  background:rgba(0,255,170,.08);
+  color:#4fffc2;
+}
+
+.pin-input{
+  width:100%;
+  height:52px;
+  margin-top:15px;
+  padding:0 14px;
+  border-radius:15px;
+  border:1px solid rgba(106,184,255,.15);
+  background:#061521;
+  color:#fff;
+  outline:none;
+  font-size:14px;
+}
+
+.owner-btn{
+  width:100%;
+  height:52px;
+  margin-top:12px;
+  border-radius:15px;
+  background:linear-gradient(135deg,#1688ff,#0059dc);
+  color:#fff;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.owner-logout,
+.owner-delete-all{
+  display:none;
+  width:100%;
+  margin-top:9px;
+  padding:12px;
+  border-radius:12px;
+  font-size:10px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.owner-logout{
+  background:#142536;
+  color:#91a9bb;
+}
+
+.owner-delete-all{
+  background:#3b1116;
+  color:#ff8790;
+}
+
+.owner-mode .owner-logout,
+.owner-mode .owner-delete-all{
+  display:block;
+}
+
+.owner-note{
+  color:#71899d;
+  font-size:10px;
+  line-height:1.5;
+  margin-top:11px;
+}
+
+/* =========================
+   FOTO RIN BAWAH
+   16:9
+========================= */
+
+.bottom-art{
+  width:100%;
+  aspect-ratio:16 / 9;
+  height:auto;
+  object-fit:cover;
+  object-position:center center;
+  display:block;
+  border-radius:28px;
+  margin-top:20px;
+  border:1px solid rgba(90,178,255,.08);
+  box-shadow:0 20px 40px rgba(0,0,0,.25);
+
+  /* supaya foto tidak menghalangi klik */
+  pointer-events:none;
+  position:relative;
+  z-index:1;
+}
+
+/* =========================
+   BOTTOM NAV
+========================= */
+
+.bottom-nav{
+  position:fixed;
+  z-index:80;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:100%;
+  max-width:500px;
+  height:92px;
+  padding:10px 22px 15px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  background:rgba(2,10,18,.96);
+  border-top:1px solid rgba(255,255,255,.05);
+  backdrop-filter:blur(18px);
+}
+
+.nav-btn{
+  border-radius:18px;
+  background:transparent;
+  color:#64798a;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:7px;
+  cursor:pointer;
+}
+
+.nav-btn.active{
+  background:#061a2d;
+  color:#62c6ff;
+}
+
+.nav-icon{
+  font-size:21px;
+}
+
+.nav-label{
+  font-size:10px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:380px){
+
+  .header{
+    padding-left:18px;
+    padding-right:18px;
+  }
+
+  .brand h1{
+    font-size:19px;
+  }
+
+  .online{
+    font-size:10px;
+    padding:7px 9px;
+  }
+
+  .menu-btn{
+    width:58px;
+    height:58px;
+    font-size:28px;
+  }
+
+  .content{
+    padding:0 18px;
   }
 
   .hero{
-    height:420px;
-  }
-
-  .corner-logo{
-    width:36px;
-    height:36px;
-  }
-
-  .logo-left{
-    top:12px;
-    left:12px;
-  }
-
-  .logo-right{
-    top:12px;
-    right:12px;
-  }
-
-  .video-sound{
-    width:36px;
-    height:36px;
-
-    right:12px;
-    bottom:16px;
-
-    font-size:16px;
+    height:245px;
   }
 
 }
-
-@media(max-width:370px){
-
-  .methods{
-    grid-template-columns:1fr;
-  }
-
-  .number{
-    font-size:14px;
-  }
-
-}
-
 </style>
 </head>
 
-
 <body>
 
-<div class="page">
+<div class="app">
 
+<!-- =========================
+     HEADER
+========================= -->
 
-<!-- ==================================================
-     HOME
-================================================== -->
+<header class="header">
 
-<section id="home">
+  <div class="brand">
 
+    <h1>DAPPA OFFICIAL</h1>
 
-<header>
+    <div class="online">
+      <span class="online-dot"></span>
+      ONLINE
+    </div>
 
-<span>DAPPA OFFICIAL</span>
+  </div>
 
-<span class="online">
-ONLINE
-</span>
+  <button
+    class="menu-btn"
+    type="button"
+    onclick="toggleMenu()">
 
+    ☰
 
-<div class="menu-contact">
-
-<button
-  class="menu"
-  onclick="toggleContactMenu()"
->
-☰
-</button>
-
-
-<div
-  class="contact-menu"
-  id="contactMenu"
->
-
-<a
-  href="https://wa.me/6281903976932"
-  target="_blank"
->
-💬　WhatsApp
-</a>
-
-<a
-  href="https://t.me/kieldppa"
-  target="_blank"
->
-✈️　Telegram
-</a>
-
-<a
-  href="https://dappaofficial-restapi.my.id"
-  target="_blank"
->
-🌐　Web API Key
-</a>
-
-</div>
-
-</div>
+  </button>
 
 </header>
 
 
-<!-- ==================================================
-     VIDEO
-================================================== -->
+<!-- CONTACT MENU -->
 
-<div class="hero">
+<div id="contactMenu" class="contact-menu">
 
+  <a
+    href="https://wa.me/6281903976932"
+    target="_blank">
 
-<video
-  id="heroVideo"
-  class="hero-video"
-  autoplay
-  muted
-  loop
-  playsinline
-  preload="auto"
->
+    💬 WhatsApp
 
-<source
-  src="https://videotourl.com/videos/1790953749312-82f4b9d7-8765-42bc-bbd9-480ce46ce7d2.mp4"
-  type="video/mp4"
->
+  </a>
 
-Browser kamu tidak mendukung video.
+  <a
+    href="https://t.me/kieldppa"
+    target="_blank">
 
-</video>
+    ✈️ Telegram
 
+  </a>
 
-<div class="video-overlay"></div>
+  <a
+    href="https://dappaofficial-restapi.my.id"
+    target="_blank">
 
+    🌐 Web API
 
-<img
-  class="corner-logo logo-left"
-  src="https://i.ibb.co/G3fsXsNj/undefined.jpg"
-  alt="Dappa Official Logo"
->
-
-
-<img
-  class="corner-logo logo-right"
-  src="https://i.ibb.co/G3fsXsNj/undefined.jpg"
-  alt="Dappa Official Logo"
->
-
-
-<div class="japanese">
-
-俺は<br>
-俺のゴールを<br>
-決める
-
-<br><br>
-
-<span style="color:#8ca9c5">
-- Rin Itoshi -
-</span>
+  </a>
 
 </div>
 
 
-<div class="rinsign">
+<!-- =========================
+     HOME
+========================= -->
 
-Rin Itoshi
+<section
+  id="slideHome"
+  class="slide active">
 
-<small>
-BLUE LOCK
-</small>
+  <!-- HERO -->
+
+  <div class="hero">
+
+    <video
+      id="heroVideo"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto">
+
+      <source
+        src="https://videotourl.com/videos/1790953749312-82f4b9d7-8765-42bc-bbd9-480ce46ce7d2.mp4"
+        type="video/mp4">
+
+    </video>
+
+    <div class="hero-info">
+
+      <div class="hero-small">
+        BLUE LOCK
+      </div>
+
+      <div class="hero-title">
+        Rin Itoshi
+      </div>
+
+      <div class="hero-sub">
+        Dappa Official
+      </div>
+
+    </div>
+
+    <button
+      id="soundBtn"
+      class="sound-btn"
+      type="button"
+      onclick="toggleVideoSound()">
+
+      🔇
+
+    </button>
+
+  </div>
+
+
+  <div class="content">
+
+    <!-- WELCOME -->
+
+    <div class="card welcome">
+
+      <h2>
+        Welcome to Dappa Official
+      </h2>
+
+      <p>
+        Tempat untuk berbagai kebutuhan bot,
+        script, hosting, API, dan layanan digital
+        lainnya.
+      </p>
+
+      <button
+        class="btn-primary"
+        type="button"
+        onclick="showSlide('slideStore')">
+
+        🛒 LIHAT STORE
+
+      </button>
+
+    </div>
+
+
+    <!-- MUSIC -->
+
+    <div class="card music-card section-space">
+
+      <div class="music-heading">
+
+        <span class="music-heading-icon">
+          🎵
+        </span>
+
+        Music
+
+      </div>
+
+      <div class="music-description">
+        Koleksi musik pilihan Dappa Official.
+      </div>
+
+
+      <div class="music-player">
+
+        <audio
+          id="musicAudio"
+          preload="metadata">
+        </audio>
+
+
+        <div class="player-main">
+
+          <img
+            id="musicCover"
+            class="player-cover"
+            src="https://i.ibb.co/XZQ5btXW/undefined.jpg"
+            alt="Dappa Music">
+
+          <div class="player-meta">
+
+            <div class="player-label">
+              NOW PLAYING
+            </div>
+
+            <div
+              id="musicTitle"
+              class="player-title">
+
+              What If I Call
+
+            </div>
+
+            <div class="player-artist">
+              Dappa Official
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="progress-wrap">
+
+          <input
+            id="musicProgress"
+            class="progress"
+            type="range"
+            min="0"
+            max="100"
+            value="0"
+            step="0.1">
+
+          <div class="time-row">
+
+            <span id="musicCurrent">
+              0:00
+            </span>
+
+            <span id="musicDuration">
+              0:00
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="player-controls">
+
+          <button
+            id="prevMusic"
+            class="player-btn"
+            type="button">
+
+            ⏮
+
+          </button>
+
+          <button
+            id="playMusic"
+            class="player-btn main"
+            type="button">
+
+            ▶
+
+          </button>
+
+          <button
+            id="nextMusic"
+            class="player-btn"
+            type="button">
+
+            ⏭
+
+          </button>
+
+        </div>
+
+
+        <div class="volume-row">
+
+          <button
+            id="muteMusic"
+            class="volume-btn"
+            type="button">
+
+            🔊
+
+          </button>
+
+          <input
+            id="musicVolume"
+            class="volume"
+            type="range"
+            min="0"
+            max="1"
+            value="1"
+            step="0.01">
+
+        </div>
+
+
+        <div
+          id="musicStatus"
+          class="music-status">
+        </div>
+
+
+        <div
+          id="musicPlaylist"
+          class="playlist">
+
+          <button
+            class="playlist-item active"
+            type="button"
+            data-index="0">
+
+            <span class="playlist-num">
+              01
+            </span>
+
+            <span class="playlist-info">
+
+              <span class="playlist-title">
+                What If I Call
+              </span>
+
+              <span class="playlist-sub">
+                Dappa Official
+              </span>
+
+            </span>
+
+            <span class="playlist-play">
+              ▶
+            </span>
+
+          </button>
+
+
+          <button
+            class="playlist-item"
+            type="button"
+            data-index="1">
+
+            <span class="playlist-num">
+              02
+            </span>
+
+            <span class="playlist-info">
+
+              <span class="playlist-title">
+                Bernaung
+              </span>
+
+              <span class="playlist-sub">
+                Dappa Official
+              </span>
+
+            </span>
+
+            <span class="playlist-play">
+              ▶
+            </span>
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- FOTO RIN -->
+
+    <img
+      class="bottom-art"
+      src="https://i.ibb.co/XZQ5btXW/undefined.jpg"
+      alt="Rin Itoshi">
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     STORE
+========================= -->
+
+<section
+  id="slideStore"
+  class="slide">
+
+  <div class="content">
+
+    <div class="page-title">
+
+      <h2>
+        Store
+      </h2>
+
+      <p>
+        Pilih produk yang kamu butuhkan.
+      </p>
+
+    </div>
+
+
+    <!-- BOT -->
+
+    <div class="product">
+
+      <div class="product-title">
+        🤖 Sewa Bot Fintech Kaelyn V8
+      </div>
+
+      <div class="product-desc">
+        Sewa bot fintech dengan pilihan durasi
+        sesuai kebutuhan.
+      </div>
+
+
+      <div class="price-list">
+
+        <button
+          class="price-btn"
+          onclick="buyRental('7 Hari','Rp5K')">
+
+          7 Hari<br>
+          Rp5K
+
+        </button>
+
+        <button
+          class="price-btn"
+          onclick="buyRental('14 Hari','Rp8K')">
+
+          14 Hari<br>
+          Rp8K
+
+        </button>
+
+        <button
+          class="price-btn"
+          onclick="buyRental('1 Bulan','Rp10K')">
+
+          1 Bulan<br>
+          Rp10K
+
+        </button>
+
+        <button
+          class="price-btn"
+          onclick="buyRental('2 Bulan','Rp13K')">
+
+          2 Bulan<br>
+          Rp13K
+
+        </button>
+
+        <button
+          class="price-btn"
+          onclick="buyRental('3 Bulan','Rp15K')">
+
+          3 Bulan<br>
+          Rp15K
+
+        </button>
+
+        <button
+          class="price-btn"
+          onclick="buyRental('Permanen','Rp30K')">
+
+          Permanen<br>
+          Rp30K
+
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- HOSTING -->
+
+    <div class="product">
+
+      <div class="product-title">
+        🌐 Promo Join Partner HOSTING
+      </div>
+
+      <div class="product-desc">
+        Promo join partner hosting Dappa Official.
+        Hubungi admin untuk informasi lengkap.
+      </div>
+
+      <button
+        class="btn-primary"
+        onclick="openWhatsApp(
+          'Halo Dappa, saya tertarik dengan Promo Join Partner HOSTING.'
+        )">
+
+        💬 HUBUNGI ADMIN
+
+      </button>
+
+    </div>
+
+
+    <!-- SCRIPT -->
+
+    <div class="product">
+
+      <div class="product-title">
+        📦 Script Store Fintech Kaelyn V8
+      </div>
+
+      <div class="product-desc">
+        Script fintech Kaelyn V8 untuk kebutuhan
+        project dan pengembangan bot.
+      </div>
+
+      <button
+        class="btn-primary"
+        onclick="openWhatsApp(
+          'Halo Dappa, saya ingin membeli Script Store Fintech Kaelyn V8.'
+        )">
+
+        💬 BELI SCRIPT
+
+      </button>
+
+    </div>
+
+
+    <!-- DEPOSIT -->
+
+    <div class="card section-space">
+
+      <div class="product-title">
+        💳 Mau melakukan Deposit?
+      </div>
+
+      <div class="product-desc">
+        Gunakan sistem deposit Dappa Official
+        untuk membuat transaksi dan mengirim
+        bukti transfer.
+      </div>
+
+      <button
+        class="btn-primary"
+        onclick="showSlide('slideDeposit')">
+
+        💰 MASUK DEPOSIT
+
+      </button>
+
+    </div>
+
+
+    <!-- FOTO RIN -->
+
+    <img
+      class="bottom-art"
+      src="https://i.ibb.co/XZQ5btXW/undefined.jpg"
+      alt="Rin Itoshi">
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     DEPOSIT
+========================= -->
+
+<section
+  id="slideDeposit"
+  class="slide">
+
+  <div class="content">
+
+    <div class="page-title">
+
+      <h2>
+        Deposit
+      </h2>
+
+      <p>
+        Buat transaksi deposit melalui chatbot.
+      </p>
+
+    </div>
+
+
+    <!-- CHAT -->
+
+    <div class="deposit-box">
+
+      <div class="chat-head">
+
+        <div class="chat-avatar">
+          D
+        </div>
+
+        <div class="chat-head-text">
+
+          <b>
+            Dappa Deposit
+          </b>
+
+          <span>
+            ● Online
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div
+        id="chatBody"
+        class="chat-body">
+
+        <div class="chat-message bot-message">
+
+          👋 Halo! Selamat datang di sistem
+          deposit Dappa Official.
+
+          <br><br>
+
+          Untuk membuat transaksi, ketik:
+
+          <br><br>
+
+          <b>
+            deposit 1000
+          </b>
+
+          <br><br>
+
+          Minimal deposit adalah
+          <b>Rp1.000</b>.
+
+        </div>
+
+      </div>
+
+
+      <div class="chat-input-row">
+
+        <input
+          id="chatInput"
+          class="chat-input"
+          type="text"
+          autocomplete="off"
+          placeholder="Contoh: deposit 1000">
+
+        <button
+          id="sendChat"
+          class="send-btn"
+          type="button">
+
+          ➤
+
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- RESULT -->
+
+    <div
+      id="depositResult"
+      class="deposit-result">
+
+      <div class="result-title">
+        💳 DETAIL TRANSAKSI
+      </div>
+
+      <div class="result-row">
+
+        <span>
+          ID Transaksi
+        </span>
+
+        <strong id="resultId">
+          -
+        </strong>
+
+      </div>
+
+      <div class="result-row">
+
+        <span>
+          Nominal
+        </span>
+
+        <strong id="resultAmount">
+          -
+        </strong>
+
+      </div>
+
+      <div class="result-row">
+
+        <span>
+          Status
+        </span>
+
+        <strong id="resultStatus">
+          MENUNGGU PEMBAYARAN
+        </strong>
+
+      </div>
+
+      <button
+        id="waitingBtn"
+        class="waiting-btn"
+        type="button">
+
+        SAYA SUDAH TRANSFER
+
+      </button>
+
+    </div>
+
+
+    <!-- BUKTI -->
+
+    <div class="proof-box">
+
+      <div class="box-title">
+        📁 BUKTI TRANSFER
+      </div>
+
+      <div class="box-desc">
+        Pilih screenshot/foto bukti transfer
+        dari galeri HP. Setelah preview muncul,
+        tekan tombol kirim.
+      </div>
+
+
+      <label class="file-label">
+
+        <input
+          id="proofInput"
+          type="file"
+          accept="image/*,.pdf">
+
+        📷<br>
+        PILIH FOTO / PDF BUKTI TRANSFER
+
+      </label>
+
+
+      <div
+        id="proofPreview"
+        class="proof-preview">
+
+        <img
+          id="proofImage"
+          alt="Preview bukti transfer">
+
+        <div
+          id="proofInfo"
+          class="file-info">
+        </div>
+
+        <div class="proof-actions">
+
+          <button
+            id="sendProof"
+            class="proof-send"
+            type="button">
+
+            📤 KIRIM BUKTI KE WHATSAPP
+
+          </button>
+
+          <button
+            id="removeProof"
+            class="proof-remove"
+            type="button">
+
+            HAPUS
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- TRANSAKSI -->
+
+    <div class="transactions">
+
+      <div class="transactions-head">
+        📁 TRANSAKSI DEPOSIT
+      </div>
+
+      <div
+        id="transactionList"
+        class="transaction-list">
+
+        <div class="empty">
+          Belum ada transaksi.
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- OWNER -->
+
+    <div
+      id="ownerBox"
+      class="owner-box">
+
+      <div class="owner-head">
+
+        <div class="owner-title">
+          ⚙️ OWNER
+        </div>
+
+        <div
+          id="ownerStatus"
+          class="owner-status">
+
+          OFFLINE
+
+        </div>
+
+      </div>
+
+
+      <input
+        id="ownerPin"
+        class="pin-input"
+        type="password"
+        inputmode="numeric"
+        placeholder="Masukkan PIN">
+
+
+      <button
+        id="ownerLogin"
+        class="owner-btn"
+        type="button">
+
+        🔐 MASUK OWNER
+
+      </button>
+
+
+      <button
+        id="ownerDeleteAll"
+        class="owner-delete-all"
+        type="button">
+
+        🗑️ HAPUS SEMUA
+
+      </button>
+
+
+      <button
+        id="ownerLogout"
+        class="owner-logout"
+        type="button">
+
+        🔒 KELUAR OWNER
+
+      </button>
+
+
+      <div class="owner-note">
+
+        Masukkan PIN owner untuk mengaktifkan
+        pengelolaan transaksi.
+
+      </div>
+
+    </div>
+
+
+    <!-- FOTO RIN -->
+
+    <img
+      class="bottom-art"
+      src="https://i.ibb.co/XZQ5btXW/undefined.jpg"
+      alt="Rin Itoshi">
+
+  </div>
+
+</section>
 
 </div>
 
 
-<!-- TOMBOL SUARA -->
+<!-- =========================
+     BOTTOM NAV
+========================= -->
 
-<button
-  type="button"
-  class="video-sound"
-  id="videoSound"
-  onclick="toggleVideoSound()"
-  aria-label="Aktifkan suara video"
->
-🔇
-</button>
+<nav class="bottom-nav">
 
+  <button
+    id="navHome"
+    class="nav-btn active"
+    type="button"
+    onclick="showSlide('slideHome')">
 
-</div>
+    <span class="nav-icon">
+      ⌂
+    </span>
 
+    <span class="nav-label">
+      Home
+    </span>
 
-<!-- ==================================================
-     WELCOME
-================================================== -->
-
-<div class="welcome">
-
-<div class="kicker">
-WELCOME TO
-</div>
-
-<h1>
-DAPPA OFFICIAL
-</h1>
-
-<p>
-Where Every Transaction Feels Special ♡
-</p>
-
-</div>
+  </button>
 
 
-<!-- ==================================================
-     GREETING
-================================================== -->
+  <button
+    id="navStore"
+    class="nav-btn"
+    type="button"
+    onclick="showSlide('slideStore')">
 
-<div class="card greeting">
+    <span class="nav-icon">
+      🛒
+    </span>
 
-<h3>
-Halo, Selamat Datang!
-</h3>
+    <span class="nav-label">
+      Store
+    </span>
 
-<p>
-Meskipun kamu jauh, namun aku senantiasa merasakan keberadaanmu
-yang begitu dekat. Setiap saat yang ada dalam hati dan pikiranku
-hanya dirimu yang selalu kurindu.
-</p>
-
-<button
-  class="primary"
-  onclick="showPayment()"
->
-MASUK SEKARANG　→
-</button>
-
-</div>
+  </button>
 
 
-<!-- ==================================================
-     MUSIC
-================================================== -->
+  <button
+    id="navDeposit"
+    class="nav-btn"
+    type="button"
+    onclick="showSlide('slideDeposit')">
 
-<div class="music">
+    <span class="nav-icon">
+      💳
+    </span>
 
-<div class="track">
+    <span class="nav-label">
+      Deposit
+    </span>
 
-<img
-  class="cover"
-  src="https://i.ibb.co/XZQ5btXW/undefined.jpg"
-  alt="Rin Itoshi"
->
-
-<div class="trackinfo">
-
-<b id="songTitle">
-What If I Call
-</b>
-
-<small>
-Dappa Official - Now Playing
-</small>
-
-</div>
-
-<div style="color:#51dfff;font-size:20px">
-♫
-</div>
-
-</div>
-
-
-<div class="progress"></div>
-
-
-<div class="time">
-
-<span id="musicStatus">
-Ready
-</span>
-
-<span id="songTime">
-What If I Call
-</span>
-
-</div>
-
-
-<div class="controls">
-
-<button>
-☰
-</button>
-
-<button>
-◀
-</button>
-
-<button
-  class="pause"
-  id="playBtn"
-  onclick="toggleMusic()"
->
-▶
-</button>
-
-<button
-  onclick="nextSong()"
->
-▶
-</button>
-
-<button>
-♡
-</button>
-
-</div>
-
-
-<audio
-  id="audio"
-  preload="metadata"
-  playsinline
-></audio>
-
-</div>
-
-
-<!-- ==================================================
-     BOTTOM ART
-================================================== -->
-
-<div class="bottomart">
-
-<img
-  src="https://i.ibb.co/XZQ5btXW/undefined.jpg"
-  alt="Rin Itoshi"
->
-
-<div class="signature">
-Rin Itoshi
-</div>
-
-</div>
-
-
-<!-- ==================================================
-     NAV
-================================================== -->
-
-<nav class="nav">
-
-<div>
-<b>⌂</b>
-Home
-</div>
-
-<div>
-<b>♫</b>
-Music
-</div>
-
-<div
-  onclick="showPayment()"
-  style="cursor:pointer"
->
-<b>♢</b>
-Payment
-</div>
-
-<div>
-<b>◉</b>
-Contact
-</div>
+  </button>
 
 </nav>
 
 
-</section>
-
-
-<!-- ==================================================
-     PAYMENT
-================================================== -->
-
-<section id="payment">
-
-
-<header class="payment-header">
-
-<button
-  class="back-btn"
-  onclick="showHome()"
->
-‹　Kembali
-</button>
-
-<span style="font-size:9px">
-DAPPA OFFICIAL　♛
-</span>
-
-</header>
-
-
-<div class="payhero">
-
-<img
-  src="https://i.ibb.co/cXkfgDSD/undefined.jpg"
-  alt="Rin Itoshi"
->
-
-<div class="payheading">
-
-<small>
-DAPPA OFFICIAL
-</small>
-
-<h2>
-Payment Center
-</h2>
-
-<p>
-Choose your preferred payment method.
-</p>
-
-</div>
-
-</div>
-
-
-<div class="paybody">
-
-
-<h3 class="sectiontitle">
-01 / E-WALLET
-</h3>
-
-
-<div class="methods">
-
-
-<div class="method">
-
-<div class="methodhead">
-
-<div class="methodicon">
-▰
-</div>
-
-<div>
-
-<b>DANA</b>
-
-<small>
-Digital Wallet
-</small>
-
-</div>
-
-</div>
-
-<div class="number">
-081385631460
-</div>
-
-<button
-  class="copy"
-  onclick="copyText('081385631460')"
->
-♧　SALIN NOMOR　▢
-</button>
-
-</div>
-
-
-<div class="method shopee">
-
-<div class="methodhead">
-
-<div class="methodicon">
-▣
-</div>
-
-<div>
-
-<b>ShopeePay</b>
-
-<small>
-Digital Wallet
-</small>
-
-</div>
-
-</div>
-
-<div class="number">
-085280063083
-</div>
-
-<button
-  class="copy"
-  onclick="copyText('085280063083')"
->
-♧　SALIN NOMOR　▢
-</button>
-
-</div>
-
-
-</div>
-
-
-<h3
-  class="sectiontitle"
-  style="margin-top:19px"
->
-02 / BANK TRANSFER
-</h3>
-
-
-<div class="card bank">
-
-<div class="sealogo">
-Sea
-</div>
-
-<div class="bankinfo">
-
-<b>
-SeaBank
-</b>
-
-<small>
-Bank Transfer
-</small>
-
-<p>
-Untuk nomor rekening, silakan minta langsung kepada Dappa.
-</p>
-
-</div>
-
-<div style="color:#8deaff">
-→
-</div>
-
-</div>
-
-
-<h3 class="sectiontitle">
-03 / QRIS PAYMENT
-</h3>
-
-
-<div class="card qrisbox">
-
-<span class="qristag">
-SCAN TO PAY
-</span>
-
-<h3>
-Scan di Atas
-</h3>
-
-
-<img
-  class="qrisimg"
-  src="https://i.ibb.co/h3DW1Ty/undefined.jpg"
-  alt="QRIS Dappa Official"
->
-
-
-<div class="warning">
-⚠ WAJIB +100P
-</div>
-
-
-<p>
-Silahkan di download ya kalo gak bisa di screenshot.
-</p>
-
-
-<a
-  href="https://i.ibb.co/h3DW1Ty/undefined.jpg"
-  download="QRIS-Dappa.png"
-  target="_blank"
-  class="download-qris"
->
-⬇ DOWNLOAD QRIS
-</a>
-
-</div>
-
-
-<div class="card completed">
-
-<img
-  src="https://i.ibb.co/cXkfgDSD/undefined.jpg"
-  alt="Dappa"
->
-
-
-<div style="flex:1">
-
-<b>
-Payment Completed?
-</b>
-
-<p>
-Jika sudah melakukan pembayaran,
-silakan konfirmasi melalui WhatsApp.
-</p>
-
-
-<a
-  class="wa"
-  href="https://wa.me/6281903976932?text=Halo%20Dappa%2C%20saya%20sudah%20melakukan%20pembayaran."
-  target="_blank"
->
-☏　KONFIRMASI VIA WHATSAPP　→
-</a>
-
-</div>
-
-</div>
-
-
-<!-- ==================================================
-     TEXT TO PDF
-================================================== -->
-
-<div class="card pdfbox">
-
-<h3>
-✦ TEXT TO PDF
-</h3>
-
-<p>
-Ketik jawaban atau teks kamu, lalu download langsung menjadi PDF yang rapi.
-</p>
-
-
-<input
-  id="pdfTitle"
-  class="pdf-title"
-  type="text"
-  placeholder="Judul PDF"
->
-
-
-<textarea
-  id="pdfContent"
-  class="pdf-content"
-  placeholder="Ketik jawaban kamu di sini..."
-></textarea>
-
-
-<button
-  type="button"
-  class="pdfbutton"
-  id="pdfButton"
-  onclick="buatPDF()"
->
-▣　DOWNLOAD PDF
-</button>
-
-</div>
-
-
-<div class="foot">
-────　MADE WITH ♛ DAPPA OFFICIAL　────
-</div>
-
-
-</div>
-
-</section>
-
-</div>
-
-
 <script>
 
-/* ==================================================
-   VIDEO
-================================================== */
+/* =========================
+   CONFIG
+========================= */
 
-const heroVideo =
-  document.getElementById('heroVideo');
+const OWNER_PIN = "141196";
 
-const videoSound =
-  document.getElementById('videoSound');
+const WHATSAPP =
+  "https://wa.me/6281903976932";
+
+
+let currentDeposit = null;
+let currentTx = null;
+let selectedProof = null;
+let ownerLogged = false;
 
 
 /* =========================
-   TOGGLE SUARA
+   SLIDE
 ========================= */
 
-function toggleVideoSound(){
+function showSlide(id){
 
-  if(heroVideo.muted){
+  document
+    .querySelectorAll(".slide")
+    .forEach(slide => {
+      slide.classList.remove("active");
+    });
 
-    heroVideo.muted=false;
-    heroVideo.volume=1;
 
-    videoSound.textContent='🔊';
+  document
+    .getElementById(id)
+    .classList.add("active");
 
-    videoSound.setAttribute(
-      'aria-label',
-      'Matikan suara video'
-    );
 
-    heroVideo.play().catch(()=>{});
+  document
+    .querySelectorAll(".nav-btn")
+    .forEach(btn => {
+      btn.classList.remove("active");
+    });
 
-  }else{
 
-    heroVideo.muted=true;
+  if(id === "slideHome"){
 
-    videoSound.textContent='🔇';
-
-    videoSound.setAttribute(
-      'aria-label',
-      'Aktifkan suara video'
-    );
+    document
+      .getElementById("navHome")
+      .classList.add("active");
 
   }
+
+  if(id === "slideStore"){
+
+    document
+      .getElementById("navStore")
+      .classList.add("active");
+
+  }
+
+  if(id === "slideDeposit"){
+
+    document
+      .getElementById("navDeposit")
+      .classList.add("active");
+
+  }
+
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
 
 }
 
 
 /* =========================
-   AUTOPLAY
-========================= */
-
-window.addEventListener(
-  'load',
-  function(){
-
-    heroVideo.muted=true;
-
-    heroVideo.play().catch(
-      function(error){
-
-        console.log(
-          'Autoplay diblokir:',
-          error
-        );
-
-      }
-    );
-
-  }
-);
-
-
-/* =========================
-   AUTO REPLAY
-========================= */
-
-heroVideo.addEventListener(
-  'ended',
-  function(){
-
-    heroVideo.currentTime=0;
-
-    heroVideo.play().catch(
-      function(error){
-
-        console.log(
-          'Video gagal diulang:',
-          error
-        );
-
-      }
-    );
-
-  }
-);
-
-
-/* ==================================================
    MENU
-================================================== */
+========================= */
 
-function toggleContactMenu(){
+function toggleMenu(){
 
   document
-    .getElementById('contactMenu')
-    .classList
-    .toggle('show');
+    .getElementById("contactMenu")
+    .classList.toggle("show");
 
 }
 
 
 document.addEventListener(
-  'click',
+  "click",
   function(e){
 
-    const container =
-      document.querySelector('.menu-contact');
+    const menu =
+      document.getElementById(
+        "contactMenu"
+      );
+
+    const button =
+      document.querySelector(
+        ".menu-btn"
+      );
+
 
     if(
-      container &&
-      !container.contains(e.target)
+      menu.classList.contains("show") &&
+      !menu.contains(e.target) &&
+      !button.contains(e.target)
     ){
 
-      document
-        .getElementById('contactMenu')
-        .classList
-        .remove('show');
+      menu.classList.remove("show");
 
     }
 
@@ -1985,209 +2258,1552 @@ document.addEventListener(
 );
 
 
-/* ==================================================
-   PAGE
-================================================== */
+/* =========================
+   VIDEO SOUND
+========================= */
 
-function showPayment(){
+const heroVideo =
+  document.getElementById(
+    "heroVideo"
+  );
 
-  document.getElementById('home').style.display='none';
-
-  document.getElementById('payment').style.display='block';
-
-  window.scrollTo({
-    top:0,
-    behavior:'smooth'
-  });
-
-}
+const soundBtn =
+  document.getElementById(
+    "soundBtn"
+  );
 
 
-function showHome(){
+function toggleVideoSound(){
 
-  document.getElementById('payment').style.display='none';
+  heroVideo.muted =
+    !heroVideo.muted;
 
-  document.getElementById('home').style.display='block';
 
-  window.scrollTo({
-    top:0,
-    behavior:'smooth'
-  });
+  soundBtn.textContent =
+    heroVideo.muted
+      ? "🔇"
+      : "🔊";
 
 }
 
 
-/* ==================================================
-   MUSIC
-================================================== */
+/* =========================
+   WHATSAPP
+========================= */
 
-const audio =
-  document.getElementById('audio');
+function openWhatsApp(message){
 
-const btn =
-  document.getElementById('playBtn');
+  window.open(
+    WHATSAPP +
+    "?text=" +
+    encodeURIComponent(message),
+    "_blank"
+  );
 
-const songTitle =
-  document.getElementById('songTitle');
-
-const songTime =
-  document.getElementById('songTime');
-
-const musicStatus =
-  document.getElementById('musicStatus');
+}
 
 
-const songs=[
+function buyRental(
+  duration,
+  price
+){
+
+  const message =
+`Halo Dappa, saya ingin sewa Bot Fintech Kaelyn V8 ${duration} seharga ${price}. Sebelum diproses, silahkan transfer sesuai harga tersebut. Terima kasih.`;
+
+  openWhatsApp(message);
+
+}
+
+
+/* =========================
+   RUPIAH
+========================= */
+
+function rupiah(number){
+
+  return new Intl.NumberFormat(
+    "id-ID",
+    {
+      style:"currency",
+      currency:"IDR",
+      minimumFractionDigits:0
+    }
+  ).format(number);
+
+}
+
+
+/* =========================
+   ESCAPE
+========================= */
+
+function escapeHTML(value){
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================
+   CHAT
+========================= */
+
+const chatInput =
+  document.getElementById(
+    "chatInput"
+  );
+
+const sendChat =
+  document.getElementById(
+    "sendChat"
+  );
+
+const chatBody =
+  document.getElementById(
+    "chatBody"
+  );
+
+
+function addChatMessage(
+  message,
+  type="bot"
+){
+
+  const div =
+    document.createElement(
+      "div"
+    );
+
+
+  div.className =
+    "chat-message " +
+    (
+      type === "user"
+        ? "user-message"
+        : "bot-message"
+    );
+
+
+  div.innerHTML =
+    message;
+
+
+  chatBody.appendChild(div);
+
+  chatBody.scrollTop =
+    chatBody.scrollHeight;
+
+}
+
+
+function processChat(){
+
+  const value =
+    chatInput.value.trim();
+
+
+  if(!value) return;
+
+
+  addChatMessage(
+    escapeHTML(value),
+    "user"
+  );
+
+
+  chatInput.value = "";
+
+
+  const match =
+    value.match(
+      /^deposit\s+([\d.,]+)$/i
+    );
+
+
+  if(!match){
+
+    setTimeout(
+      ()=>{
+
+        addChatMessage(
+          `❌ Format tidak dikenali.<br><br>
+          Gunakan format:<br>
+          <b>deposit 1000</b>`
+        );
+
+      },
+      300
+    );
+
+    return;
+
+  }
+
+
+  let amount =
+    match[1]
+      .replace(/[.,]/g,"");
+
+
+  amount =
+    parseInt(
+      amount,
+      10
+    );
+
+
+  if(
+    isNaN(amount) ||
+    amount < 1000
+  ){
+
+    setTimeout(
+      ()=>{
+
+        addChatMessage(
+          `❌ Minimal deposit adalah
+          <b>Rp1.000</b>.`
+        );
+
+      },
+      300
+    );
+
+    return;
+
+  }
+
+
+  createDeposit(amount);
+
+}
+
+
+sendChat.addEventListener(
+  "click",
+  processChat
+);
+
+
+chatInput.addEventListener(
+  "keydown",
+  function(e){
+
+    if(e.key === "Enter"){
+
+      processChat();
+
+    }
+
+  }
+);
+
+
+/* =========================
+   TRANSACTIONS
+========================= */
+
+function generateTransactionId(){
+
+  const random =
+    Math.random()
+      .toString(36)
+      .substring(2,8)
+      .toUpperCase();
+
+
+  return (
+    "DP-" +
+    Date.now()
+      .toString()
+      .slice(-6) +
+    "-" +
+    random
+  );
+
+}
+
+
+function getTransactions(){
+
+  try{
+
+    return JSON.parse(
+      localStorage.getItem(
+        "dappa_transactions"
+      ) || "[]"
+    );
+
+  }catch(e){
+
+    return [];
+
+  }
+
+}
+
+
+function saveTransactions(list){
+
+  localStorage.setItem(
+    "dappa_transactions",
+    JSON.stringify(list)
+  );
+
+}
+
+
+/* =========================
+   CREATE DEPOSIT
+========================= */
+
+function createDeposit(amount){
+
+  const tx = {
+
+    id:
+      generateTransactionId(),
+
+    amount:
+      amount,
+
+    status:
+      "MENUNGGU PEMBAYARAN",
+
+    time:
+      new Date()
+        .toLocaleString("id-ID")
+
+  };
+
+
+  currentDeposit =
+    amount;
+
+  currentTx =
+    tx;
+
+
+  const transactions =
+    getTransactions();
+
+
+  transactions.unshift(tx);
+
+
+  saveTransactions(
+    transactions
+  );
+
+
+  document
+    .getElementById(
+      "depositResult"
+    )
+    .classList.add("show");
+
+
+  document
+    .getElementById(
+      "resultId"
+    )
+    .textContent =
+    tx.id;
+
+
+  document
+    .getElementById(
+      "resultAmount"
+    )
+    .textContent =
+    rupiah(tx.amount);
+
+
+  document
+    .getElementById(
+      "resultStatus"
+    )
+    .textContent =
+    tx.status;
+
+
+  addChatMessage(`
+
+    💳 <b>Transaksi berhasil dibuat.</b>
+
+    <br><br>
+
+    ID Transaksi:
+    <b>${escapeHTML(tx.id)}</b>
+
+    <br>
+
+    Nominal:
+    <b>${rupiah(tx.amount)}</b>
+
+    <br><br>
+
+    Silahkan transfer sesuai nominal
+    yang tertera.
+
+    <div class="bot-payment">
+
+      💳
+      <b>Silahkan Scan QRIS Di Bawah</b>
+
+      <img
+        class="bot-qris"
+        src="qris.jpg"
+        alt="QRIS Dappa Official">
+
+      <br>
+
+      Setelah transfer, tekan:
+
+      <br>
+
+      <b>SAYA SUDAH TRANSFER</b>
+
+    </div>
+
+  `);
+
+
+  renderTransactions();
+
+}
+
+
+/* =========================
+   TRANSFER
+========================= */
+
+document
+  .getElementById(
+    "waitingBtn"
+  )
+  .addEventListener(
+    "click",
+    markWaiting
+  );
+
+
+function markWaiting(){
+
+  if(!currentTx){
+
+    alert(
+      "Belum ada transaksi aktif."
+    );
+
+    return;
+
+  }
+
+
+  const transactions =
+    getTransactions();
+
+
+  const index =
+    transactions.findIndex(
+      tx =>
+        tx.id ===
+        currentTx.id
+    );
+
+
+  if(index === -1){
+
+    alert(
+      "Transaksi tidak ditemukan."
+    );
+
+    return;
+
+  }
+
+
+  transactions[index].status =
+    "MENUNGGU VERIFIKASI";
+
+
+  currentTx =
+    transactions[index];
+
+
+  saveTransactions(
+    transactions
+  );
+
+
+  document
+    .getElementById(
+      "resultStatus"
+    )
+    .textContent =
+    "MENUNGGU VERIFIKASI";
+
+
+  document
+    .getElementById(
+      "waitingBtn"
+    )
+    .textContent =
+    "✓ MENUNGGU VERIFIKASI";
+
+
+  addChatMessage(`
+
+    ⏳ <b>Transfer ditandai sudah dilakukan.</b>
+
+    <br><br>
+
+    ID:
+    <b>${escapeHTML(
+      currentTx.id
+    )}</b>
+
+    <br><br>
+
+    Silahkan kirim bukti transfer
+    pada bagian <b>BUKTI TRANSFER</b>.
+
+  `);
+
+
+  renderTransactions();
+
+}
+
+
+/* =========================
+   RENDER
+========================= */
+
+function renderTransactions(){
+
+  const container =
+    document.getElementById(
+      "transactionList"
+    );
+
+
+  const transactions =
+    getTransactions();
+
+
+  if(!transactions.length){
+
+    container.innerHTML = `
+      <div class="empty">
+        Belum ada transaksi.
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    transactions
+      .map(
+        (tx,index)=>`
+
+        <div class="transaction">
+
+          <div class="tx-top">
+
+            <div>
+
+              <div class="tx-id">
+                ${escapeHTML(tx.id)}
+              </div>
+
+              <div class="tx-amount">
+                ${rupiah(tx.amount)}
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="tx-status">
+            ${escapeHTML(tx.status)}
+          </div>
+
+          <div class="tx-time">
+            ${escapeHTML(tx.time)}
+          </div>
+
+          <button
+            class="delete-tx"
+            type="button"
+            onclick="deleteTransaction(${index})">
+
+            🗑️ HAPUS TRANSAKSI
+
+          </button>
+
+        </div>
+
+      `
+      )
+      .join("");
+
+}
+
+
+/* =========================
+   OWNER
+========================= */
+
+const ownerBox =
+  document.getElementById(
+    "ownerBox"
+  );
+
+const ownerPin =
+  document.getElementById(
+    "ownerPin"
+  );
+
+const ownerStatus =
+  document.getElementById(
+    "ownerStatus"
+  );
+
+
+document
+  .getElementById(
+    "ownerLogin"
+  )
+  .addEventListener(
+    "click",
+    loginOwner
+  );
+
+
+function loginOwner(){
+
+  const pin =
+    ownerPin.value.trim();
+
+
+  if(pin === OWNER_PIN){
+
+    ownerLogged = true;
+
+
+    ownerBox.classList.add(
+      "owner-mode"
+    );
+
+
+    document.body.classList.add(
+      "owner-mode"
+    );
+
+
+    ownerStatus.textContent =
+      "ONLINE";
+
+
+    ownerPin.value = "";
+
+
+    alert(
+      "Owner berhasil masuk."
+    );
+
+
+  }else{
+
+    alert(
+      "PIN owner salah."
+    );
+
+
+    ownerPin.value = "";
+
+  }
+
+}
+
+
+/* =========================
+   OWNER LOGOUT
+========================= */
+
+document
+  .getElementById(
+    "ownerLogout"
+  )
+  .addEventListener(
+    "click",
+    logoutOwner
+  );
+
+
+function logoutOwner(){
+
+  ownerLogged = false;
+
+
+  ownerBox.classList.remove(
+    "owner-mode"
+  );
+
+
+  document.body.classList.remove(
+    "owner-mode"
+  );
+
+
+  ownerStatus.textContent =
+    "OFFLINE";
+
+}
+
+
+/* =========================
+   DELETE TRANSACTION
+========================= */
+
+function deleteTransaction(index){
+
+  if(!ownerLogged){
+
+    alert(
+      "Silahkan masuk sebagai owner."
+    );
+
+    return;
+
+  }
+
+
+  const transactions =
+    getTransactions();
+
+
+  if(!transactions[index])
+    return;
+
+
+  if(
+    !confirm(
+      "Hapus transaksi ini?"
+    )
+  )
+    return;
+
+
+  const deleted =
+    transactions[index];
+
+
+  transactions.splice(
+    index,
+    1
+  );
+
+
+  saveTransactions(
+    transactions
+  );
+
+
+  if(
+    currentTx &&
+    currentTx.id ===
+    deleted.id
+  ){
+
+    currentTx = null;
+
+    currentDeposit = null;
+
+
+    document
+      .getElementById(
+        "depositResult"
+      )
+      .classList.remove(
+        "show"
+      );
+
+  }
+
+
+  renderTransactions();
+
+}
+
+
+/* =========================
+   DELETE ALL
+========================= */
+
+document
+  .getElementById(
+    "ownerDeleteAll"
+  )
+  .addEventListener(
+    "click",
+    deleteAllTransactions
+  );
+
+
+function deleteAllTransactions(){
+
+  if(!ownerLogged){
+
+    alert(
+      "Silahkan masuk sebagai owner."
+    );
+
+    return;
+
+  }
+
+
+  if(
+    !confirm(
+      "Hapus SEMUA transaksi?"
+    )
+  )
+    return;
+
+
+  localStorage.removeItem(
+    "dappa_transactions"
+  );
+
+
+  currentTx = null;
+
+  currentDeposit = null;
+
+
+  document
+    .getElementById(
+      "depositResult"
+    )
+    .classList.remove(
+      "show"
+    );
+
+
+  renderTransactions();
+
+}
+
+
+/* =========================
+   PROOF UPLOAD
+========================= */
+
+const proofInput =
+  document.getElementById(
+    "proofInput"
+  );
+
+const proofPreview =
+  document.getElementById(
+    "proofPreview"
+  );
+
+const proofImage =
+  document.getElementById(
+    "proofImage"
+  );
+
+const proofInfo =
+  document.getElementById(
+    "proofInfo"
+  );
+
+
+proofInput.addEventListener(
+  "change",
+  function(){
+
+    const file =
+      this.files[0];
+
+
+    if(!file)
+      return;
+
+
+    selectedProof =
+      file;
+
+
+    proofInfo.innerHTML = `
+
+      <b>
+        ${escapeHTML(file.name)}
+      </b>
+
+      <br>
+
+      ${formatFileSize(file.size)}
+
+    `;
+
+
+    if(
+      file.type.startsWith(
+        "image/"
+      )
+    ){
+
+      const reader =
+        new FileReader();
+
+
+      reader.onload =
+        function(e){
+
+          proofImage.src =
+            e.target.result;
+
+
+          proofImage.style.display =
+            "block";
+
+
+          proofPreview.classList.add(
+            "show"
+          );
+
+        };
+
+
+      reader.readAsDataURL(file);
+
+    }else{
+
+      proofImage.style.display =
+        "none";
+
+
+      proofPreview.classList.add(
+        "show"
+      );
+
+    }
+
+  }
+);
+
+
+/* =========================
+   FILE SIZE
+========================= */
+
+function formatFileSize(bytes){
+
+  if(bytes < 1024){
+
+    return bytes + " B";
+
+  }
+
+
+  if(
+    bytes <
+    1024 * 1024
+  ){
+
+    return (
+      bytes / 1024
+    ).toFixed(1) +
+    " KB";
+
+  }
+
+
+  return (
+    bytes /
+    (1024 * 1024)
+  ).toFixed(1) +
+  " MB";
+
+}
+
+
+/* =========================
+   REMOVE PROOF
+========================= */
+
+document
+  .getElementById(
+    "removeProof"
+  )
+  .addEventListener(
+    "click",
+    function(){
+
+      selectedProof = null;
+
+      proofInput.value = "";
+
+      proofPreview.classList.remove(
+        "show"
+      );
+
+      proofImage.src = "";
+
+      proofInfo.textContent = "";
+
+    }
+  );
+
+
+/* =========================
+   SEND PROOF
+========================= */
+
+document
+  .getElementById(
+    "sendProof"
+  )
+  .addEventListener(
+    "click",
+    sendProofToWhatsApp
+  );
+
+
+async function sendProofToWhatsApp(){
+
+  if(!currentTx){
+
+    alert(
+      "Buat transaksi deposit terlebih dahulu."
+    );
+
+    return;
+
+  }
+
+
+  if(!selectedProof){
+
+    alert(
+      "Pilih bukti transfer terlebih dahulu."
+    );
+
+    return;
+
+  }
+
+
+  const message =
+`Halo Dappa, saya sudah transfer untuk deposit.
+
+ID Transaksi: ${currentTx.id}
+Nominal: ${rupiah(currentTx.amount)}
+
+Saya melampirkan bukti transfer untuk diverifikasi.`;
+
+
+  if(
+    navigator.share &&
+    navigator.canShare
+  ){
+
+    try{
+
+      if(
+        navigator.canShare({
+          files:[
+            selectedProof
+          ]
+        })
+      ){
+
+        await navigator.share({
+
+          title:
+            "Bukti Transfer Dappa",
+
+          text:
+            message,
+
+          files:[
+            selectedProof
+          ]
+
+        });
+
+        return;
+
+      }
+
+    }catch(error){
+
+      if(
+        error.name ===
+        "AbortError"
+      ){
+
+        return;
+
+      }
+
+    }
+
+  }
+
+
+  openWhatsApp(message);
+
+}
+
+
+/* =========================
+   MUSIC PLAYER
+========================= */
+
+const musicTracks = [
 
   {
-    title:'What If I Call',
-    src:'https://mp3tourl.com/audio/1790932213462-38263c01-bf55-4804-901e-a532792cbbfc.mp3'
+    title:
+      "What If I Call",
+
+    artist:
+      "Dappa Official",
+
+    src:
+      "https://mp3tourl.com/audio/1790932213462-38263c01-bf55-4804-901e-a532792cbbfc.mp3",
+
+    cover:
+      "https://i.ibb.co/XZQ5btXW/undefined.jpg"
+
   },
 
   {
-    title:'Bernaung',
-    src:'https://mp3tourl.com/audio/1790939651989-47697b83-0503-4f1b-b1f9-25439a31f116.mp3'
+    title:
+      "Bernaung",
+
+    artist:
+      "Dappa Official",
+
+    src:
+      "https://mp3tourl.com/audio/1790939651989-47697b83-0503-4f1b-b1f9-25439a31f116.mp3",
+
+    cover:
+      "https://i.ibb.co/XZQ5btXW/undefined.jpg"
+
   }
 
 ];
 
 
-let currentSong=0;
+let musicIndex = 0;
 
 
-/* LOAD SONG */
+const musicAudio =
+  document.getElementById(
+    "musicAudio"
+  );
 
-function loadSong(index){
+const musicCover =
+  document.getElementById(
+    "musicCover"
+  );
 
-  currentSong=index;
+const musicTitle =
+  document.getElementById(
+    "musicTitle"
+  );
 
-  audio.pause();
+const musicProgress =
+  document.getElementById(
+    "musicProgress"
+  );
 
-  audio.src=songs[currentSong].src;
+const musicCurrent =
+  document.getElementById(
+    "musicCurrent"
+  );
 
-  songTitle.textContent=
-    songs[currentSong].title;
+const musicDuration =
+  document.getElementById(
+    "musicDuration"
+  );
 
-  songTime.textContent=
-    songs[currentSong].title;
+const playMusic =
+  document.getElementById(
+    "playMusic"
+  );
 
-  musicStatus.textContent='Ready';
+const prevMusic =
+  document.getElementById(
+    "prevMusic"
+  );
 
-  audio.load();
+const nextMusic =
+  document.getElementById(
+    "nextMusic"
+  );
+
+const muteMusic =
+  document.getElementById(
+    "muteMusic"
+  );
+
+const musicVolume =
+  document.getElementById(
+    "musicVolume"
+  );
+
+const musicStatus =
+  document.getElementById(
+    "musicStatus"
+  );
+
+
+function formatTime(seconds){
+
+  if(
+    !Number.isFinite(seconds) ||
+    seconds < 0
+  ){
+
+    return "0:00";
+
+  }
+
+
+  const mins =
+    Math.floor(
+      seconds / 60
+    );
+
+
+  const secs =
+    Math.floor(
+      seconds % 60
+    )
+    .toString()
+    .padStart(2,"0");
+
+
+  return (
+    mins +
+    ":" +
+    secs
+  );
 
 }
+
+
+function updatePlaylist(){
+
+  document
+    .querySelectorAll(
+      ".playlist-item"
+    )
+    .forEach(
+      (item,index)=>{
+
+        item.classList.toggle(
+          "active",
+          index === musicIndex
+        );
+
+
+        const sub =
+          item.querySelector(
+            ".playlist-sub"
+          );
+
+
+        const playIcon =
+          item.querySelector(
+            ".playlist-play"
+          );
+
+
+        if(
+          index === musicIndex
+        ){
+
+          sub.textContent =
+            musicAudio.paused
+              ? "Dipilih"
+              : "Sedang diputar";
+
+
+          playIcon.textContent =
+            musicAudio.paused
+              ? "▶"
+              : "●";
+
+        }else{
+
+          sub.textContent =
+            "Dappa Official";
+
+
+          playIcon.textContent =
+            "▶";
+
+        }
+
+      }
+    );
+
+}
+
+
+function loadMusic(
+  index,
+  autoplay=false
+){
+
+  musicIndex =
+    (
+      index +
+      musicTracks.length
+    ) %
+    musicTracks.length;
+
+
+  const track =
+    musicTracks[
+      musicIndex
+    ];
+
+
+  musicAudio.src =
+    track.src;
+
+
+  musicAudio.load();
+
+
+  musicTitle.textContent =
+    track.title;
+
+
+  musicCover.src =
+    track.cover;
+
+
+  musicCurrent.textContent =
+    "0:00";
+
+
+  musicDuration.textContent =
+    "0:00";
+
+
+  musicProgress.value =
+    0;
+
+
+  musicStatus.textContent =
+    "";
+
+
+  updatePlaylist();
+
+
+  if(autoplay){
+
+    musicAudio
+      .play()
+      .catch(()=>{
+
+        musicStatus.textContent =
+          "Tekan tombol ▶ untuk memutar.";
+
+      });
+
+  }
+
+}
+
+
+function toggleMusic(){
+
+  if(
+    musicAudio.paused
+  ){
+
+    musicAudio
+      .play()
+      .catch(()=>{
+
+        musicStatus.textContent =
+          "Audio tidak dapat diputar.";
+
+      });
+
+  }else{
+
+    musicAudio.pause();
+
+  }
+
+}
+
+
+playMusic.addEventListener(
+  "click",
+  toggleMusic
+);
+
+
+prevMusic.addEventListener(
+  "click",
+  function(){
+
+    loadMusic(
+      musicIndex - 1,
+      true
+    );
+
+  }
+);
+
+
+nextMusic.addEventListener(
+  "click",
+  function(){
+
+    loadMusic(
+      musicIndex + 1,
+      true
+    );
+
+  }
+);
 
 
 /* PLAY */
 
-function toggleMusic(){
+musicAudio.addEventListener(
+  "play",
+  function(){
 
-  if(audio.paused){
+    playMusic.textContent =
+      "Ⅱ";
 
-    musicStatus.textContent='Loading...';
 
-    const playPromise=audio.play();
+    musicCover.classList.add(
+      "playing"
+    );
 
-    if(playPromise !== undefined){
 
-      playPromise.then(function(){
+    musicStatus.textContent =
+      "";
 
-        btn.textContent='Ⅱ';
 
-        musicStatus.textContent='Now Playing';
+    updatePlaylist();
 
-      }).catch(function(error){
+  }
+);
 
-        console.log(
-          'Audio Error:',
-          error
-        );
 
-        btn.textContent='▶';
+/* PAUSE */
 
-        musicStatus.textContent='Audio Error';
+musicAudio.addEventListener(
+  "pause",
+  function(){
 
-      });
+    playMusic.textContent =
+      "▶";
+
+
+    musicCover.classList.remove(
+      "playing"
+    );
+
+
+    updatePlaylist();
+
+  }
+);
+
+
+/* PROGRESS */
+
+musicAudio.addEventListener(
+  "timeupdate",
+  function(){
+
+    if(
+      Number.isFinite(
+        musicAudio.duration
+      )
+    ){
+
+      musicProgress.value =
+        (
+          musicAudio.currentTime /
+          musicAudio.duration
+        ) *
+        100;
 
     }
 
-  }else{
 
-    audio.pause();
-
-    btn.textContent='▶';
-
-    musicStatus.textContent='Paused';
+    musicCurrent.textContent =
+      formatTime(
+        musicAudio.currentTime
+      );
 
   }
-
-}
-
-
-/* NEXT */
-
-function nextSong(){
-
-  currentSong++;
-
-  if(currentSong>=songs.length){
-    currentSong=0;
-  }
-
-  loadSong(currentSong);
-
-  const playPromise=audio.play();
-
-  if(playPromise !== undefined){
-
-    playPromise.then(function(){
-
-      btn.textContent='Ⅱ';
-
-      musicStatus.textContent='Now Playing';
-
-    }).catch(function(){
-
-      btn.textContent='▶';
-
-      musicStatus.textContent='Audio Error';
-
-    });
-
-  }
-
-}
+);
 
 
-/* SONG ENDED */
+/* DURATION */
 
-audio.addEventListener(
-  'ended',
+musicAudio.addEventListener(
+  "loadedmetadata",
   function(){
 
-    if(currentSong<songs.length-1){
+    musicDuration.textContent =
+      formatTime(
+        musicAudio.duration
+      );
 
-      currentSong++;
+  }
+);
 
-      loadSong(currentSong);
 
-      audio.play().then(function(){
+/* SEEK */
 
-        btn.textContent='Ⅱ';
+musicProgress.addEventListener(
+  "input",
+  function(){
 
-        musicStatus.textContent='Now Playing';
+    if(
+      Number.isFinite(
+        musicAudio.duration
+      )
+    ){
 
-      }).catch(function(){
-
-        btn.textContent='▶';
-
-      });
-
-    }else{
-
-      btn.textContent='▶';
-
-      musicStatus.textContent='Finished';
+      musicAudio.currentTime =
+        (
+          Number(
+            musicProgress.value
+          ) / 100
+        ) *
+        musicAudio.duration;
 
     }
 
@@ -2195,333 +3811,152 @@ audio.addEventListener(
 );
 
 
-/* ==================================================
-   COPY
-================================================== */
+/* AUTO NEXT */
 
-function copyText(value){
+musicAudio.addEventListener(
+  "ended",
+  function(){
 
-  if(
-    navigator.clipboard &&
-    window.isSecureContext
-  ){
-
-    navigator.clipboard
-      .writeText(value)
-      .then(function(){
-
-        alert(
-          'Nomor berhasil disalin!'
-        );
-
-      })
-      .catch(function(){
-
-        fallbackCopy(value);
-
-      });
-
-  }else{
-
-    fallbackCopy(value);
+    loadMusic(
+      musicIndex + 1,
+      true
+    );
 
   }
-
-}
-
-
-function fallbackCopy(value){
-
-  const t=
-    document.createElement('textarea');
-
-  t.value=value;
-
-  document.body.appendChild(t);
-
-  t.select();
-
-  document.execCommand('copy');
-
-  t.remove();
-
-  alert(
-    'Nomor berhasil disalin!'
-  );
-
-}
+);
 
 
-/* ==================================================
-   PDF
-================================================== */
+/* AUDIO ERROR */
 
-function buatPDF(){
+musicAudio.addEventListener(
+  "error",
+  function(){
 
-  const titleInput=
-    document.getElementById('pdfTitle');
-
-  const contentInput=
-    document.getElementById('pdfContent');
-
-  const button=
-    document.getElementById('pdfButton');
-
-
-  const title=
-    titleInput.value.trim() ||
-    'Dokumen';
-
-
-  const content=
-    contentInput.value.trim();
-
-
-  if(!content){
-
-    alert(
-      'Silakan ketik jawaban atau teks terlebih dahulu.'
-    );
-
-    contentInput.focus();
-
-    return;
+    musicStatus.textContent =
+      "Audio gagal dimuat. Coba lagu lain.";
 
   }
+);
 
 
-  if(
-    !window.jspdf ||
-    !window.jspdf.jsPDF
-  ){
+/* VOLUME */
 
-    alert(
-      'PDF belum siap. Pastikan internet aktif lalu refresh halaman.'
-    );
-
-    return;
-
-  }
+musicAudio.volume = 1;
 
 
-  try{
+musicVolume.addEventListener(
+  "input",
+  function(){
 
-    button.disabled=true;
-
-    button.textContent=
-      '⏳　MEMBUAT PDF...';
-
-
-    const jsPDF=
-      window.jspdf.jsPDF;
-
-
-    const pdf=
-      new jsPDF({
-        orientation:'portrait',
-        unit:'mm',
-        format:'a4'
-      });
-
-
-    const pageHeight=
-      pdf.internal.pageSize.getHeight();
-
-
-    pdf.setFont(
-      'helvetica',
-      'bold'
-    );
-
-    pdf.setFontSize(17);
-
-    pdf.setTextColor(
-      25,
-      25,
-      25
-    );
-
-
-    const titleLines=
-      pdf.splitTextToSize(
-        title,
-        170
+    musicAudio.volume =
+      Number(
+        this.value
       );
 
 
-    let y=25;
+    musicAudio.muted =
+      musicAudio.volume === 0;
 
 
-    pdf.text(
-      titleLines,
-      20,
-      y
-    );
+    muteMusic.textContent =
+      musicAudio.volume === 0
+        ? "🔇"
+        : "🔊";
+
+  }
+);
 
 
-    y +=
-      titleLines.length*7;
+/* MUTE */
 
-    y +=10;
+muteMusic.addEventListener(
+  "click",
+  function(){
 
-
-    pdf.setFont(
-      'helvetica',
-      'normal'
-    );
-
-    pdf.setFontSize(11);
-
-
-    const contentLines=
-      pdf.splitTextToSize(
-        content,
-        170
-      );
-
-
-    const lineHeight=6.5;
-
-
-    for(
-      let i=0;
-      i<contentLines.length;
-      i++
+    if(
+      musicAudio.muted
     ){
 
-      if(y>pageHeight-25){
-
-        tambahFooterPDF(pdf);
-
-        pdf.addPage();
-
-        y=25;
-
-      }
+      musicAudio.muted =
+        false;
 
 
-      pdf.text(
-        contentLines[i],
-        20,
-        y
-      );
+      musicVolume.value =
+        musicAudio.volume || 1;
 
-      y+=lineHeight;
+
+      muteMusic.textContent =
+        "🔊";
+
+    }else{
+
+      musicAudio.muted =
+        true;
+
+
+      muteMusic.textContent =
+        "🔇";
 
     }
-
-
-    tambahFooterPDF(pdf);
-
-
-    let safeTitle=
-      title
-        .replace(
-          /[\\/:*?"<>|]/g,
-          ''
-        )
-        .replace(
-          /\s+/g,
-          '-'
-        )
-        .trim();
-
-
-    if(!safeTitle){
-      safeTitle='Dokumen';
-    }
-
-
-    safeTitle=
-      safeTitle.substring(0,60);
-
-
-    pdf.save(
-      'Dappa-Official-'+
-      safeTitle+
-      '.pdf'
-    );
-
-
-    button.disabled=false;
-
-    button.textContent=
-      '▣　DOWNLOAD PDF';
-
-
-  }catch(error){
-
-    console.error(
-      'PDF Error:',
-      error
-    );
-
-    button.disabled=false;
-
-    button.textContent=
-      '▣　DOWNLOAD PDF';
-
-    alert(
-      'PDF gagal dibuat. Silakan coba lagi.'
-    );
 
   }
-
-}
-
-
-function tambahFooterPDF(pdf){
-
-  const pageHeight=
-    pdf.internal.pageSize.getHeight();
+);
 
 
-  pdf.setDrawColor(
-    210,
-    210,
-    210
-  );
+/* PLAYLIST */
+
+document
+  .querySelectorAll(
+    ".playlist-item"
+  )
+  .forEach(
+    item => {
+
+      item.addEventListener(
+        "click",
+        function(){
+
+          const index =
+            Number(
+              this.dataset.index
+            );
 
 
-  pdf.line(
-    20,
-    pageHeight-18,
-    190,
-    pageHeight-18
-  );
+          if(
+            index === musicIndex
+          ){
 
+            toggleMusic();
 
-  pdf.setFont(
-    'helvetica',
-    'normal'
-  );
+          }else{
 
-  pdf.setFontSize(8);
+            loadMusic(
+              index,
+              true
+            );
 
-  pdf.setTextColor(
-    120,
-    120,
-    120
-  );
+          }
 
+        }
+      );
 
-  pdf.text(
-    'DAPPA OFFICIAL - Made with Dappa Official',
-    105,
-    pageHeight-10,
-    {
-      align:'center'
     }
   );
 
-}
+
+/* INITIAL MUSIC */
+
+loadMusic(
+  0,
+  false
+);
 
 
-/* ==================================================
-   INITIAL MUSIC
-================================================== */
+/* =========================
+   INIT
+========================= */
 
-loadSong(0);
+renderTransactions();
 
 </script>
 
