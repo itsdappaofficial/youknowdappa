@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Dappa Official</title>
 
 <style>
@@ -11,7 +10,6 @@
   box-sizing:border-box;
   margin:0;
   padding:0;
-  -webkit-tap-highlight-color:transparent;
 }
 
 html{
@@ -24,192 +22,149 @@ body{
   font-family:Arial,Helvetica,sans-serif;
   min-height:100vh;
   overflow-x:hidden;
-}
-
-button,
-input{
-  font-family:inherit;
-}
-
-button{
-  border:0;
-  outline:0;
+  transition:background .3s ease,color .3s ease;
 }
 
 .app{
   width:100%;
   max-width:500px;
-  margin:auto;
   min-height:100vh;
+  margin:auto;
   background:
-    radial-gradient(circle at 50% 10%,rgba(0,126,255,.08),transparent 30%),
-    linear-gradient(180deg,#020a12,#030c15 50%,#01070d);
-  padding-bottom:95px;
+    radial-gradient(circle at 50% 0%,rgba(0,150,255,.12),transparent 35%),
+    linear-gradient(180deg,#06121d,#03101a);
+  padding-bottom:90px;
 }
 
-/* =========================
-   SLIDE
-========================= */
+/* ================= HEADER ================= */
+
+.header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:16px 18px;
+  background:rgba(3,15,25,.94);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(80,180,255,.12);
+}
+
+.brand h1{
+  font-size:19px;
+  letter-spacing:1.5px;
+  color:#38bdf8;
+}
+
+.online{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  margin-top:4px;
+  font-size:10px;
+  color:#70e1a2;
+  letter-spacing:1px;
+}
+
+.online-dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#22c55e;
+  box-shadow:0 0 8px #22c55e;
+}
+
+.menu-btn{
+  width:42px;
+  height:42px;
+  border:1px solid rgba(80,180,255,.25);
+  border-radius:12px;
+  background:#0a2639;
+  color:#55c7ff;
+  font-size:20px;
+  cursor:pointer;
+}
+
+/* ================= MENU ================= */
+
+.contact-menu{
+  position:fixed;
+  top:72px;
+  right:max(calc((100vw - 500px)/2 + 15px),15px);
+  z-index:200;
+  width:220px;
+  padding:10px;
+  background:#071a29;
+  border:1px solid rgba(80,180,255,.2);
+  border-radius:15px;
+  box-shadow:0 20px 45px rgba(0,0,0,.45);
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(-8px);
+  transition:.2s ease;
+}
+
+.contact-menu.show{
+  opacity:1;
+  visibility:visible;
+  transform:translateY(0);
+}
+
+.contact-menu a,
+.theme-btn{
+  display:block;
+  width:100%;
+  padding:12px;
+  border:0;
+  border-radius:10px;
+  background:transparent;
+  color:#9ddcff;
+  text-decoration:none;
+  text-align:left;
+  font-size:13px;
+  cursor:pointer;
+}
+
+.contact-menu a:hover,
+.theme-btn:hover{
+  background:#0d334c;
+}
+
+.menu-divider{
+  height:1px;
+  background:rgba(100,180,255,.12);
+  margin:7px 0;
+}
+
+.theme-title{
+  padding:6px 12px;
+  color:#6e9ab4;
+  font-size:9px;
+  letter-spacing:1.5px;
+}
+
+/* ================= SLIDE ================= */
 
 .slide{
   display:none;
-  animation:slideIn .25s ease;
 }
 
 .slide.active{
   display:block;
 }
 
-@keyframes slideIn{
-  from{
-    opacity:0;
-    transform:translateX(8px);
-  }
-  to{
-    opacity:1;
-    transform:translateX(0);
-  }
-}
-
-/* =========================
-   HEADER
-========================= */
-
-.header{
-  position:sticky;
-  top:0;
-  z-index:50;
-  height:105px;
-  padding:30px 28px 18px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  background:rgba(2,10,18,.92);
-  backdrop-filter:blur(14px);
-  border-bottom:1px solid rgba(255,255,255,.035);
-}
-
-.brand{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
-.brand h1{
-  font-size:24px;
-  letter-spacing:2px;
-  font-weight:900;
-}
-
-.online{
-  display:flex;
-  align-items:center;
-  gap:7px;
-  color:#43ffc1;
-  font-size:12px;
-  font-weight:800;
-  padding:8px 13px;
-  border:1px solid rgba(67,255,193,.25);
-  border-radius:20px;
-  background:rgba(0,255,170,.06);
-  box-shadow:0 0 15px rgba(0,255,170,.08);
-}
-
-.online-dot{
-  width:8px;
-  height:8px;
-  background:#43ffc1;
-  border-radius:50%;
-  box-shadow:0 0 10px #43ffc1;
-}
-
-.menu-btn{
-  width:72px;
-  height:72px;
-  border-radius:20px;
-  background:#071725;
-  border:1px solid rgba(104,180,255,.18);
-  color:#fff;
-  font-size:34px;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.menu-btn:active{
-  transform:scale(.95);
-}
-
-/* =========================
-   CONTACT MENU
-========================= */
-
-.contact-menu{
-  position:fixed;
-  top:94px;
-  right:18px;
-  width:230px;
-  background:#071522;
-  border:1px solid rgba(72,158,255,.2);
-  border-radius:18px;
-  padding:10px;
-  z-index:100;
-  box-shadow:0 20px 45px rgba(0,0,0,.45);
-  display:none;
-}
-
-.contact-menu.show{
-  display:block;
-}
-
-.contact-menu a{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  color:#dceeff;
-  text-decoration:none;
-  padding:13px;
-  border-radius:12px;
-  font-size:13px;
-  font-weight:700;
-}
-
-.contact-menu a:hover{
-  background:#0c2234;
-}
-
-/* =========================
-   CONTENT
-========================= */
-
 .content{
-  padding:0 28px;
+  padding:16px;
 }
 
-.card{
-  background:linear-gradient(145deg,#071927,#06131f);
-  border:1px solid rgba(111,187,255,.14);
-  border-radius:28px;
-  padding:20px;
-  box-shadow:0 20px 45px rgba(0,0,0,.18);
-}
-
-.section-space{
-  margin-top:20px;
-}
-
-/* =========================
-   HERO
-========================= */
+/* ================= HERO ================= */
 
 .hero{
   position:relative;
-  margin:0 0 20px;
-  height:270px;
+  height:310px;
   overflow:hidden;
-  border-radius:0 0 30px 30px;
-  background:#020a12;
+  background:#06131f;
 }
 
 .hero video{
@@ -223,552 +178,617 @@ button{
   content:"";
   position:absolute;
   inset:0;
-  background:
-    linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.7)),
-    linear-gradient(90deg,rgba(0,8,18,.4),transparent);
+  background:linear-gradient(
+    180deg,
+    rgba(0,0,0,.05),
+    rgba(0,0,0,.15) 45%,
+    rgba(0,0,0,.85)
+  );
   pointer-events:none;
 }
 
 .hero-info{
   position:absolute;
-  z-index:3;
-  left:25px;
-  bottom:24px;
+  z-index:2;
+  left:18px;
+  bottom:20px;
 }
 
 .hero-small{
-  color:#55bfff;
-  font-size:10px;
+  color:#facc15;
+  font-size:11px;
   font-weight:bold;
   letter-spacing:2px;
 }
 
 .hero-title{
-  font-size:25px;
-  font-weight:900;
+  font-size:30px;
+  font-weight:800;
   margin-top:5px;
 }
 
 .hero-sub{
-  color:#9ab0c2;
-  font-size:11px;
-  margin-top:4px;
+  margin-top:3px;
+  color:#b9c8d4;
+  font-size:12px;
 }
 
 .sound-btn{
   position:absolute;
-  z-index:5;
-  right:17px;
+  z-index:3;
+  right:15px;
   bottom:18px;
-  width:42px;
-  height:42px;
+  width:40px;
+  height:40px;
   border-radius:50%;
-  background:rgba(5,18,30,.85);
-  border:1px solid rgba(255,255,255,.14);
-  color:#fff;
+  border:1px solid rgba(255,255,255,.2);
+  background:rgba(5,20,30,.75);
+  color:#55c7ff;
   cursor:pointer;
-  backdrop-filter:blur(8px);
 }
 
-/* =========================
-   WELCOME
-========================= */
+/* ================= CARD ================= */
+
+.card{
+  background:linear-gradient(145deg,#0a1f30,#071723);
+  border:1px solid rgba(80,180,255,.14);
+  border-radius:18px;
+  padding:18px;
+  box-shadow:0 18px 40px rgba(0,0,0,.18);
+}
+
+.section-space{
+  margin-top:15px;
+}
 
 .welcome h2{
-  font-size:22px;
+  color:#38bdf8;
+  font-size:21px;
   margin-bottom:8px;
 }
 
 .welcome p{
-  color:#8da4b7;
+  color:#9fb5c5;
   line-height:1.6;
-  font-size:12px;
+  font-size:13px;
 }
+
+/* ================= BUTTON ================= */
 
 .btn-primary{
   width:100%;
   margin-top:15px;
-  min-height:52px;
-  border-radius:16px;
-  background:linear-gradient(135deg,#1688ff,#0059df);
-  color:#fff;
-  font-size:13px;
-  font-weight:900;
+  padding:13px 16px;
+  border:0;
+  border-radius:12px;
+  background:linear-gradient(135deg,#0ea5e9,#2563eb);
+  color:white;
+  font-weight:bold;
   cursor:pointer;
-  box-shadow:0 12px 25px rgba(0,100,255,.2);
+  box-shadow:0 8px 20px rgba(14,165,233,.18);
 }
 
 .btn-primary:active{
   transform:scale(.98);
 }
 
-/* =========================
-   PAGE TITLE
-========================= */
-
-.page-title{
-  margin:22px 0 14px;
-}
-
-.page-title h2{
-  font-size:25px;
-  font-weight:900;
-}
-
-.page-title p{
-  margin-top:7px;
-  color:#8098ab;
-  font-size:12px;
-}
-
-/* =========================
-   MUSIC
-========================= */
-
-.music-card{
-  padding:20px;
-}
+/* ================= MUSIC ================= */
 
 .music-heading{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-size:25px;
-  font-weight:900;
+  color:#38d5ff;
+  font-size:17px;
+  font-weight:bold;
 }
 
 .music-heading-icon{
-  font-size:30px;
+  margin-right:5px;
 }
 
 .music-description{
-  margin-top:10px;
-  color:#8ca3b7;
+  margin-top:5px;
+  color:#94adbe;
   font-size:12px;
 }
 
 .music-player{
-  margin-top:18px;
-  padding:16px;
-  border-radius:22px;
-  background:linear-gradient(145deg,#071b2b,#04111c);
-  border:1px solid rgba(106,188,255,.11);
+  margin-top:15px;
+  padding:15px;
+  border-radius:16px;
+  background:linear-gradient(145deg,#09283e,#061b2b);
+  border:1px solid rgba(80,180,255,.16);
 }
 
 .player-main{
   display:flex;
   align-items:center;
-  gap:14px;
+  gap:12px;
 }
 
 .player-cover{
-  width:70px;
-  height:70px;
-  flex-shrink:0;
+  width:65px;
+  height:65px;
+  border-radius:12px;
   object-fit:cover;
-  border-radius:17px;
-  box-shadow:0 10px 25px rgba(0,0,0,.4);
+  border:1px solid rgba(255,255,255,.12);
 }
 
 .player-cover.playing{
-  animation:musicSpin 8s linear infinite;
+  animation:musicSpin 5s linear infinite;
 }
 
 @keyframes musicSpin{
-  from{
-    transform:rotate(0deg);
-  }
-  to{
-    transform:rotate(360deg);
-  }
-}
-
-.player-meta{
-  min-width:0;
-  flex:1;
+  from{transform:rotate(0deg)}
+  to{transform:rotate(360deg)}
 }
 
 .player-label{
-  color:#4ec5ff;
-  font-size:8px;
+  color:#38d5ff;
+  font-size:9px;
   letter-spacing:1.5px;
-  font-weight:900;
 }
 
 .player-title{
-  margin-top:6px;
-  font-size:17px;
-  font-weight:900;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
+  margin-top:4px;
+  font-size:15px;
+  font-weight:bold;
 }
 
 .player-artist{
-  margin-top:5px;
-  color:#71899d;
-  font-size:10px;
+  margin-top:3px;
+  color:#819daf;
+  font-size:11px;
 }
 
 .progress-wrap{
-  margin-top:17px;
+  margin-top:14px;
 }
 
-.progress{
+.progress,
+.volume{
   width:100%;
-  height:5px;
-  appearance:none;
-  -webkit-appearance:none;
-  background:#102b3e;
-  border-radius:10px;
-  outline:none;
-  cursor:pointer;
-}
-
-.progress::-webkit-slider-thumb{
-  appearance:none;
-  -webkit-appearance:none;
-  width:15px;
-  height:15px;
-  border-radius:50%;
-  background:#1798ff;
-  box-shadow:0 0 10px rgba(23,152,255,.5);
-}
-
-.progress::-moz-range-thumb{
-  width:15px;
-  height:15px;
-  border:0;
-  border-radius:50%;
-  background:#1798ff;
+  accent-color:#19a9f5;
 }
 
 .time-row{
   display:flex;
   justify-content:space-between;
-  margin-top:7px;
-  color:#738da1;
+  margin-top:4px;
+  color:#7893a4;
   font-size:9px;
 }
 
 .player-controls{
-  margin-top:15px;
   display:flex;
   justify-content:center;
   align-items:center;
-  gap:14px;
+  gap:10px;
+  margin-top:12px;
 }
 
 .player-btn{
-  width:45px;
-  height:45px;
+  width:42px;
+  height:42px;
   border-radius:50%;
-  background:#071a2a;
-  border:1px solid rgba(112,186,235,.1);
-  color:#cceaff;
-  font-size:15px;
+  border:1px solid rgba(100,190,255,.15);
+  background:#0c2d43;
+  color:#e8f7ff;
   cursor:pointer;
 }
 
-.player-btn:active{
-  transform:scale(.93);
-}
-
 .player-btn.main{
-  width:58px;
-  height:58px;
-  background:linear-gradient(135deg,#168eff,#0060df);
-  box-shadow:0 10px 25px rgba(0,104,255,.28);
-  color:#fff;
-  font-size:20px;
+  width:50px;
+  height:50px;
+  background:linear-gradient(135deg,#0ea5e9,#2563eb);
 }
 
 .volume-row{
   display:flex;
   align-items:center;
   gap:10px;
-  margin-top:15px;
+  margin-top:12px;
 }
 
 .volume-btn{
   width:35px;
   height:35px;
+  border:0;
   border-radius:10px;
-  background:#081b2a;
-  color:#fff;
+  background:#0b2b40;
+  color:#38d5ff;
   cursor:pointer;
 }
 
 .volume{
   flex:1;
-  height:4px;
-  appearance:none;
-  -webkit-appearance:none;
-  background:#102b3e;
-  border-radius:10px;
-}
-
-.volume::-webkit-slider-thumb{
-  appearance:none;
-  -webkit-appearance:none;
-  width:12px;
-  height:12px;
-  border-radius:50%;
-  background:#45baff;
 }
 
 .music-status{
-  min-height:15px;
-  margin-top:9px;
+  min-height:14px;
+  margin-top:7px;
   text-align:center;
-  color:#71899d;
-  font-size:9px;
+  color:#facc15;
+  font-size:10px;
 }
 
 .playlist{
-  margin-top:17px;
-  display:flex;
-  flex-direction:column;
-  gap:9px;
+  margin-top:12px;
+  display:grid;
+  gap:7px;
 }
 
 .playlist-item{
   width:100%;
   display:flex;
   align-items:center;
-  gap:12px;
-  padding:12px;
-  border-radius:17px;
-  background:#061724;
-  border:1px solid rgba(104,180,255,.08);
-  color:#fff;
+  gap:10px;
+  padding:10px;
+  border-radius:11px;
+  border:1px solid rgba(100,190,255,.1);
+  background:#071f31;
+  color:white;
   text-align:left;
   cursor:pointer;
 }
 
 .playlist-item.active{
-  border-color:rgba(0,126,255,.55);
-  background:linear-gradient(145deg,#08233a,#061827);
-  box-shadow:0 0 20px rgba(0,117,255,.08);
+  background:linear-gradient(145deg,#0b4263,#092d47);
+  border-color:rgba(70,190,255,.35);
 }
 
 .playlist-num{
-  width:40px;
-  height:40px;
-  border-radius:12px;
+  width:29px;
+  height:29px;
   display:flex;
-  justify-content:center;
   align-items:center;
-  background:#09243a;
-  color:#56baff;
-  font-size:11px;
-  font-weight:900;
-  flex-shrink:0;
+  justify-content:center;
+  border-radius:9px;
+  background:#0d4561;
+  color:#67e8f9;
+  font-size:10px;
+  font-weight:bold;
 }
 
 .playlist-info{
   flex:1;
-  min-width:0;
 }
 
 .playlist-title{
-  font-size:13px;
-  font-weight:900;
+  display:block;
+  font-size:12px;
+  font-weight:bold;
 }
 
 .playlist-sub{
-  color:#71899c;
+  display:block;
+  margin-top:3px;
+  color:#7896a8;
   font-size:9px;
-  margin-top:5px;
 }
 
 .playlist-play{
-  color:#49b9ff;
-  font-size:16px;
+  font-size:12px;
+  color:#5fd5ff;
 }
 
-/* =========================
-   STORE
-========================= */
+/* ================= PAGE TITLE ================= */
+
+.page-title{
+  margin-bottom:15px;
+}
+
+.page-title h2{
+  color:#38bdf8;
+  font-size:25px;
+}
+
+.page-title p{
+  margin-top:5px;
+  color:#819aaa;
+  font-size:12px;
+}
+
+/* ================= STORE ================= */
 
 .product{
-  background:linear-gradient(145deg,#071a29,#05121d);
-  border:1px solid rgba(100,180,255,.12);
-  border-radius:20px;
-  padding:17px;
   margin-bottom:13px;
-}
-
-.product:last-child{
-  margin-bottom:0;
+  padding:17px;
+  border-radius:17px;
+  background:linear-gradient(145deg,#0a2437,#071b2b);
+  border:1px solid rgba(80,180,255,.13);
 }
 
 .product-title{
-  font-size:16px;
-  font-weight:900;
+  font-size:15px;
+  font-weight:bold;
 }
 
 .product-desc{
-  color:#8097aa;
-  font-size:10px;
-  margin-top:5px;
+  margin-top:7px;
+  color:#8fa9b9;
+  font-size:12px;
   line-height:1.5;
 }
 
 .price-list{
-  margin-top:13px;
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:7px;
+  grid-template-columns:repeat(2,1fr);
+  gap:8px;
+  margin-top:14px;
 }
 
 .price-btn{
-  padding:11px 7px;
-  border-radius:11px;
-  background:#092033;
-  color:#cfeeff;
-  border:1px solid rgba(70,170,255,.1);
+  padding:11px 5px;
+  border:1px solid rgba(80,180,255,.12);
+  border-radius:10px;
+  background:#0b2c42;
+  color:#8bdcff;
+  font-weight:bold;
+  font-size:11px;
   cursor:pointer;
-  font-size:10px;
-  font-weight:800;
 }
 
-/* =========================
-   DEPOSIT
-========================= */
+/* ================= DEPOSIT ================= */
 
-.deposit-box{
-  background:#071724;
-  border:1px solid rgba(97,181,255,.12);
-  border-radius:22px;
-  overflow:hidden;
+.deposit-box,
+.proof-box,
+.transactions,
+.owner-box{
+  padding:15px;
+  border-radius:17px;
+  background:linear-gradient(145deg,#09273d,#071d2d);
+  border:1px solid rgba(80,180,255,.14);
+  margin-bottom:14px;
 }
 
 .chat-head{
-  padding:17px;
-  border-bottom:1px solid rgba(255,255,255,.06);
   display:flex;
   align-items:center;
   gap:10px;
+  padding-bottom:12px;
+  border-bottom:1px solid rgba(100,180,255,.1);
 }
 
 .chat-avatar{
   width:40px;
   height:40px;
   border-radius:12px;
-  background:linear-gradient(135deg,#1389ff,#0057d7);
   display:flex;
   align-items:center;
   justify-content:center;
-  font-weight:900;
+  background:linear-gradient(135deg,#0ea5e9,#2563eb);
+  font-weight:bold;
 }
 
 .chat-head-text b{
   display:block;
+  color:#55c7ff;
   font-size:13px;
 }
 
 .chat-head-text span{
   display:block;
-  color:#52e3a9;
+  margin-top:3px;
+  color:#4ade80;
   font-size:9px;
-  margin-top:4px;
 }
 
 .chat-body{
-  padding:15px;
-  max-height:480px;
+  max-height:390px;
   overflow-y:auto;
+  padding:13px 0;
 }
 
 .chat-message{
-  max-width:90%;
-  padding:12px;
-  border-radius:15px;
-  margin-bottom:10px;
-  font-size:11px;
+  max-width:88%;
+  padding:11px 12px;
+  border-radius:13px;
+  margin-bottom:8px;
+  font-size:12px;
   line-height:1.55;
 }
 
 .bot-message{
-  background:#0b2031;
-  color:#d7e9f7;
-  border-bottom-left-radius:5px;
+  background:#0b344d;
+  color:#dceef8;
+  border-bottom-left-radius:4px;
 }
 
 .user-message{
-  background:linear-gradient(135deg,#087eff,#005bdd);
   margin-left:auto;
-  border-bottom-right-radius:5px;
+  background:linear-gradient(135deg,#0e8df5,#1767db);
+  border-bottom-right-radius:4px;
 }
 
 .chat-input-row{
   display:flex;
   gap:8px;
-  padding:12px;
-  border-top:1px solid rgba(255,255,255,.06);
+  padding-top:10px;
+  border-top:1px solid rgba(100,180,255,.1);
 }
 
 .chat-input{
-  flex:1;
   min-width:0;
-  height:45px;
-  padding:0 13px;
-  border-radius:13px;
-  border:1px solid rgba(103,184,255,.12);
-  background:#06131f;
+  flex:1;
+  padding:12px;
+  border-radius:11px;
+  border:1px solid rgba(80,180,255,.15);
+  background:#061c2c;
   color:#fff;
   outline:none;
 }
 
 .chat-input::placeholder{
-  color:#60788b;
+  color:#66879b;
 }
 
 .send-btn{
   width:45px;
-  height:45px;
-  border-radius:13px;
-  background:#087eff;
-  color:#fff;
+  border:0;
+  border-radius:11px;
+  background:#1599ec;
+  color:white;
   cursor:pointer;
+}
+
+/* ================= PAYMENT OPTIONS ================= */
+
+.payment-options{
+  margin-top:13px;
+  display:grid;
+  gap:8px;
+}
+
+.payment-option{
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:12px;
+  border:1px solid rgba(100,195,255,.18);
+  border-radius:12px;
+  background:#092a40;
+  color:#fff;
+  text-align:left;
+  cursor:pointer;
+  transition:.2s ease;
+}
+
+.payment-option:active{
+  transform:scale(.98);
+}
+
+.payment-option:hover{
+  background:#0d3b57;
+}
+
+.payment-icon{
+  width:38px;
+  height:38px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:10px;
+  font-size:18px;
+  flex-shrink:0;
+}
+
+.payment-option.dana .payment-icon{
+  background:#064e70;
+}
+
+.payment-option.shopeepay .payment-icon{
+  background:#68401d;
+}
+
+.payment-option.qris .payment-icon{
+  background:#263c54;
+}
+
+.payment-info{
+  flex:1;
+}
+
+.payment-name{
+  display:block;
+  font-size:13px;
+  font-weight:bold;
+}
+
+.payment-desc{
+  display:block;
+  margin-top:2px;
+  color:#8eabbc;
+  font-size:9px;
+}
+
+.payment-arrow{
+  color:#70cfff;
   font-size:16px;
 }
 
-.bot-payment{
-  margin-top:10px;
-  padding:12px;
-  background:#061521;
-  border-radius:14px;
-  border:1px solid rgba(60,165,255,.1);
+.payment-detail{
+  margin-top:12px;
+  padding:13px;
+  border-radius:12px;
+  background:#082b42;
+  border:1px solid rgba(100,195,255,.16);
+  text-align:center;
 }
 
-.bot-payment b{
-  display:block;
+.payment-detail.dana{
+  border-color:rgba(50,180,255,.25);
+}
+
+.payment-detail.shopeepay{
+  border-color:rgba(255,170,80,.25);
+}
+
+.payment-detail.qris{
+  border-color:rgba(100,195,255,.25);
+}
+
+.payment-detail-title{
   font-size:11px;
-  margin-bottom:10px;
+  font-weight:bold;
+}
+
+.payment-detail.dana .payment-detail-title{
+  color:#55c7ff;
+}
+
+.payment-detail.shopeepay .payment-detail-title{
+  color:#ffad5c;
+}
+
+.payment-detail.qris .payment-detail-title{
+  color:#67d7ff;
+}
+
+.payment-number{
+  display:block;
+  margin-top:8px;
+  font-size:20px;
+  font-weight:bold;
+  letter-spacing:1px;
+}
+
+.payment-detail.dana .payment-number{
+  color:#55c7ff;
+}
+
+.payment-detail.shopeepay .payment-number{
+  color:#ffad5c;
+}
+
+.payment-reminder{
+  margin-top:9px;
+  color:#ffe066;
+  font-size:10px;
+  line-height:1.5;
+}
+
+.bot-payment{
+  margin-top:12px;
+  text-align:center;
 }
 
 .bot-qris{
-  width:100%;
-  max-width:240px;
   display:block;
-  margin:auto;
+  width:100%;
+  max-width:220px;
+  margin:10px auto;
   border-radius:12px;
-  background:#fff;
 }
 
-/* =========================
-   RESULT
-========================= */
+/* ================= RESULT ================= */
 
 .deposit-result{
   display:none;
-  margin-top:14px;
-  padding:16px;
-  border-radius:18px;
-  background:#071a28;
-  border:1px solid rgba(74,177,255,.12);
+  margin-bottom:14px;
+  padding:15px;
+  border-radius:17px;
+  background:#0a2b40;
+  border:1px solid rgba(80,180,255,.17);
 }
 
 .deposit-result.show{
@@ -776,74 +796,62 @@ button{
 }
 
 .result-title{
+  color:#55c7ff;
   font-size:12px;
-  font-weight:900;
+  font-weight:bold;
+  margin-bottom:10px;
 }
 
 .result-row{
   display:flex;
   justify-content:space-between;
   gap:10px;
-  margin-top:9px;
-  color:#8098aa;
-  font-size:10px;
+  padding:7px 0;
+  color:#91adbe;
+  font-size:11px;
 }
 
 .result-row strong{
-  color:#e7f6ff;
+  color:#4ade80;
+  text-align:right;
 }
 
 .waiting-btn{
   width:100%;
-  margin-top:13px;
+  margin-top:10px;
   padding:12px;
-  border-radius:12px;
-  background:#0a2a40;
-  border:1px solid rgba(68,181,255,.18);
-  color:#65c8ff;
-  font-size:10px;
-  font-weight:900;
+  border:1px solid rgba(250,204,21,.2);
+  border-radius:11px;
+  background:#5c470a;
+  color:#ffe066;
+  font-weight:bold;
   cursor:pointer;
 }
 
-/* =========================
-   PROOF
-========================= */
-
-.proof-box{
-  margin-top:15px;
-  padding:17px;
-  border-radius:21px;
-  background:#071724;
-  border:1px solid rgba(98,184,255,.12);
-}
+/* ================= PROOF ================= */
 
 .box-title{
-  font-size:14px;
-  font-weight:900;
+  color:#c084fc;
+  font-size:12px;
+  font-weight:bold;
 }
 
 .box-desc{
-  color:#71899d;
-  font-size:10px;
-  line-height:1.5;
-  margin-top:7px;
+  margin-top:5px;
+  color:#8fa9b9;
+  font-size:11px;
 }
 
 .file-label{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  min-height:100px;
+  display:block;
   margin-top:12px;
-  border-radius:16px;
-  border:1px dashed rgba(73,170,255,.3);
-  background:#061521;
-  color:#7190a4;
-  font-size:11px;
+  padding:18px;
+  border:1px dashed rgba(192,132,252,.4);
+  border-radius:12px;
   text-align:center;
+  color:#d09cff;
+  font-size:12px;
   cursor:pointer;
-  padding:15px;
 }
 
 .file-label input{
@@ -860,145 +868,120 @@ button{
 }
 
 .proof-preview img{
+  display:none;
   width:100%;
-  max-height:250px;
+  max-height:300px;
   object-fit:contain;
-  border-radius:14px;
-  background:#020a11;
+  border-radius:12px;
+  background:#061522;
 }
 
 .file-info{
   margin-top:8px;
-  color:#8ca5b8;
-  font-size:9px;
-  line-height:1.5;
+  color:#91adbe;
+  font-size:10px;
 }
 
 .proof-actions{
-  display:flex;
-  gap:8px;
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:7px;
   margin-top:10px;
 }
 
-.proof-send{
-  flex:1;
-  padding:12px;
-  border-radius:12px;
-  background:#0c8b5a;
-  color:#fff;
-  font-size:10px;
-  font-weight:900;
+.proof-send,
+.proof-remove{
+  border:0;
+  border-radius:10px;
+  padding:11px;
   cursor:pointer;
+  font-weight:bold;
+  font-size:10px;
+}
+
+.proof-send{
+  background:#079b68;
+  color:white;
 }
 
 .proof-remove{
-  padding:12px;
-  border-radius:12px;
-  background:#162533;
-  color:#9db1c1;
-  font-size:10px;
-  cursor:pointer;
+  background:#531923;
+  color:#ff9aa3;
 }
 
-/* =========================
-   TRANSACTIONS
-========================= */
-
-.transactions{
-  margin-top:15px;
-  border-radius:21px;
-  overflow:hidden;
-  background:#071724;
-  border:1px solid rgba(98,184,255,.12);
-}
+/* ================= TRANSACTIONS ================= */
 
 .transactions-head{
-  padding:17px;
-  border-bottom:1px solid rgba(255,255,255,.06);
-  font-size:14px;
-  font-weight:900;
+  color:#55c7ff;
+  font-size:12px;
+  font-weight:bold;
+  margin-bottom:10px;
 }
 
 .transaction-list{
-  padding:10px;
-}
-
-.empty{
-  padding:25px 10px;
-  text-align:center;
-  color:#637b8e;
-  font-size:11px;
+  display:grid;
+  gap:8px;
 }
 
 .transaction{
-  position:relative;
-  padding:13px;
-  border-radius:14px;
-  background:#06131f;
-  margin-bottom:8px;
-  border:1px solid rgba(255,255,255,.05);
-}
-
-.tx-top{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
+  padding:11px;
+  border-radius:12px;
+  background:#082b42;
+  border:1px solid rgba(80,180,255,.1);
 }
 
 .tx-id{
-  color:#6f8b9f;
+  color:#86aabd;
   font-size:9px;
 }
 
 .tx-amount{
+  margin-top:4px;
+  color:#4ade80;
   font-size:14px;
-  font-weight:900;
+  font-weight:bold;
 }
 
 .tx-status{
   display:inline-block;
   margin-top:7px;
-  padding:5px 8px;
-  border-radius:8px;
-  background:#152839;
-  color:#8ecbff;
+  padding:4px 7px;
+  border-radius:6px;
+  background:#5c470a;
+  color:#ffe066;
   font-size:8px;
-  font-weight:900;
+  font-weight:bold;
 }
 
 .tx-time{
   margin-top:7px;
-  color:#5d7486;
+  color:#66879b;
   font-size:8px;
 }
 
 .delete-tx{
-  display:none;
   width:100%;
   margin-top:9px;
-  padding:9px;
-  border-radius:10px;
-  background:#3a1014;
-  color:#ff8892;
+  padding:8px;
+  border:0;
+  border-radius:8px;
+  background:#531923;
+  color:#ff9aa3;
   font-size:9px;
-  font-weight:900;
   cursor:pointer;
 }
 
-.owner-mode .delete-tx{
-  display:block;
+.empty{
+  padding:15px;
+  text-align:center;
+  color:#66879b;
+  font-size:11px;
 }
 
-/* =========================
-   OWNER
-========================= */
+/* ================= OWNER ================= */
 
 .owner-box{
-  margin-top:15px;
-  padding:18px;
-  border-radius:22px;
-  background:#071724;
-  border:1px solid rgba(98,184,255,.12);
+  border-color:rgba(192,132,252,.2);
 }
 
 .owner-head{
@@ -1008,184 +991,666 @@ button{
 }
 
 .owner-title{
-  font-size:16px;
-  font-weight:900;
+  color:#d09cff;
+  font-size:12px;
+  font-weight:bold;
 }
 
 .owner-status{
-  padding:8px 12px;
-  border-radius:20px;
-  background:#0d1b27;
-  color:#718494;
-  font-size:9px;
-  font-weight:900;
-}
-
-.owner-mode .owner-status{
-  background:rgba(0,255,170,.08);
-  color:#4fffc2;
+  padding:5px 8px;
+  border-radius:7px;
+  background:#36234b;
+  color:#d09cff;
+  font-size:8px;
 }
 
 .pin-input{
   width:100%;
-  height:52px;
-  margin-top:15px;
-  padding:0 14px;
-  border-radius:15px;
-  border:1px solid rgba(106,184,255,.15);
-  background:#061521;
+  margin-top:12px;
+  padding:12px;
+  border-radius:10px;
+  border:1px solid rgba(192,132,252,.2);
+  background:#061d2d;
   color:#fff;
   outline:none;
-  font-size:14px;
+}
+
+.owner-btn,
+.owner-delete-all,
+.owner-logout{
+  width:100%;
+  margin-top:8px;
+  padding:11px;
+  border:0;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:bold;
+  font-size:10px;
 }
 
 .owner-btn{
-  width:100%;
-  height:52px;
-  margin-top:12px;
-  border-radius:15px;
-  background:linear-gradient(135deg,#1688ff,#0059dc);
+  background:linear-gradient(135deg,#a23bea,#7330d1);
   color:#fff;
-  font-weight:900;
-  cursor:pointer;
 }
 
-.owner-logout,
 .owner-delete-all{
-  display:none;
-  width:100%;
-  margin-top:9px;
-  padding:12px;
-  border-radius:12px;
-  font-size:10px;
-  font-weight:900;
-  cursor:pointer;
+  background:#531923;
+  color:#ff9aa3;
 }
 
 .owner-logout{
-  background:#142536;
-  color:#91a9bb;
-}
-
-.owner-delete-all{
-  background:#3b1116;
-  color:#ff8790;
-}
-
-.owner-mode .owner-logout,
-.owner-mode .owner-delete-all{
-  display:block;
+  background:#123349;
+  color:#a9c0ce;
 }
 
 .owner-note{
-  color:#71899d;
-  font-size:10px;
-  line-height:1.5;
-  margin-top:11px;
+  margin-top:9px;
+  color:#718e9f;
+  font-size:9px;
+  line-height:1.4;
 }
 
-/* =========================
-   FOTO RIN
-========================= */
+/* ================= ART ================= */
 
 .bottom-art{
-  width:100%;
-  aspect-ratio:16 / 9;
-  height:auto;
-  object-fit:cover;
-  object-position:center center;
   display:block;
-  border-radius:28px;
-  margin-top:20px;
-  border:1px solid rgba(90,178,255,.08);
-  box-shadow:0 20px 40px rgba(0,0,0,.25);
-  pointer-events:none;
-  position:relative;
-  z-index:1;
+  width:100%;
+  max-height:230px;
+  object-fit:cover;
+  object-position:center;
+  margin-top:15px;
+  border-radius:18px;
+  opacity:.9;
 }
 
-/* =========================
-   BOTTOM NAV
-========================= */
+/* ================= BOTTOM NAV ================= */
 
 .bottom-nav{
   position:fixed;
-  z-index:80;
+  z-index:150;
   bottom:0;
   left:50%;
   transform:translateX(-50%);
   width:100%;
   max-width:500px;
-  height:92px;
-  padding:10px 22px 15px;
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:10px;
-  background:rgba(2,10,18,.96);
-  border-top:1px solid rgba(255,255,255,.05);
-  backdrop-filter:blur(18px);
+  padding:8px 10px calc(8px + env(safe-area-inset-bottom));
+  background:rgba(3,17,28,.97);
+  backdrop-filter:blur(15px);
+  border-top:1px solid rgba(80,180,255,.12);
 }
 
 .nav-btn{
-  border-radius:18px;
+  border:0;
+  border-radius:12px;
+  padding:7px 4px;
   background:transparent;
-  color:#64798a;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  gap:7px;
+  color:#607d90;
   cursor:pointer;
 }
 
-.nav-btn.active{
-  background:#061a2d;
-  color:#62c6ff;
-}
-
 .nav-icon{
-  font-size:21px;
+  display:block;
+  font-size:17px;
 }
 
 .nav-label{
-  font-size:10px;
+  display:block;
+  margin-top:3px;
+  font-size:9px;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
-
-@media(max-width:380px){
-
-  .header{
-    padding-left:18px;
-    padding-right:18px;
-  }
-
-  .brand h1{
-    font-size:19px;
-  }
-
-  .online{
-    font-size:10px;
-    padding:7px 9px;
-  }
-
-  .menu-btn{
-    width:58px;
-    height:58px;
-    font-size:28px;
-  }
-
-  .content{
-    padding:0 18px;
-  }
-
-  .hero{
-    height:245px;
-  }
-
+.nav-btn.active{
+  background:#0b3651;
+  color:#55c7ff;
 }
+
+/* =====================================================
+   MODE TERANG
+===================================================== */
+
+body.light-mode{
+  background:#edf7ff;
+  color:#122033;
+}
+
+body.light-mode .app{
+  background:
+    radial-gradient(circle at 50% 0%,rgba(0,150,255,.12),transparent 35%),
+    linear-gradient(180deg,#f5fbff,#e8f4fb);
+}
+
+body.light-mode .header{
+  background:rgba(255,255,255,.92);
+  border-bottom-color:rgba(0,100,180,.12);
+}
+
+body.light-mode .brand h1{
+  color:#0878bd;
+}
+
+body.light-mode .menu-btn{
+  background:#e5f4ff;
+  color:#0878bd;
+}
+
+body.light-mode .contact-menu{
+  background:#fff;
+  border-color:#d7e9f4;
+  box-shadow:0 15px 40px rgba(0,50,90,.15);
+}
+
+body.light-mode .contact-menu a,
+body.light-mode .theme-btn{
+  color:#17678f;
+}
+
+body.light-mode .contact-menu a:hover,
+body.light-mode .theme-btn:hover{
+  background:#eef8ff;
+}
+
+body.light-mode .card,
+body.light-mode .product,
+body.light-mode .deposit-box,
+body.light-mode .proof-box,
+body.light-mode .transactions,
+body.light-mode .owner-box{
+  background:#fff;
+  border-color:#d9eaf4;
+  box-shadow:0 12px 30px rgba(0,60,100,.08);
+}
+
+body.light-mode .welcome h2,
+body.light-mode .page-title h2{
+  color:#0878bd;
+}
+
+body.light-mode .welcome p,
+body.light-mode .page-title p,
+body.light-mode .product-desc,
+body.light-mode .music-description{
+  color:#628096;
+}
+
+body.light-mode .music-player{
+  background:#f0f8fc;
+  border-color:#d7e9f4;
+}
+
+body.light-mode .playlist-item{
+  background:#eaf5fa;
+  border-color:#d8eaf4;
+  color:#183246;
+}
+
+body.light-mode .playlist-item.active{
+  background:#dff3ff;
+}
+
+body.light-mode .deposit-result{
+  background:#fff;
+}
+
+body.light-mode .chat-input,
+body.light-mode .pin-input{
+  background:#f5fbff;
+  color:#122033;
+}
+
+body.light-mode .transaction{
+  background:#f3f9fc;
+}
+
+body.light-mode .bottom-nav{
+  background:rgba(255,255,255,.96);
+  border-top-color:#d7e9f4;
+}
+
+body.light-mode .nav-btn{
+  color:#7792a2;
+}
+
+body.light-mode .nav-btn.active{
+  background:#e0f3ff;
+  color:#0878bd;
+}
+
+body.light-mode .payment-option{
+  background:#f1f9fd;
+  color:#183246;
+  border-color:#d5e8f2;
+}
+
+body.light-mode .payment-option:hover{
+  background:#e5f5fc;
+}
+
+body.light-mode .payment-desc{
+  color:#718a9b;
+}
+
+body.light-mode .payment-detail{
+  background:#f3f9fc;
+}
+
+/* =====================================================
+   MODE GELAP — NAVY SOFT
+===================================================== */
+
+body.dark-mode{
+  background:#071827;
+  color:#f4f9ff;
+}
+
+body.dark-mode .app{
+  background:
+    radial-gradient(
+      circle at 50% 5%,
+      rgba(35,150,255,.18),
+      transparent 35%
+    ),
+    linear-gradient(
+      180deg,
+      #0a2136 0%,
+      #092b47 48%,
+      #071d31 100%
+    );
+}
+
+body.dark-mode .header{
+  background:rgba(8,32,52,.94);
+  border-bottom-color:rgba(100,190,255,.16);
+}
+
+body.dark-mode .brand h1{
+  color:#55c7ff;
+}
+
+body.dark-mode .menu-btn{
+  background:#103b5d;
+  border-color:rgba(100,200,255,.3);
+  color:#55c7ff;
+}
+
+body.dark-mode .contact-menu{
+  background:#0b2d49;
+  border-color:rgba(90,190,255,.28);
+  box-shadow:0 20px 45px rgba(0,20,40,.45);
+}
+
+body.dark-mode .contact-menu a{
+  color:#70caff;
+}
+
+body.dark-mode .theme-btn{
+  color:#facc15;
+}
+
+body.dark-mode .contact-menu a:hover{
+  background:#124467;
+}
+
+body.dark-mode .theme-btn:hover{
+  background:#17415f;
+}
+
+body.dark-mode .card{
+  background:
+    linear-gradient(
+      145deg,
+      #0d3552,
+      #092b45
+    );
+  border-color:rgba(100,195,255,.22);
+  box-shadow:0 18px 40px rgba(0,20,40,.28);
+}
+
+body.dark-mode .welcome h2{
+  color:#55c7ff;
+}
+
+body.dark-mode .welcome p{
+  color:#b7d3e5;
+}
+
+body.dark-mode .page-title h2{
+  color:#55c7ff;
+}
+
+body.dark-mode .page-title p{
+  color:#9fbdd0;
+}
+
+body.dark-mode .hero{
+  background:#082238;
+}
+
+body.dark-mode .hero-small{
+  color:#facc15;
+}
+
+body.dark-mode .hero-sub{
+  color:#b7d0e0;
+}
+
+body.dark-mode .sound-btn{
+  background:rgba(12,52,78,.92);
+  border-color:rgba(100,200,255,.3);
+  color:#55c7ff;
+}
+
+body.dark-mode .music-player{
+  background:
+    linear-gradient(
+      145deg,
+      #0d3a5d,
+      #092d49
+    );
+  border-color:rgba(80,190,255,.25);
+}
+
+body.dark-mode .music-heading{
+  color:#38d5ff;
+}
+
+body.dark-mode .music-description{
+  color:#a9c7d9;
+}
+
+body.dark-mode .player-label{
+  color:#38d5ff;
+}
+
+body.dark-mode .player-btn{
+  background:#124263;
+  border-color:rgba(110,205,255,.22);
+  color:#e4f7ff;
+}
+
+body.dark-mode .player-btn.main{
+  background:
+    linear-gradient(
+      135deg,
+      #18a8f5,
+      #2868e8
+    );
+}
+
+body.dark-mode .volume-btn{
+  background:#124263;
+  color:#38d5ff;
+}
+
+body.dark-mode .playlist-item{
+  background:#0b304d;
+  border-color:rgba(90,190,255,.16);
+}
+
+body.dark-mode .playlist-item.active{
+  background:
+    linear-gradient(
+      145deg,
+      #10547d,
+      #0b3b5c
+    );
+  border-color:rgba(75,200,255,.48);
+}
+
+body.dark-mode .playlist-num{
+  background:#145477;
+  color:#67e8f9;
+}
+
+body.dark-mode .playlist-sub{
+  color:#9bbaca;
+}
+
+body.dark-mode .product{
+  background:
+    linear-gradient(
+      145deg,
+      #0e3855,
+      #0a2b45
+    );
+  border-color:rgba(100,195,255,.22);
+}
+
+body.dark-mode .product-desc{
+  color:#a9c5d7;
+}
+
+body.dark-mode .price-btn{
+  background:#124263;
+  color:#8bdcff;
+  border-color:rgba(100,200,255,.2);
+}
+
+body.dark-mode .price-btn:hover{
+  background:#175579;
+}
+
+body.dark-mode .deposit-box,
+body.dark-mode .proof-box,
+body.dark-mode .transactions,
+body.dark-mode .owner-box{
+  background:
+    linear-gradient(
+      145deg,
+      #0b3552,
+      #082c47
+    );
+  border-color:rgba(90,190,255,.22);
+}
+
+body.dark-mode .chat-head{
+  border-bottom-color:rgba(100,200,255,.14);
+}
+
+body.dark-mode .chat-avatar{
+  background:
+    linear-gradient(
+      135deg,
+      #18a8f5,
+      #2868e8
+    );
+}
+
+body.dark-mode .chat-head-text b{
+  color:#55c7ff;
+}
+
+body.dark-mode .bot-message{
+  background:#10405f;
+  color:#e4f5ff;
+}
+
+body.dark-mode .user-message{
+  background:
+    linear-gradient(
+      135deg,
+      #138dff,
+      #1768df
+    );
+}
+
+body.dark-mode .chat-input-row{
+  border-top-color:rgba(100,200,255,.14);
+}
+
+body.dark-mode .chat-input{
+  background:#0b304b;
+  border-color:rgba(100,195,255,.22);
+  color:#fff;
+}
+
+body.dark-mode .chat-input::placeholder{
+  color:#86aabd;
+}
+
+body.dark-mode .send-btn{
+  background:#1599ec;
+}
+
+body.dark-mode .payment-option{
+  background:#0a304b;
+  border-color:rgba(100,195,255,.22);
+}
+
+body.dark-mode .payment-option:hover{
+  background:#10405e;
+}
+
+body.dark-mode .payment-desc{
+  color:#91afc1;
+}
+
+body.dark-mode .payment-detail{
+  background:#092d46;
+  border-color:rgba(100,195,255,.18);
+}
+
+body.dark-mode .payment-detail.shopeepay{
+  border-color:rgba(255,170,80,.25);
+}
+
+body.dark-mode .deposit-result{
+  background:#0d3854;
+  border-color:rgba(90,195,255,.25);
+}
+
+body.dark-mode .result-title{
+  color:#55c7ff;
+}
+
+body.dark-mode .result-row{
+  color:#a5c2d3;
+}
+
+body.dark-mode .result-row strong{
+  color:#4ade80;
+}
+
+body.dark-mode .waiting-btn{
+  background:#69500c;
+  border-color:rgba(250,204,21,.3);
+  color:#ffe066;
+}
+
+body.dark-mode .box-title{
+  color:#c084fc;
+}
+
+body.dark-mode .box-desc{
+  color:#a4c0d1;
+}
+
+body.dark-mode .file-label{
+  background:#0a304b;
+  border-color:rgba(192,132,252,.4);
+  color:#d09cff;
+}
+
+body.dark-mode .proof-send{
+  background:#079b68;
+}
+
+body.dark-mode .proof-remove{
+  background:#591923;
+  color:#ff9aa3;
+}
+
+body.dark-mode .transactions-head{
+  color:#55c7ff;
+}
+
+body.dark-mode .transaction{
+  background:#0a304b;
+  border-color:rgba(90,190,255,.14);
+}
+
+body.dark-mode .tx-id,
+body.dark-mode .tx-time{
+  color:#86aabd;
+}
+
+body.dark-mode .tx-amount{
+  color:#4ade80;
+}
+
+body.dark-mode .tx-status{
+  background:#69500c;
+  color:#ffe066;
+}
+
+body.dark-mode .delete-tx{
+  background:#591923;
+  color:#ff9aa3;
+}
+
+body.dark-mode .owner-box{
+  border-color:rgba(192,132,252,.25);
+}
+
+body.dark-mode .owner-title{
+  color:#d09cff;
+}
+
+body.dark-mode .owner-status{
+  background:#38234d;
+  color:#d09cff;
+}
+
+body.dark-mode .pin-input{
+  background:#0a304b;
+  border-color:rgba(192,132,252,.25);
+  color:#fff;
+}
+
+body.dark-mode .owner-btn{
+  background:
+    linear-gradient(
+      135deg,
+      #a23bea,
+      #7330d1
+    );
+}
+
+body.dark-mode .owner-logout{
+  background:#173b52;
+  color:#a9c0ce;
+}
+
+body.dark-mode .owner-delete-all{
+  background:#591923;
+  color:#ff9aa3;
+}
+
+body.dark-mode .bottom-nav{
+  background:rgba(8,31,50,.97);
+  border-top-color:rgba(90,190,255,.15);
+}
+
+body.dark-mode .nav-btn{
+  color:#86a6b8;
+}
+
+body.dark-mode .nav-btn:nth-child(1).active{
+  background:#10466a;
+  color:#55c7ff;
+}
+
+body.dark-mode .nav-btn:nth-child(2).active{
+  background:#573817;
+  color:#ffad5c;
+}
+
+body.dark-mode .nav-btn:nth-child(3).active{
+  background:#104a39;
+  color:#4ade80;
+}
+
 </style>
 </head>
 
@@ -1193,12 +1658,7 @@ button{
 
 <div class="app">
 
-<!-- =========================
-     HEADER
-========================= -->
-
 <header class="header">
-
   <div class="brand">
     <h1>DAPPA OFFICIAL</h1>
 
@@ -1211,48 +1671,71 @@ button{
   <button
     class="menu-btn"
     type="button"
-    onclick="toggleMenu()">
-    ☰
-  </button>
-
+    onclick="toggleMenu()"
+  >☰</button>
 </header>
-
-
-<!-- CONTACT MENU -->
 
 <div id="contactMenu" class="contact-menu">
 
   <a
     href="https://wa.me/6281903976932"
-    target="_blank">
+    target="_blank"
+  >
     💬 WhatsApp
   </a>
 
   <a
     href="https://t.me/kieldppa"
-    target="_blank">
+    target="_blank"
+  >
     ✈️ Telegram
   </a>
 
   <a
     href="https://dappaofficial-restapi.my.id"
-    target="_blank">
+    target="_blank"
+  >
     🌐 Web API
   </a>
 
+  <div class="menu-divider"></div>
+
+  <div class="theme-title">
+    TAMPILAN
+  </div>
+
+  <button
+    class="theme-btn"
+    type="button"
+    onclick="setTheme('dark')"
+  >
+    🌙 Mode Gelap
+  </button>
+
+  <button
+    class="theme-btn"
+    type="button"
+    onclick="setTheme('light')"
+  >
+    ☀️ Mode Terang
+  </button>
+
+  <button
+    class="theme-btn"
+    type="button"
+    onclick="setTheme('default')"
+  >
+    🔄 Mode Semula
+  </button>
+
 </div>
 
-
-<!-- =====================================================
-     SLIDE 1
-     VIDEO + WELCOME + MUSIC
-===================================================== -->
+<!-- ================= HOME ================= -->
 
 <section
   id="slideHome"
-  class="slide active">
-
-  <!-- HERO VIDEO -->
+  class="slide active"
+>
 
   <div class="hero">
 
@@ -1262,11 +1745,13 @@ button{
       muted
       loop
       playsinline
-      preload="auto">
+      preload="auto"
+    >
 
       <source
         src="https://videotourl.com/videos/1790953749312-82f4b9d7-8765-42bc-bbd9-480ce46ce7d2.mp4"
-        type="video/mp4">
+        type="video/mp4"
+      >
 
     </video>
 
@@ -1290,16 +1775,12 @@ button{
       id="soundBtn"
       class="sound-btn"
       type="button"
-      onclick="toggleVideoSound()">
-      🔇
-    </button>
+      onclick="toggleVideoSound()"
+    >🔇</button>
 
   </div>
 
-
   <div class="content">
-
-    <!-- WELCOME -->
 
     <div class="card welcome">
 
@@ -1308,49 +1789,39 @@ button{
       </h2>
 
       <p>
-        Tempat untuk berbagai kebutuhan bot,
-        script, hosting, API, dan layanan digital
-        lainnya.
+        Tempat untuk berbagai kebutuhan bot, script,
+        hosting, API, dan layanan digital lainnya.
       </p>
 
       <button
         class="btn-primary"
         type="button"
-        onclick="showSlide('slideStore')">
-
+        onclick="showSlide('slideStore')"
+      >
         🛒 LIHAT STORE
-
       </button>
 
     </div>
 
-
-    <!-- MUSIC -->
-
     <div class="card music-card section-space">
 
       <div class="music-heading">
-
         <span class="music-heading-icon">
           🎵
         </span>
-
         Music
-
       </div>
 
       <div class="music-description">
         Koleksi musik pilihan Dappa Official.
       </div>
 
-
       <div class="music-player">
 
         <audio
           id="musicAudio"
-          preload="metadata">
-        </audio>
-
+          preload="metadata"
+        ></audio>
 
         <div class="player-main">
 
@@ -1358,7 +1829,8 @@ button{
             id="musicCover"
             class="player-cover"
             src="https://i.ibb.co/XZQ5btXW/undefined.jpg"
-            alt="Dappa Music">
+            alt="Dappa Music"
+          >
 
           <div class="player-meta">
 
@@ -1368,7 +1840,8 @@ button{
 
             <div
               id="musicTitle"
-              class="player-title">
+              class="player-title"
+            >
               What If I Call
             </div>
 
@@ -1380,7 +1853,6 @@ button{
 
         </div>
 
-
         <div class="progress-wrap">
 
           <input
@@ -1390,10 +1862,10 @@ button{
             min="0"
             max="100"
             value="0"
-            step="0.1">
+            step="0.1"
+          >
 
           <div class="time-row">
-
             <span id="musicCurrent">
               0:00
             </span>
@@ -1401,44 +1873,45 @@ button{
             <span id="musicDuration">
               0:00
             </span>
-
           </div>
 
         </div>
-
 
         <div class="player-controls">
 
           <button
             id="prevMusic"
             class="player-btn"
-            type="button">
+            type="button"
+          >
             ⏮
           </button>
 
           <button
             id="playMusic"
             class="player-btn main"
-            type="button">
+            type="button"
+          >
             ▶
           </button>
 
           <button
             id="nextMusic"
             class="player-btn"
-            type="button">
+            type="button"
+          >
             ⏭
           </button>
 
         </div>
-
 
         <div class="volume-row">
 
           <button
             id="muteMusic"
             class="volume-btn"
-            type="button">
+            type="button"
+          >
             🔊
           </button>
 
@@ -1449,25 +1922,26 @@ button{
             min="0"
             max="1"
             value="1"
-            step="0.01">
+            step="0.01"
+          >
 
         </div>
-
 
         <div
           id="musicStatus"
-          class="music-status">
-        </div>
-
+          class="music-status"
+        ></div>
 
         <div
           id="musicPlaylist"
-          class="playlist">
+          class="playlist"
+        >
 
           <button
             class="playlist-item active"
             type="button"
-            data-index="0">
+            data-index="0"
+          >
 
             <span class="playlist-num">
               01
@@ -1491,11 +1965,11 @@ button{
 
           </button>
 
-
           <button
             class="playlist-item"
             type="button"
-            data-index="1">
+            data-index="1"
+          >
 
             <span class="playlist-num">
               02
@@ -1529,16 +2003,12 @@ button{
 
 </section>
 
-
-<!-- =====================================================
-     SLIDE 2
-     SEWA BOT + HOSTING + SCRIPT + DEPOSIT
-     + FOTO RIN
-===================================================== -->
+<!-- ================= STORE ================= -->
 
 <section
   id="slideStore"
-  class="slide">
+  class="slide"
+>
 
   <div class="content">
 
@@ -1554,9 +2024,6 @@ button{
 
     </div>
 
-
-    <!-- SEWA BOT -->
-
     <div class="product">
 
       <div class="product-title">
@@ -1564,73 +2031,56 @@ button{
       </div>
 
       <div class="product-desc">
-        Sewa bot fintech dengan pilihan durasi
-        sesuai kebutuhan.
+        Sewa bot fintech dengan pilihan durasi sesuai kebutuhan.
       </div>
-
 
       <div class="price-list">
 
         <button
           class="price-btn"
-          onclick="buyRental('7 Hari','Rp5K')">
-
-          7 Hari<br>
-          Rp5K
-
+          onclick="buyRental('7 Hari','Rp5K')"
+        >
+          7 Hari<br>Rp5K
         </button>
 
         <button
           class="price-btn"
-          onclick="buyRental('14 Hari','Rp8K')">
-
-          14 Hari<br>
-          Rp8K
-
+          onclick="buyRental('14 Hari','Rp8K')"
+        >
+          14 Hari<br>Rp8K
         </button>
 
         <button
           class="price-btn"
-          onclick="buyRental('1 Bulan','Rp10K')">
-
-          1 Bulan<br>
-          Rp10K
-
+          onclick="buyRental('1 Bulan','Rp10K')"
+        >
+          1 Bulan<br>Rp10K
         </button>
 
         <button
           class="price-btn"
-          onclick="buyRental('2 Bulan','Rp13K')">
-
-          2 Bulan<br>
-          Rp13K
-
+          onclick="buyRental('2 Bulan','Rp13K')"
+        >
+          2 Bulan<br>Rp13K
         </button>
 
         <button
           class="price-btn"
-          onclick="buyRental('3 Bulan','Rp15K')">
-
-          3 Bulan<br>
-          Rp15K
-
+          onclick="buyRental('3 Bulan','Rp15K')"
+        >
+          3 Bulan<br>Rp15K
         </button>
 
         <button
           class="price-btn"
-          onclick="buyRental('Permanen','Rp30K')">
-
-          Permanen<br>
-          Rp30K
-
+          onclick="buyRental('Permanen','Rp30K')"
+        >
+          Permanen<br>Rp30K
         </button>
 
       </div>
 
     </div>
-
-
-    <!-- HOSTING -->
 
     <div class="product">
 
@@ -1645,18 +2095,12 @@ button{
 
       <button
         class="btn-primary"
-        onclick="openWhatsApp(
-          'Halo Dappa, saya tertarik dengan Promo Join Partner HOSTING.'
-        )">
-
+        onclick="openWhatsApp('Halo Dappa, saya tertarik dengan Promo Join Partner HOSTING.')"
+      >
         💬 HUBUNGI ADMIN
-
       </button>
 
     </div>
-
-
-    <!-- SCRIPT -->
 
     <div class="product">
 
@@ -1665,25 +2109,18 @@ button{
       </div>
 
       <div class="product-desc">
-        Script fintech Kaelyn V8 untuk kebutuhan
-        project dan pengembangan bot.
+        Script fintech Kaelyn V8 untuk kebutuhan project
+        dan pengembangan bot.
       </div>
 
       <button
         class="btn-primary"
-        onclick="openWhatsApp(
-          'Halo Dappa, saya ingin membeli Script Store Fintech Kaelyn V8.'
-        )">
-
+        onclick="openWhatsApp('Halo Dappa, saya ingin membeli Script Store Fintech Kaelyn V8.')"
+      >
         💬 BELI SCRIPT
-
       </button>
 
     </div>
-
-
-    <!-- DEPOSIT -->
-    <!-- Tetap di Slide 2 sesuai permintaan -->
 
     <div class="card section-space">
 
@@ -1692,43 +2129,35 @@ button{
       </div>
 
       <div class="product-desc">
-        Gunakan sistem deposit Dappa Official
-        untuk membuat transaksi dan mengirim
-        bukti transfer.
+        Gunakan sistem deposit Dappa Official untuk membuat
+        transaksi dan mengirim bukti transfer.
       </div>
 
       <button
         class="btn-primary"
-        onclick="showSlide('slideDeposit')">
-
+        onclick="showSlide('slideDeposit')"
+      >
         💰 MASUK DEPOSIT
-
       </button>
 
     </div>
 
-
-    <!-- FOTO RIN SLIDE 2 -->
-
     <img
       class="bottom-art"
       src="https://i.ibb.co/XZQ5btXW/undefined.jpg"
-      alt="Rin Itoshi">
+      alt="Rin Itoshi"
+    >
 
   </div>
 
 </section>
 
-
-<!-- =====================================================
-     SLIDE 3
-     DEPOSIT + BUKTI + TRANSAKSI + OWNER
-     + FOTO RIN
-===================================================== -->
+<!-- ================= DEPOSIT ================= -->
 
 <section
   id="slideDeposit"
-  class="slide">
+  class="slide"
+>
 
   <div class="content">
 
@@ -1743,9 +2172,6 @@ button{
       </p>
 
     </div>
-
-
-    <!-- CHAT -->
 
     <div class="deposit-box">
 
@@ -1769,15 +2195,15 @@ button{
 
       </div>
 
-
       <div
         id="chatBody"
-        class="chat-body">
+        class="chat-body"
+      >
 
         <div class="chat-message bot-message">
 
-          👋 Halo! Selamat datang di sistem
-          deposit Dappa Official.
+          👋 Halo! Selamat datang di sistem deposit
+          Dappa Official.
 
           <br><br>
 
@@ -1794,10 +2220,26 @@ button{
           Minimal deposit adalah
           <b>Rp1.000</b>.
 
+          <br><br>
+
+          Setelah transaksi dibuat,
+          kamu bisa memilih:
+
+          <br>
+
+          💙 <b>DANA</b>
+
+          <br>
+
+          🧡 <b>ShopeePay</b>
+
+          <br>
+
+          💳 <b>QRIS</b>
+
         </div>
 
       </div>
-
 
       <div class="chat-input-row">
 
@@ -1806,27 +2248,27 @@ button{
           class="chat-input"
           type="text"
           autocomplete="off"
-          placeholder="Contoh: deposit 1000">
+          placeholder="Contoh: deposit 1000"
+        >
 
         <button
           id="sendChat"
           class="send-btn"
-          type="button">
-
+          type="button"
+        >
           ➤
-
         </button>
 
       </div>
 
     </div>
 
-
     <!-- RESULT -->
 
     <div
       id="depositResult"
-      class="deposit-result">
+      class="deposit-result"
+    >
 
       <div class="result-title">
         💳 DETAIL TRANSAKSI
@@ -1871,16 +2313,14 @@ button{
       <button
         id="waitingBtn"
         class="waiting-btn"
-        type="button">
-
+        type="button"
+      >
         SAYA SUDAH TRANSFER
-
       </button>
 
     </div>
 
-
-    <!-- BUKTI -->
+    <!-- PROOF -->
 
     <div class="proof-box">
 
@@ -1889,56 +2329,53 @@ button{
       </div>
 
       <div class="box-desc">
-        Pilih screenshot/foto bukti transfer
-        dari galeri HP. Setelah preview muncul,
-        tekan tombol kirim.
+        Pilih screenshot/foto bukti transfer dari galeri HP.
       </div>
-
 
       <label class="file-label">
 
         <input
           id="proofInput"
           type="file"
-          accept="image/*,.pdf">
+          accept="image/*,.pdf"
+        >
 
         📷<br>
         PILIH FOTO / PDF BUKTI TRANSFER
 
       </label>
 
-
       <div
         id="proofPreview"
-        class="proof-preview">
+        class="proof-preview"
+      >
 
         <img
           id="proofImage"
-          alt="Preview bukti transfer">
+          alt="Preview bukti transfer"
+        >
 
         <div
           id="proofInfo"
-          class="file-info">
-        </div>
+          class="file-info"
+        ></div>
 
         <div class="proof-actions">
 
           <button
             id="sendProof"
             class="proof-send"
-            type="button">
-
+            type="button"
+          >
             📤 KIRIM BUKTI KE WHATSAPP
-
           </button>
 
           <button
             id="removeProof"
             class="proof-remove"
-            type="button">
-
+            type="button"
+          >
             HAPUS
-
           </button>
 
         </div>
@@ -1947,8 +2384,7 @@ button{
 
     </div>
 
-
-    <!-- TRANSAKSI -->
+    <!-- TRANSACTIONS -->
 
     <div class="transactions">
 
@@ -1958,7 +2394,8 @@ button{
 
       <div
         id="transactionList"
-        class="transaction-list">
+        class="transaction-list"
+      >
 
         <div class="empty">
           Belum ada transaksi.
@@ -1968,12 +2405,12 @@ button{
 
     </div>
 
-
     <!-- OWNER -->
 
     <div
       id="ownerBox"
-      class="owner-box">
+      class="owner-box"
+    >
 
       <div class="owner-head">
 
@@ -1983,69 +2420,56 @@ button{
 
         <div
           id="ownerStatus"
-          class="owner-status">
-
+          class="owner-status"
+        >
           OFFLINE
-
         </div>
 
       </div>
-
 
       <input
         id="ownerPin"
         class="pin-input"
         type="password"
         inputmode="numeric"
-        placeholder="Masukkan PIN">
-
+        placeholder="Masukkan PIN"
+      >
 
       <button
         id="ownerLogin"
         class="owner-btn"
-        type="button">
-
+        type="button"
+      >
         🔐 MASUK OWNER
-
       </button>
-
 
       <button
         id="ownerDeleteAll"
         class="owner-delete-all"
-        type="button">
-
+        type="button"
+      >
         🗑️ HAPUS SEMUA
-
       </button>
-
 
       <button
         id="ownerLogout"
         class="owner-logout"
-        type="button">
-
+        type="button"
+      >
         🔒 KELUAR OWNER
-
       </button>
 
-
       <div class="owner-note">
-
-        Masukkan PIN owner untuk mengaktifkan
-        pengelolaan transaksi.
-
+        Masukkan PIN owner untuk mengaktifkan pengelolaan transaksi.
       </div>
 
     </div>
 
-
-    <!-- FOTO RIN SLIDE 3 -->
-
     <img
       class="bottom-art"
       src="https://i.ibb.co/XZQ5btXW/undefined.jpg"
-      alt="Rin Itoshi">
+      alt="Rin Itoshi"
+    >
 
   </div>
 
@@ -2053,10 +2477,7 @@ button{
 
 </div>
 
-
-<!-- =========================
-     BOTTOM NAV
-========================= -->
+<!-- ================= BOTTOM NAV ================= -->
 
 <nav class="bottom-nav">
 
@@ -2064,7 +2485,8 @@ button{
     id="navHome"
     class="nav-btn active"
     type="button"
-    onclick="showSlide('slideHome')">
+    onclick="showSlide('slideHome')"
+  >
 
     <span class="nav-icon">
       ⌂
@@ -2076,12 +2498,12 @@ button{
 
   </button>
 
-
   <button
     id="navStore"
     class="nav-btn"
     type="button"
-    onclick="showSlide('slideStore')">
+    onclick="showSlide('slideStore')"
+  >
 
     <span class="nav-icon">
       🛒
@@ -2093,12 +2515,12 @@ button{
 
   </button>
 
-
   <button
     id="navDeposit"
     class="nav-btn"
     type="button"
-    onclick="showSlide('slideDeposit')">
+    onclick="showSlide('slideDeposit')"
+  >
 
     <span class="nav-icon">
       💳
@@ -2112,51 +2534,107 @@ button{
 
 </nav>
 
-
 <script>
 
-/* =========================
-   CONFIG
-========================= */
+/* ================= THEME ================= */
 
-const OWNER_PIN = "141196";
+function setTheme(mode){
 
-const WHATSAPP =
-  "https://wa.me/6281903976932";
+  document.body.classList.remove(
+    "dark-mode",
+    "light-mode"
+  );
 
+  if(mode==="dark"){
 
-let currentDeposit = null;
-let currentTx = null;
-let selectedProof = null;
-let ownerLogged = false;
+    document.body.classList.add(
+      "dark-mode"
+    );
 
+    localStorage.setItem(
+      "dappa_theme",
+      "dark"
+    );
 
-/* =========================
-   SLIDE
-========================= */
+  }else if(mode==="light"){
+
+    document.body.classList.add(
+      "light-mode"
+    );
+
+    localStorage.setItem(
+      "dappa_theme",
+      "light"
+    );
+
+  }else{
+
+    localStorage.removeItem(
+      "dappa_theme"
+    );
+
+  }
+
+  document
+    .getElementById("contactMenu")
+    .classList.remove("show");
+
+}
+
+(function(){
+
+  const savedTheme=
+    localStorage.getItem(
+      "dappa_theme"
+    );
+
+  if(savedTheme==="dark"){
+
+    document.body.classList.add(
+      "dark-mode"
+    );
+
+  }
+
+  if(savedTheme==="light"){
+
+    document.body.classList.add(
+      "light-mode"
+    );
+
+  }
+
+})();
+
+/* ================= SLIDE ================= */
 
 function showSlide(id){
 
   document
     .querySelectorAll(".slide")
-    .forEach(slide => {
-      slide.classList.remove("active");
-    });
+    .forEach(slide=>{
 
+      slide.classList.remove(
+        "active"
+      );
+
+    });
 
   document
     .getElementById(id)
     .classList.add("active");
 
-
   document
     .querySelectorAll(".nav-btn")
-    .forEach(btn => {
-      btn.classList.remove("active");
+    .forEach(btn=>{
+
+      btn.classList.remove(
+        "active"
+      );
+
     });
 
-
-  if(id === "slideHome"){
+  if(id==="slideHome"){
 
     document
       .getElementById("navHome")
@@ -2164,7 +2642,7 @@ function showSlide(id){
 
   }
 
-  if(id === "slideStore"){
+  if(id==="slideStore"){
 
     document
       .getElementById("navStore")
@@ -2172,14 +2650,13 @@ function showSlide(id){
 
   }
 
-  if(id === "slideDeposit"){
+  if(id==="slideDeposit"){
 
     document
       .getElementById("navDeposit")
       .classList.add("active");
 
   }
-
 
   window.scrollTo({
     top:0,
@@ -2188,10 +2665,7 @@ function showSlide(id){
 
 }
 
-
-/* =========================
-   MENU
-========================= */
+/* ================= MENU ================= */
 
 function toggleMenu(){
 
@@ -2201,21 +2675,19 @@ function toggleMenu(){
 
 }
 
-
 document.addEventListener(
   "click",
   function(e){
 
-    const menu =
+    const menu=
       document.getElementById(
         "contactMenu"
       );
 
-    const button =
+    const button=
       document.querySelector(
         ".menu-btn"
       );
-
 
     if(
       menu.classList.contains("show") &&
@@ -2223,75 +2695,67 @@ document.addEventListener(
       !button.contains(e.target)
     ){
 
-      menu.classList.remove("show");
+      menu.classList.remove(
+        "show"
+      );
 
     }
 
   }
 );
 
+/* ================= VIDEO ================= */
 
-/* =========================
-   VIDEO SOUND
-========================= */
-
-const heroVideo =
+const heroVideo=
   document.getElementById(
     "heroVideo"
   );
 
-const soundBtn =
+const soundBtn=
   document.getElementById(
     "soundBtn"
   );
 
-
 function toggleVideoSound(){
 
-  heroVideo.muted =
+  heroVideo.muted=
     !heroVideo.muted;
 
-
-  soundBtn.textContent =
+  soundBtn.textContent=
     heroVideo.muted
       ? "🔇"
       : "🔊";
 
 }
 
+/* ================= WHATSAPP ================= */
 
-/* =========================
-   WHATSAPP
-========================= */
+const WHATSAPP=
+  "https://wa.me/6281903976932";
 
 function openWhatsApp(message){
 
   window.open(
-    WHATSAPP +
-    "?text=" +
+    WHATSAPP+
+    "?text="+
     encodeURIComponent(message),
     "_blank"
   );
 
 }
 
-
 function buyRental(
   duration,
   price
 ){
 
-  const message =
-`Halo Dappa, saya ingin sewa Bot Fintech Kaelyn V8 ${duration} seharga ${price}. Sebelum diproses, silahkan transfer sesuai harga tersebut. Terima kasih.`;
-
-  openWhatsApp(message);
+  openWhatsApp(
+    `Halo Dappa, saya ingin sewa Bot Fintech Kaelyn V8 ${duration} seharga ${price}.`
+  );
 
 }
 
-
-/* =========================
-   RUPIAH
-========================= */
+/* ================= HELPERS ================= */
 
 function rupiah(number){
 
@@ -2306,11 +2770,6 @@ function rupiah(number){
 
 }
 
-
-/* =========================
-   ESCAPE
-========================= */
-
 function escapeHTML(value){
 
   return String(value)
@@ -2322,153 +2781,562 @@ function escapeHTML(value){
 
 }
 
+/* ================= CHAT ================= */
 
-/* =========================
-   CHAT
-========================= */
-
-const chatInput =
+const chatInput=
   document.getElementById(
     "chatInput"
   );
 
-const sendChat =
+const sendChat=
   document.getElementById(
     "sendChat"
   );
 
-const chatBody =
+const chatBody=
   document.getElementById(
     "chatBody"
   );
-
 
 function addChatMessage(
   message,
   type="bot"
 ){
 
-  const div =
+  const div=
     document.createElement(
       "div"
     );
 
-
-  div.className =
-    "chat-message " +
+  div.className=
+    "chat-message "+
     (
-      type === "user"
+      type==="user"
         ? "user-message"
         : "bot-message"
     );
 
-
-  div.innerHTML =
+  div.innerHTML=
     message;
 
+  chatBody.appendChild(
+    div
+  );
 
-  chatBody.appendChild(div);
-
-  chatBody.scrollTop =
+  chatBody.scrollTop=
     chatBody.scrollHeight;
 
 }
 
+/* ================= PAYMENT ================= */
+
+let paymentMethod=null;
+
+function showPaymentOptions(){
+
+  if(!currentTx){
+
+    addChatMessage(`
+      ❌ <b>Belum ada transaksi aktif.</b>
+      <br><br>
+      Silahkan buat transaksi terlebih dahulu.
+    `);
+
+    return;
+
+  }
+
+  addChatMessage(`
+
+    💳 <b>Pilih Metode Pembayaran</b>
+
+    <br><br>
+
+    Silahkan pilih metode pembayaran
+    yang ingin kamu gunakan:
+
+    <div class="payment-options">
+
+      <button
+        type="button"
+        class="payment-option dana"
+        onclick="selectPayment('DANA')"
+      >
+
+        <span class="payment-icon">
+          💙
+        </span>
+
+        <span class="payment-info">
+
+          <span class="payment-name">
+            DANA
+          </span>
+
+          <span class="payment-desc">
+            Bayar menggunakan DANA
+          </span>
+
+        </span>
+
+        <span class="payment-arrow">
+          ›
+        </span>
+
+      </button>
+
+      <button
+        type="button"
+        class="payment-option shopeepay"
+        onclick="selectPayment('ShopeePay')"
+      >
+
+        <span class="payment-icon">
+          🧡
+        </span>
+
+        <span class="payment-info">
+
+          <span class="payment-name">
+            ShopeePay
+          </span>
+
+          <span class="payment-desc">
+            Bayar menggunakan ShopeePay
+          </span>
+
+        </span>
+
+        <span class="payment-arrow">
+          ›
+        </span>
+
+      </button>
+
+      <button
+        type="button"
+        class="payment-option qris"
+        onclick="selectPayment('QRIS')"
+      >
+
+        <span class="payment-icon">
+          💳
+        </span>
+
+        <span class="payment-info">
+
+          <span class="payment-name">
+            QRIS
+          </span>
+
+          <span class="payment-desc">
+            Bayar menggunakan QRIS
+          </span>
+
+        </span>
+
+        <span class="payment-arrow">
+          ›
+        </span>
+
+      </button>
+
+    </div>
+
+  `);
+
+}
+
+function selectPayment(method){
+
+  if(!currentTx){
+
+    addChatMessage(`
+      ❌ <b>Belum ada transaksi aktif.</b>
+    `);
+
+    return;
+
+  }
+
+  paymentMethod=
+    method;
+
+  if(method==="DANA"){
+
+    addChatMessage(`
+
+      <div class="payment-detail dana">
+
+        <div class="payment-detail-title">
+          💙 PEMBAYARAN DANA
+        </div>
+
+        <span class="payment-number">
+          081385631460
+        </span>
+
+        <div style="
+          margin-top:5px;
+          font-size:10px;
+          color:#91adbe;
+        ">
+          Nominal transfer
+        </div>
+
+        <div style="
+          margin-top:3px;
+          font-size:15px;
+          font-weight:bold;
+          color:#4ade80;
+        ">
+          ${rupiah(currentTx.amount)}
+        </div>
+
+        <div class="payment-reminder">
+          ⚠️ Jangan lupa screenshot transaksi
+          setelah melakukan transfer.
+        </div>
+
+        <div style="
+          margin-top:10px;
+          font-size:10px;
+          color:#9db6c5;
+        ">
+          Setelah selesai transfer,
+          tekan tombol
+          <b>SAYA SUDAH TRANSFER</b>
+          di bawah.
+        </div>
+
+      </div>
+
+    `);
+
+    return;
+
+  }
+
+  if(method==="ShopeePay"){
+
+    addChatMessage(`
+
+      <div class="payment-detail shopeepay">
+
+        <div class="payment-detail-title">
+          🧡 PEMBAYARAN SHOPEEPAY
+        </div>
+
+        <span class="payment-number">
+          085280063083
+        </span>
+
+        <div style="
+          margin-top:5px;
+          font-size:10px;
+          color:#91adbe;
+        ">
+          Nominal transfer
+        </div>
+
+        <div style="
+          margin-top:3px;
+          font-size:15px;
+          font-weight:bold;
+          color:#4ade80;
+        ">
+          ${rupiah(currentTx.amount)}
+        </div>
+
+        <div class="payment-reminder">
+          ⚠️ Jangan lupa screenshot transaksi
+          setelah melakukan transfer.
+        </div>
+
+        <div style="
+          margin-top:10px;
+          font-size:10px;
+          color:#9db6c5;
+        ">
+          Setelah selesai transfer,
+          tekan tombol
+          <b>SAYA SUDAH TRANSFER</b>
+          di bawah.
+        </div>
+
+      </div>
+
+    `);
+
+    return;
+
+  }
+
+  if(method==="QRIS"){
+
+    addChatMessage(`
+
+      <div class="payment-detail qris">
+
+        <div class="payment-detail-title">
+          💳 PEMBAYARAN QRIS
+        </div>
+
+        <div style="
+          margin-top:10px;
+          font-size:10px;
+          color:#91adbe;
+        ">
+          Silahkan scan QRIS berikut:
+        </div>
+
+        <div class="bot-payment">
+
+          <img
+            class="bot-qris"
+            src="qris.jpg"
+            alt="QRIS Dappa Official"
+          >
+
+        </div>
+
+        <div style="
+          margin-top:5px;
+          font-size:10px;
+          color:#91adbe;
+        ">
+          Nominal yang harus dibayar
+        </div>
+
+        <div style="
+          margin-top:3px;
+          font-size:15px;
+          font-weight:bold;
+          color:#4ade80;
+        ">
+          ${rupiah(currentTx.amount)}
+        </div>
+
+        <div class="payment-reminder">
+          ⚠️ Jangan lupa screenshot transaksi
+          setelah melakukan pembayaran.
+        </div>
+
+        <div style="
+          margin-top:10px;
+          font-size:10px;
+          color:#9db6c5;
+        ">
+          Setelah selesai pembayaran,
+          tekan tombol
+          <b>SAYA SUDAH TRANSFER</b>
+          di bawah.
+        </div>
+
+      </div>
+
+    `);
+
+  }
+
+}
+
+/* ================= PROCESS CHAT ================= */
 
 function processChat(){
 
-  const value =
+  const value=
     chatInput.value.trim();
 
-
-  if(!value) return;
-
+  if(!value)return;
 
   addChatMessage(
     escapeHTML(value),
     "user"
   );
 
+  chatInput.value="";
 
-  chatInput.value = "";
+  const command=
+    value
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g," ");
 
+  /* ================= DANA ================= */
 
-  const match =
-    value.match(
-      /^deposit\s+([\d.,]+)$/i
-    );
+  if(
+    command==="dana" ||
+    command==="1"
+  ){
 
+    if(!currentTx){
 
-  if(!match){
+      addChatMessage(`
+        ❌ Belum ada transaksi aktif.
+        <br><br>
+        Silahkan ketik:
+        <br>
+        <b>deposit 1000</b>
+      `);
 
-    setTimeout(
-      ()=>{
+      return;
 
-        addChatMessage(
-          `❌ Format tidak dikenali.<br><br>
-          Gunakan format:<br>
-          <b>deposit 1000</b>`
-        );
+    }
 
-      },
-      300
-    );
+    selectPayment("DANA");
 
     return;
 
   }
 
+  /* ================= SHOPEEPAY ================= */
 
-  let amount =
+  if(
+    command==="shopepay" ||
+    command==="shopeepay" ||
+    command==="shopee pay" ||
+    command==="2"
+  ){
+
+    if(!currentTx){
+
+      addChatMessage(`
+        ❌ Belum ada transaksi aktif.
+        <br><br>
+        Silahkan ketik:
+        <br>
+        <b>deposit 1000</b>
+      `);
+
+      return;
+
+    }
+
+    selectPayment("ShopeePay");
+
+    return;
+
+  }
+
+  /* ================= QRIS ================= */
+
+  if(
+    command==="qris" ||
+    command==="3"
+  ){
+
+    if(!currentTx){
+
+      addChatMessage(`
+        ❌ Belum ada transaksi aktif.
+        <br><br>
+        Silahkan ketik:
+        <br>
+        <b>deposit 1000</b>
+      `);
+
+      return;
+
+    }
+
+    selectPayment("QRIS");
+
+    return;
+
+  }
+
+  /* ================= DEPOSIT ================= */
+
+  const match=
+    value.match(
+      /^deposit\s+([\d.,]+)$/i
+    );
+
+  if(!match){
+
+    setTimeout(()=>{
+
+      addChatMessage(`
+
+        ❌ Format tidak dikenali.
+
+        <br><br>
+
+        Gunakan format:
+
+        <br>
+
+        <b>deposit 1000</b>
+
+        <br><br>
+
+        Setelah transaksi dibuat,
+        pilih:
+
+        <br>
+
+        💙 <b>DANA</b>
+
+        <br>
+
+        🧡 <b>ShopeePay</b>
+
+        <br>
+
+        💳 <b>QRIS</b>
+
+      `);
+
+    },300);
+
+    return;
+
+  }
+
+  let amount=
     match[1]
       .replace(/[.,]/g,"");
 
-
-  amount =
+  amount=
     parseInt(
       amount,
       10
     );
 
-
   if(
     isNaN(amount) ||
-    amount < 1000
+    amount<1000
   ){
 
-    setTimeout(
-      ()=>{
+    setTimeout(()=>{
 
-        addChatMessage(
-          `❌ Minimal deposit adalah
-          <b>Rp1.000</b>.`
-        );
+      addChatMessage(
+        `❌ Minimal deposit adalah <b>Rp1.000</b>.`
+      );
 
-      },
-      300
-    );
+    },300);
 
     return;
 
   }
 
-
-  createDeposit(amount);
+  createDeposit(
+    amount
+  );
 
 }
-
 
 sendChat.addEventListener(
   "click",
   processChat
 );
 
-
 chatInput.addEventListener(
   "keydown",
   function(e){
 
-    if(e.key === "Enter"){
+    if(e.key==="Enter"){
 
       processChat();
 
@@ -2477,31 +3345,26 @@ chatInput.addEventListener(
   }
 );
 
-
-/* =========================
-   TRANSACTIONS
-========================= */
+/* ================= TRANSACTION ================= */
 
 function generateTransactionId(){
 
-  const random =
+  const random=
     Math.random()
       .toString(36)
       .substring(2,8)
       .toUpperCase();
 
-
-  return (
-    "DP-" +
+  return(
+    "DP-"+
     Date.now()
       .toString()
-      .slice(-6) +
-    "-" +
+      .slice(-6)+
+    "-"+
     random
   );
 
 }
-
 
 function getTransactions(){
 
@@ -2521,7 +3384,6 @@ function getTransactions(){
 
 }
 
-
 function saveTransactions(list){
 
   localStorage.setItem(
@@ -2531,14 +3393,14 @@ function saveTransactions(list){
 
 }
 
-
-/* =========================
-   CREATE DEPOSIT
-========================= */
+let currentDeposit=null;
+let currentTx=null;
+let selectedProof=null;
+let ownerLogged=false;
 
 function createDeposit(amount){
 
-  const tx = {
+  const tx={
 
     id:
       generateTransactionId(),
@@ -2555,56 +3417,62 @@ function createDeposit(amount){
 
   };
 
-
-  currentDeposit =
+  currentDeposit=
     amount;
 
-  currentTx =
+  currentTx=
     tx;
 
+  paymentMethod=
+    null;
 
-  const transactions =
+  const transactions=
     getTransactions();
 
-
-  transactions.unshift(tx);
-
+  transactions.unshift(
+    tx
+  );
 
   saveTransactions(
     transactions
   );
 
-
   document
     .getElementById(
       "depositResult"
     )
-    .classList.add("show");
-
+    .classList
+    .add("show");
 
   document
     .getElementById(
       "resultId"
     )
-    .textContent =
-    tx.id;
-
+    .textContent=
+      tx.id;
 
   document
     .getElementById(
       "resultAmount"
     )
-    .textContent =
-    rupiah(tx.amount);
-
+    .textContent=
+      rupiah(
+        tx.amount
+      );
 
   document
     .getElementById(
       "resultStatus"
     )
-    .textContent =
-    tx.status;
+    .textContent=
+      tx.status;
 
+  document
+    .getElementById(
+      "waitingBtn"
+    )
+    .textContent=
+      "SAYA SUDAH TRANSFER";
 
   addChatMessage(`
 
@@ -2613,49 +3481,130 @@ function createDeposit(amount){
     <br><br>
 
     ID Transaksi:
-    <b>${escapeHTML(tx.id)}</b>
-
     <br>
 
-    Nominal:
-    <b>${rupiah(tx.amount)}</b>
+    <b>
+      ${escapeHTML(tx.id)}
+    </b>
 
     <br><br>
 
-    Silahkan transfer sesuai nominal
-    yang tertera.
+    Nominal:
+    <br>
 
-    <div class="bot-payment">
+    <b>
+      ${rupiah(tx.amount)}
+    </b>
 
-      💳
-      <b>Silahkan Scan QRIS Di Bawah</b>
+    <br><br>
 
-      <img
-        class="bot-qris"
-        src="qris.jpg"
-        alt="QRIS Dappa Official">
+    Silahkan pilih metode pembayaran:
 
-      <br>
+    <div class="payment-options">
 
-      Setelah transfer, tekan:
+      <button
+        type="button"
+        class="payment-option dana"
+        onclick="selectPayment('DANA')"
+      >
 
-      <br>
+        <span class="payment-icon">
+          💙
+        </span>
 
-      <b>SAYA SUDAH TRANSFER</b>
+        <span class="payment-info">
+
+          <span class="payment-name">
+            DANA
+          </span>
+
+          <span class="payment-desc">
+            Bayar menggunakan DANA
+          </span>
+
+        </span>
+
+        <span class="payment-arrow">
+          ›
+        </span>
+
+      </button>
+
+      <button
+        type="button"
+        class="payment-option shopeepay"
+        onclick="selectPayment('ShopeePay')"
+      >
+
+        <span class="payment-icon">
+          🧡
+        </span>
+
+        <span class="payment-info">
+
+          <span class="payment-name">
+            ShopeePay
+          </span>
+
+          <span class="payment-desc">
+            Bayar menggunakan ShopeePay
+          </span>
+
+        </span>
+
+        <span class="payment-arrow">
+          ›
+        </span>
+
+      </button>
+
+      <button
+        type="button"
+        class="payment-option qris"
+        onclick="selectPayment('QRIS')"
+      >
+
+        <span class="payment-icon">
+          💳
+        </span>
+
+        <span class="payment-info">
+
+          <span class="payment-name">
+            QRIS
+          </span>
+
+          <span class="payment-desc">
+            Bayar menggunakan QRIS
+          </span>
+
+        </span>
+
+        <span class="payment-arrow">
+          ›
+        </span>
+
+      </button>
 
     </div>
 
-  `);
+    <br>
 
+    Kamu juga bisa mengetik:
+    <br>
+
+    <b>DANA</b>,
+    <b>SHOPEPAY</b>,
+    atau
+    <b>QRIS</b>.
+
+  `);
 
   renderTransactions();
 
 }
 
-
-/* =========================
-   TRANSFER
-========================= */
+/* ================= WAITING ================= */
 
 document
   .getElementById(
@@ -2665,7 +3614,6 @@ document
     "click",
     markWaiting
   );
-
 
 function markWaiting(){
 
@@ -2679,20 +3627,17 @@ function markWaiting(){
 
   }
 
-
-  const transactions =
+  const transactions=
     getTransactions();
 
-
-  const index =
+  const index=
     transactions.findIndex(
-      tx =>
-        tx.id ===
+      tx=>
+        tx.id===
         currentTx.id
     );
 
-
-  if(index === -1){
+  if(index===-1){
 
     alert(
       "Transaksi tidak ditemukan."
@@ -2702,157 +3647,153 @@ function markWaiting(){
 
   }
 
-
-  transactions[index].status =
+  transactions[index].status=
     "MENUNGGU VERIFIKASI";
 
-
-  currentTx =
+  currentTx=
     transactions[index];
-
 
   saveTransactions(
     transactions
   );
 
-
   document
     .getElementById(
       "resultStatus"
     )
-    .textContent =
-    "MENUNGGU VERIFIKASI";
-
+    .textContent=
+      "MENUNGGU VERIFIKASI";
 
   document
     .getElementById(
       "waitingBtn"
     )
-    .textContent =
-    "✓ MENUNGGU VERIFIKASI";
-
+    .textContent=
+      "✓ MENUNGGU VERIFIKASI";
 
   addChatMessage(`
 
-    ⏳ <b>Transfer ditandai sudah dilakukan.</b>
+    ⏳ <b>
+      Transfer ditandai sudah dilakukan.
+    </b>
 
     <br><br>
 
     ID:
-    <b>${escapeHTML(
-      currentTx.id
-    )}</b>
+    <b>
+      ${escapeHTML(
+        currentTx.id
+      )}
+    </b>
 
     <br><br>
 
-    Silahkan kirim bukti transfer
-    pada bagian <b>BUKTI TRANSFER</b>.
+    Silahkan kirim bukti transfer pada bagian
+    <b>BUKTI TRANSFER</b>.
 
   `);
-
 
   renderTransactions();
 
 }
 
-
-/* =========================
-   RENDER
-========================= */
+/* ================= RENDER TRANSACTIONS ================= */
 
 function renderTransactions(){
 
-  const container =
+  const container=
     document.getElementById(
       "transactionList"
     );
 
-
-  const transactions =
+  const transactions=
     getTransactions();
-
 
   if(!transactions.length){
 
-    container.innerHTML = `
-      <div class="empty">
+    container.innerHTML=
+      `<div class="empty">
         Belum ada transaksi.
-      </div>
-    `;
+      </div>`;
 
     return;
 
   }
 
-
-  container.innerHTML =
+  container.innerHTML=
     transactions
       .map(
         (tx,index)=>`
 
-        <div class="transaction">
+      <div class="transaction">
 
-          <div class="tx-top">
+        <div class="tx-top">
 
-            <div>
+          <div>
 
-              <div class="tx-id">
-                ${escapeHTML(tx.id)}
-              </div>
+            <div class="tx-id">
+              ${escapeHTML(
+                tx.id
+              )}
+            </div>
 
-              <div class="tx-amount">
-                ${rupiah(tx.amount)}
-              </div>
-
+            <div class="tx-amount">
+              ${rupiah(
+                tx.amount
+              )}
             </div>
 
           </div>
 
-          <div class="tx-status">
-            ${escapeHTML(tx.status)}
-          </div>
-
-          <div class="tx-time">
-            ${escapeHTML(tx.time)}
-          </div>
-
-          <button
-            class="delete-tx"
-            type="button"
-            onclick="deleteTransaction(${index})">
-
-            🗑️ HAPUS TRANSAKSI
-
-          </button>
-
         </div>
 
-      `
+        <div class="tx-status">
+          ${escapeHTML(
+            tx.status
+          )}
+        </div>
+
+        <div class="tx-time">
+          ${escapeHTML(
+            tx.time
+          )}
+        </div>
+
+        <button
+          class="delete-tx"
+          type="button"
+          onclick="deleteTransaction(${index})"
+        >
+          🗑️ HAPUS TRANSAKSI
+        </button>
+
+      </div>
+
+    `
       )
       .join("");
 
 }
 
+/* ================= OWNER ================= */
 
-/* =========================
-   OWNER
-========================= */
+const OWNER_PIN=
+  "141196";
 
-const ownerBox =
+const ownerBox=
   document.getElementById(
     "ownerBox"
   );
 
-const ownerPin =
+const ownerPin=
   document.getElementById(
     "ownerPin"
   );
 
-const ownerStatus =
+const ownerStatus=
   document.getElementById(
     "ownerStatus"
   );
-
 
 document
   .getElementById(
@@ -2863,39 +3804,33 @@ document
     loginOwner
   );
 
-
 function loginOwner(){
 
-  const pin =
+  const pin=
     ownerPin.value.trim();
 
+  if(pin===OWNER_PIN){
 
-  if(pin === OWNER_PIN){
-
-    ownerLogged = true;
-
+    ownerLogged=
+      true;
 
     ownerBox.classList.add(
       "owner-mode"
     );
 
-
     document.body.classList.add(
       "owner-mode"
     );
 
-
-    ownerStatus.textContent =
+    ownerStatus.textContent=
       "ONLINE";
 
-
-    ownerPin.value = "";
-
+    ownerPin.value=
+      "";
 
     alert(
       "Owner berhasil masuk."
     );
-
 
   }else{
 
@@ -2903,17 +3838,12 @@ function loginOwner(){
       "PIN owner salah."
     );
 
-
-    ownerPin.value = "";
+    ownerPin.value=
+      "";
 
   }
 
 }
-
-
-/* =========================
-   OWNER LOGOUT
-========================= */
 
 document
   .getElementById(
@@ -2924,31 +3854,23 @@ document
     logoutOwner
   );
 
-
 function logoutOwner(){
 
-  ownerLogged = false;
-
+  ownerLogged=
+    false;
 
   ownerBox.classList.remove(
     "owner-mode"
   );
 
-
   document.body.classList.remove(
     "owner-mode"
   );
 
-
-  ownerStatus.textContent =
+  ownerStatus.textContent=
     "OFFLINE";
 
 }
-
-
-/* =========================
-   DELETE TRANSACTION
-========================= */
 
 function deleteTransaction(index){
 
@@ -2962,68 +3884,29 @@ function deleteTransaction(index){
 
   }
 
-
-  const transactions =
+  const transactions=
     getTransactions();
-
 
   if(!transactions[index])
     return;
 
-
-  if(
-    !confirm(
-      "Hapus transaksi ini?"
-    )
-  )
+  if(!confirm(
+    "Hapus transaksi ini?"
+  ))
     return;
-
-
-  const deleted =
-    transactions[index];
-
 
   transactions.splice(
     index,
     1
   );
 
-
   saveTransactions(
     transactions
   );
 
-
-  if(
-    currentTx &&
-    currentTx.id ===
-    deleted.id
-  ){
-
-    currentTx = null;
-
-    currentDeposit = null;
-
-
-    document
-      .getElementById(
-        "depositResult"
-      )
-      .classList.remove(
-        "show"
-      );
-
-  }
-
-
   renderTransactions();
 
 }
-
-
-/* =========================
-   DELETE ALL
-========================= */
 
 document
   .getElementById(
@@ -3031,108 +3914,93 @@ document
   )
   .addEventListener(
     "click",
-    deleteAllTransactions
+    function(){
+
+      if(!ownerLogged){
+
+        alert(
+          "Silahkan masuk sebagai owner."
+        );
+
+        return;
+
+      }
+
+      if(!confirm(
+        "Hapus SEMUA transaksi?"
+      ))
+        return;
+
+      localStorage.removeItem(
+        "dappa_transactions"
+      );
+
+      currentTx=
+        null;
+
+      currentDeposit=
+        null;
+
+      paymentMethod=
+        null;
+
+      document
+        .getElementById(
+          "depositResult"
+        )
+        .classList
+        .remove("show");
+
+      renderTransactions();
+
+    }
   );
 
+/* ================= PROOF ================= */
 
-function deleteAllTransactions(){
-
-  if(!ownerLogged){
-
-    alert(
-      "Silahkan masuk sebagai owner."
-    );
-
-    return;
-
-  }
-
-
-  if(
-    !confirm(
-      "Hapus SEMUA transaksi?"
-    )
-  )
-    return;
-
-
-  localStorage.removeItem(
-    "dappa_transactions"
-  );
-
-
-  currentTx = null;
-
-  currentDeposit = null;
-
-
-  document
-    .getElementById(
-      "depositResult"
-    )
-    .classList.remove(
-      "show"
-    );
-
-
-  renderTransactions();
-
-}
-
-
-/* =========================
-   PROOF UPLOAD
-========================= */
-
-const proofInput =
+const proofInput=
   document.getElementById(
     "proofInput"
   );
 
-const proofPreview =
+const proofPreview=
   document.getElementById(
     "proofPreview"
   );
 
-const proofImage =
+const proofImage=
   document.getElementById(
     "proofImage"
   );
 
-const proofInfo =
+const proofInfo=
   document.getElementById(
     "proofInfo"
   );
-
 
 proofInput.addEventListener(
   "change",
   function(){
 
-    const file =
+    const file=
       this.files[0];
-
 
     if(!file)
       return;
 
-
-    selectedProof =
+    selectedProof=
       file;
 
-
-    proofInfo.innerHTML = `
-
-      <b>
-        ${escapeHTML(file.name)}
+    proofInfo.innerHTML=
+      `<b>
+        ${escapeHTML(
+          file.name
+        )}
       </b>
-
       <br>
-
-      ${formatFileSize(file.size)}
-
-    `;
-
+      ${formatFileSize(
+        file.size
+      )}`;
 
     if(
       file.type.startsWith(
@@ -3140,84 +4008,63 @@ proofInput.addEventListener(
       )
     ){
 
-      const reader =
+      const reader=
         new FileReader();
 
-
-      reader.onload =
+      reader.onload=
         function(e){
 
-          proofImage.src =
+          proofImage.src=
             e.target.result;
 
-
-          proofImage.style.display =
+          proofImage.style.display=
             "block";
 
-
-          proofPreview.classList.add(
-            "show"
-          );
+          proofPreview
+            .classList
+            .add("show");
 
         };
 
-
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(
+        file
+      );
 
     }else{
 
-      proofImage.style.display =
+      proofImage.style.display=
         "none";
 
-
-      proofPreview.classList.add(
-        "show"
-      );
+      proofPreview
+        .classList
+        .add("show");
 
     }
 
   }
 );
 
+function formatFileSize(
+  bytes
+){
 
-/* =========================
-   FILE SIZE
-========================= */
+  if(bytes<1024)
+    return bytes+" B";
 
-function formatFileSize(bytes){
+  if(bytes<1024*1024)
+    return(
+      (bytes/1024)
+        .toFixed(1)+
+      " KB"
+    );
 
-  if(bytes < 1024){
-
-    return bytes + " B";
-
-  }
-
-
-  if(
-    bytes <
-    1024 * 1024
-  ){
-
-    return (
-      bytes / 1024
-    ).toFixed(1) +
-    " KB";
-
-  }
-
-
-  return (
-    bytes /
-    (1024 * 1024)
-  ).toFixed(1) +
-  " MB";
+  return(
+    (bytes/(1024*1024))
+      .toFixed(1)+
+    " MB"
+  );
 
 }
-
-
-/* =========================
-   REMOVE PROOF
-========================= */
 
 document
   .getElementById(
@@ -3227,25 +4074,24 @@ document
     "click",
     function(){
 
-      selectedProof = null;
+      selectedProof=
+        null;
 
-      proofInput.value = "";
+      proofInput.value=
+        "";
 
-      proofPreview.classList.remove(
-        "show"
-      );
+      proofPreview
+        .classList
+        .remove("show");
 
-      proofImage.src = "";
+      proofImage.src=
+        "";
 
-      proofInfo.textContent = "";
+      proofInfo.textContent=
+        "";
 
     }
   );
-
-
-/* =========================
-   SEND PROOF
-========================= */
 
 document
   .getElementById(
@@ -3255,7 +4101,6 @@ document
     "click",
     sendProofToWhatsApp
   );
-
 
 async function sendProofToWhatsApp(){
 
@@ -3269,7 +4114,6 @@ async function sendProofToWhatsApp(){
 
   }
 
-
   if(!selectedProof){
 
     alert(
@@ -3280,15 +4124,14 @@ async function sendProofToWhatsApp(){
 
   }
 
-
-  const message =
+  const message=
 `Halo Dappa, saya sudah transfer untuk deposit.
 
 ID Transaksi: ${currentTx.id}
 Nominal: ${rupiah(currentTx.amount)}
+Metode Pembayaran: ${paymentMethod || "Belum dipilih"}
 
 Saya melampirkan bukti transfer untuk diverifikasi.`;
-
 
   if(
     navigator.share &&
@@ -3326,7 +4169,7 @@ Saya melampirkan bukti transfer untuk diverifikasi.`;
     }catch(error){
 
       if(
-        error.name ===
+        error.name===
         "AbortError"
       ){
 
@@ -3338,17 +4181,15 @@ Saya melampirkan bukti transfer untuk diverifikasi.`;
 
   }
 
-
-  openWhatsApp(message);
+  openWhatsApp(
+    message
+  );
 
 }
 
+/* ================= MUSIC ================= */
 
-/* =========================
-   MUSIC PLAYER
-========================= */
-
-const musicTracks = [
+const musicTracks=[
 
   {
     title:
@@ -3362,7 +4203,6 @@ const musicTracks = [
 
     cover:
       "https://i.ibb.co/XZQ5btXW/undefined.jpg"
-
   },
 
   {
@@ -3377,110 +4217,110 @@ const musicTracks = [
 
     cover:
       "https://i.ibb.co/XZQ5btXW/undefined.jpg"
-
   }
 
 ];
 
+let musicIndex=
+  0;
 
-let musicIndex = 0;
-
-
-const musicAudio =
+const musicAudio=
   document.getElementById(
     "musicAudio"
   );
 
-const musicCover =
+const musicCover=
   document.getElementById(
     "musicCover"
   );
 
-const musicTitle =
+const musicTitle=
   document.getElementById(
     "musicTitle"
   );
 
-const musicProgress =
+const musicProgress=
   document.getElementById(
     "musicProgress"
   );
 
-const musicCurrent =
+const musicCurrent=
   document.getElementById(
     "musicCurrent"
   );
 
-const musicDuration =
+const musicDuration=
   document.getElementById(
     "musicDuration"
   );
 
-const playMusic =
+const playMusic=
   document.getElementById(
     "playMusic"
   );
 
-const prevMusic =
+const prevMusic=
   document.getElementById(
     "prevMusic"
   );
 
-const nextMusic =
+const nextMusic=
   document.getElementById(
     "nextMusic"
   );
 
-const muteMusic =
+const muteMusic=
   document.getElementById(
     "muteMusic"
   );
 
-const musicVolume =
+const musicVolume=
   document.getElementById(
     "musicVolume"
   );
 
-const musicStatus =
+const musicStatus=
   document.getElementById(
     "musicStatus"
   );
 
-
-function formatTime(seconds){
+function formatTime(
+  seconds
+){
 
   if(
-    !Number.isFinite(seconds) ||
-    seconds < 0
+    !Number.isFinite(
+      seconds
+    ) ||
+    seconds<0
   ){
 
     return "0:00";
 
   }
 
-
-  const mins =
+  const mins=
     Math.floor(
-      seconds / 60
+      seconds/60
     );
 
-
-  const secs =
+  const secs=
     Math.floor(
-      seconds % 60
+      seconds%60
     )
-    .toString()
-    .padStart(2,"0");
+      .toString()
+      .padStart(
+        2,
+        "0"
+      );
 
-
-  return (
-    mins +
-    ":" +
+  return(
+    mins+
+    ":"+
     secs
   );
 
 }
-
 
 function updatePlaylist(){
 
@@ -3489,48 +4329,48 @@ function updatePlaylist(){
       ".playlist-item"
     )
     .forEach(
-      (item,index)=>{
+      (
+        item,
+        index
+      )=>{
 
         item.classList.toggle(
           "active",
-          index === musicIndex
+          index===
+          musicIndex
         );
 
-
-        const sub =
+        const sub=
           item.querySelector(
             ".playlist-sub"
           );
 
-
-        const playIcon =
+        const playIcon=
           item.querySelector(
             ".playlist-play"
           );
 
-
         if(
-          index === musicIndex
+          index===
+          musicIndex
         ){
 
-          sub.textContent =
+          sub.textContent=
             musicAudio.paused
               ? "Dipilih"
               : "Sedang diputar";
 
-
-          playIcon.textContent =
+          playIcon.textContent=
             musicAudio.paused
               ? "▶"
               : "●";
 
         }else{
 
-          sub.textContent =
+          sub.textContent=
             "Dappa Official";
 
-
-          playIcon.textContent =
+          playIcon.textContent=
             "▶";
 
         }
@@ -3540,59 +4380,47 @@ function updatePlaylist(){
 
 }
 
-
 function loadMusic(
   index,
   autoplay=false
 ){
 
-  musicIndex =
+  musicIndex=
     (
-      index +
+      index+
       musicTracks.length
-    ) %
+    )%
     musicTracks.length;
 
-
-  const track =
+  const track=
     musicTracks[
       musicIndex
     ];
 
-
-  musicAudio.src =
+  musicAudio.src=
     track.src;
-
 
   musicAudio.load();
 
-
-  musicTitle.textContent =
+  musicTitle.textContent=
     track.title;
 
-
-  musicCover.src =
+  musicCover.src=
     track.cover;
 
-
-  musicCurrent.textContent =
+  musicCurrent.textContent=
     "0:00";
 
-
-  musicDuration.textContent =
+  musicDuration.textContent=
     "0:00";
 
-
-  musicProgress.value =
+  musicProgress.value=
     0;
 
-
-  musicStatus.textContent =
+  musicStatus.textContent=
     "";
 
-
   updatePlaylist();
-
 
   if(autoplay){
 
@@ -3600,7 +4428,7 @@ function loadMusic(
       .play()
       .catch(()=>{
 
-        musicStatus.textContent =
+        musicStatus.textContent=
           "Tekan tombol ▶ untuk memutar.";
 
       });
@@ -3608,7 +4436,6 @@ function loadMusic(
   }
 
 }
-
 
 function toggleMusic(){
 
@@ -3620,7 +4447,7 @@ function toggleMusic(){
       .play()
       .catch(()=>{
 
-        musicStatus.textContent =
+        musicStatus.textContent=
           "Audio tidak dapat diputar.";
 
       });
@@ -3633,90 +4460,70 @@ function toggleMusic(){
 
 }
 
-
 playMusic.addEventListener(
   "click",
   toggleMusic
 );
 
-
 prevMusic.addEventListener(
   "click",
-  function(){
+  ()=>{
 
     loadMusic(
-      musicIndex - 1,
+      musicIndex-1,
       true
     );
 
   }
 );
-
 
 nextMusic.addEventListener(
   "click",
-  function(){
+  ()=>{
 
     loadMusic(
-      musicIndex + 1,
+      musicIndex+1,
       true
     );
 
   }
 );
 
-
-/* PLAY */
-
 musicAudio.addEventListener(
   "play",
-  function(){
+  ()=>{
 
-    playMusic.textContent =
+    playMusic.textContent=
       "Ⅱ";
 
-
-    musicCover.classList.add(
-      "playing"
-    );
-
-
-    musicStatus.textContent =
-      "";
-
+    musicCover
+      .classList
+      .add("playing");
 
     updatePlaylist();
 
   }
 );
-
-
-/* PAUSE */
 
 musicAudio.addEventListener(
   "pause",
-  function(){
+  ()=>{
 
-    playMusic.textContent =
+    playMusic.textContent=
       "▶";
 
-
-    musicCover.classList.remove(
-      "playing"
-    );
-
+    musicCover
+      .classList
+      .remove("playing");
 
     updatePlaylist();
 
   }
 );
 
-
-/* PROGRESS */
-
 musicAudio.addEventListener(
   "timeupdate",
-  function(){
+  ()=>{
 
     if(
       Number.isFinite(
@@ -3724,17 +4531,16 @@ musicAudio.addEventListener(
       )
     ){
 
-      musicProgress.value =
+      musicProgress.value=
         (
-          musicAudio.currentTime /
+          musicAudio.currentTime/
           musicAudio.duration
-        ) *
+        )*
         100;
 
     }
 
-
-    musicCurrent.textContent =
+    musicCurrent.textContent=
       formatTime(
         musicAudio.currentTime
       );
@@ -3742,23 +4548,17 @@ musicAudio.addEventListener(
   }
 );
 
-
-/* DURATION */
-
 musicAudio.addEventListener(
   "loadedmetadata",
-  function(){
+  ()=>{
 
-    musicDuration.textContent =
+    musicDuration.textContent=
       formatTime(
         musicAudio.duration
       );
 
   }
 );
-
-
-/* SEEK */
 
 musicProgress.addEventListener(
   "input",
@@ -3770,12 +4570,13 @@ musicProgress.addEventListener(
       )
     ){
 
-      musicAudio.currentTime =
+      musicAudio.currentTime=
         (
           Number(
             musicProgress.value
-          ) / 100
-        ) *
+          )/
+          100
+        )*
         musicAudio.duration;
 
     }
@@ -3783,64 +4584,42 @@ musicProgress.addEventListener(
   }
 );
 
-
-/* AUTO NEXT */
-
 musicAudio.addEventListener(
   "ended",
-  function(){
+  ()=>{
 
     loadMusic(
-      musicIndex + 1,
+      musicIndex+1,
       true
     );
 
   }
 );
 
-
-/* AUDIO ERROR */
-
-musicAudio.addEventListener(
-  "error",
-  function(){
-
-    musicStatus.textContent =
-      "Audio gagal dimuat. Coba lagu lain.";
-
-  }
-);
-
-
-/* VOLUME */
-
-musicAudio.volume = 1;
-
+musicAudio.volume=
+  1;
 
 musicVolume.addEventListener(
   "input",
   function(){
 
-    musicAudio.volume =
+    musicAudio.volume=
       Number(
         this.value
       );
 
+    musicAudio.muted=
+      musicAudio.volume===
+      0;
 
-    musicAudio.muted =
-      musicAudio.volume === 0;
-
-
-    muteMusic.textContent =
-      musicAudio.volume === 0
+    muteMusic.textContent=
+      musicAudio.volume===
+      0
         ? "🔇"
         : "🔊";
 
   }
 );
-
-
-/* MUTE */
 
 muteMusic.addEventListener(
   "click",
@@ -3850,24 +4629,22 @@ muteMusic.addEventListener(
       musicAudio.muted
     ){
 
-      musicAudio.muted =
+      musicAudio.muted=
         false;
 
+      musicVolume.value=
+        musicAudio.volume ||
+        1;
 
-      musicVolume.value =
-        musicAudio.volume || 1;
-
-
-      muteMusic.textContent =
+      muteMusic.textContent=
         "🔊";
 
     }else{
 
-      musicAudio.muted =
+      musicAudio.muted=
         true;
 
-
-      muteMusic.textContent =
+      muteMusic.textContent=
         "🔇";
 
     }
@@ -3875,28 +4652,25 @@ muteMusic.addEventListener(
   }
 );
 
-
-/* PLAYLIST */
-
 document
   .querySelectorAll(
     ".playlist-item"
   )
   .forEach(
-    item => {
+    item=>{
 
       item.addEventListener(
         "click",
         function(){
 
-          const index =
+          const index=
             Number(
               this.dataset.index
             );
 
-
           if(
-            index === musicIndex
+            index===
+            musicIndex
           ){
 
             toggleMusic();
@@ -3916,18 +4690,10 @@ document
     }
   );
 
-
-/* INITIAL MUSIC */
-
 loadMusic(
   0,
   false
 );
-
-
-/* =========================
-   INIT
-========================= */
 
 renderTransactions();
 
